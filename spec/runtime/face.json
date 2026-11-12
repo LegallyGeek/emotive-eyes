@@ -2,17 +2,26 @@
   "layout": {
     "width": 200,
     "height": 100,
-    "eyeWidth": 60,
-    "eyeHeight": 70,
+    "eyeWidth": 52,
+    "eyeHeight": 56,
     "lidOverscan": 1,
-    "eyes": { "left": { "x": 56, "y": 50 }, "right": { "x": 144, "y": 50 } }
+    "eyes": {
+      "left": {
+        "x": 69,
+        "y": 50
+      },
+      "right": {
+        "x": 131,
+        "y": 50
+      }
+    }
   },
   "defaults": {
     "offsetX": 0,
     "offsetY": 0,
     "scaleX": 1,
     "scaleY": 1,
-    "roundness": 0.3,
+    "roundness": 0.22,
     "upperLid": 0,
     "upperLidTilt": 0,
     "lowerLid": 0,
@@ -20,17 +29,282 @@
   },
   "expressions": {
     "neutral": {},
-    "happy": { "lowerLid": 0.42, "lowerLidBend": 0.55, "roundness": 0.5, "offsetY": -0.03 },
-    "sad": { "upperLid": 0.32, "upperLidTilt": -20, "scaleY": 0.92, "offsetY": 0.08 },
-    "angry": { "upperLid": 0.38, "upperLidTilt": 24, "scaleY": 0.9, "roundness": 0.22 },
-    "surprised": { "scaleX": 1.08, "scaleY": 1.2, "roundness": 0.42 },
-    "worried": { "upperLid": 0.18, "upperLidTilt": -12, "scaleY": 1.04, "offsetY": 0.04 },
-    "sleepy": { "upperLid": 0.62, "lowerLid": 0.1, "scaleY": 0.85 },
-    "focused": { "upperLid": 0.12, "lowerLid": 0.12, "scaleY": 0.72, "roundness": 0.25 },
+    "happy": {
+      "scaleY": 0.55,
+      "lowerLid": 0.45,
+      "roundness": 0.35,
+      "offsetY": -0.04
+    },
+    "glee": {
+      "scaleY": 0.6,
+      "lowerLid": 0.45,
+      "lowerLidBend": 0.25,
+      "roundness": 0.5,
+      "offsetY": -0.11
+    },
+    "sad": {
+      "upperLid": 0.42,
+      "upperLidTilt": -11,
+      "roundness": 0.3,
+      "offsetY": 0.07
+    },
+    "sad-up": {
+      "scaleY": 0.85,
+      "upperLid": 0.15,
+      "upperLidTilt": -8,
+      "roundness": 0.3,
+      "offsetY": -0.4
+    },
+    "worried": {
+      "upperLid": 0.08,
+      "upperLidTilt": -8,
+      "roundness": 0.28,
+      "offsetY": -0.02
+    },
+    "focused": {
+      "scaleY": 0.45,
+      "roundness": 0.15,
+      "offsetY": -0.08
+    },
+    "annoyed": {
+      "scaleY": 0.5,
+      "upperLid": 0.5,
+      "roundness": 0.7,
+      "left": {
+        "upperLid": 0.48
+      },
+      "right": {
+        "upperLid": 0.6,
+        "scaleX": 0.95
+      },
+      "offsetY": -0.29
+    },
+    "surprised": {
+      "scaleX": 1.25,
+      "scaleY": 1.25,
+      "roundness": 0.3,
+      "left": {
+        "offsetX": -0.075
+      },
+      "right": {
+        "offsetX": 0.075
+      },
+      "offsetY": -0.08
+    },
+    "skeptic": {
+      "left": {
+        "scaleY": 0.95
+      },
+      "right": {
+        "upperLid": 0.45,
+        "upperLidTilt": 6,
+        "offsetY": -0.09
+      },
+      "offsetY": -0.21
+    },
+    "frustrated": {
+      "scaleY": 0.55,
+      "upperLid": 0.5,
+      "roundness": 0.6,
+      "offsetY": -0.06
+    },
+    "unimpressed": {
+      "scaleY": 0.55,
+      "upperLid": 0.5,
+      "roundness": 0.6,
+      "right": {
+        "upperLid": 0.35
+      },
+      "offsetY": -0.04
+    },
+    "sleepy": {
+      "left": {
+        "upperLid": 0.28,
+        "upperLidTilt": -5,
+        "scaleY": 0.92
+      },
+      "right": {
+        "upperLid": 0.82,
+        "upperLidTilt": -8,
+        "offsetY": -0.13
+      },
+      "offsetY": -0.19
+    },
     "suspicious": {
-      "upperLid": 0.2,
-      "left": { "upperLid": 0.5, "upperLidTilt": 8 },
-      "right": { "scaleY": 1.05 }
+      "upperLid": 0.45,
+      "upperLidTilt": 4,
+      "roundness": 0.2,
+      "offsetY": -0.3
+    },
+    "squint": {
+      "scaleY": 0.26,
+      "roundness": 0.3,
+      "offsetY": -0.07
+    },
+    "angry": {
+      "upperLid": 0.4,
+      "upperLidTilt": 13,
+      "roundness": 0.35,
+      "offsetY": -0.11
+    },
+    "furious": {
+      "scaleX": 1,
+      "scaleY": 1,
+      "upperLid": 0.3,
+      "upperLidTilt": 26,
+      "roundness": 0.05,
+      "left": {
+        "offsetX": -0.02
+      },
+      "right": {
+        "offsetX": 0.02
+      },
+      "offsetY": -0.12
+    },
+    "scared": {
+      "scaleY": 1.06,
+      "roundness": 0.15,
+      "offsetY": -0.25
+    },
+    "awe": {
+      "scaleX": 1.15,
+      "scaleY": 1.3,
+      "roundness": 0.4,
+      "left": {
+        "offsetX": -0.1
+      },
+      "right": {
+        "offsetX": 0.1
+      },
+      "offsetY": -0.14
+    },
+    "joy": {
+      "scaleX": 1.06,
+      "scaleY": 1.08,
+      "lowerLid": 0.2,
+      "lowerLidBend": 0.15,
+      "roundness": 0.5,
+      "offsetY": 0.05
+    },
+    "bliss": {
+      "scaleY": 0.7,
+      "lowerLid": 0.52,
+      "lowerLidBend": 0.8,
+      "roundness": 0.5,
+      "offsetY": 0.14
+    },
+    "captivated": {
+      "scaleX": 1.2,
+      "scaleY": 1.15,
+      "roundness": 0.5,
+      "upperLid": 0.04,
+      "upperLidTilt": -12,
+      "left": {
+        "offsetX": -0.07
+      },
+      "right": {
+        "offsetX": 0.07
+      },
+      "offsetY": -0.15
+    },
+    "startled": {
+      "scaleX": 0.8,
+      "scaleY": 1.3,
+      "roundness": 0.5,
+      "offsetY": -0.21
+    },
+    "shocked": {
+      "scaleX": 1.45,
+      "scaleY": 1.45,
+      "roundness": 0.35,
+      "left": {
+        "offsetX": -0.15
+      },
+      "right": {
+        "offsetX": 0.15
+      },
+      "offsetY": -0.07
+    },
+    "concerned": {
+      "upperLid": 0.22,
+      "upperLidTilt": -17,
+      "scaleY": 0.95,
+      "roundness": 0.28,
+      "offsetY": -0.03
+    },
+    "hurt": {
+      "upperLid": 0.3,
+      "upperLidTilt": -22,
+      "scaleY": 0.85,
+      "lowerLid": 0.25,
+      "lowerLidBend": -0.5,
+      "roundness": 0.3
+    },
+    "introspective": {
+      "scaleX": 0.85,
+      "scaleY": 0.75,
+      "roundness": 0.5,
+      "left": {
+        "offsetX": 0.08
+      },
+      "right": {
+        "offsetX": -0.08
+      },
+      "offsetY": 0.13
+    },
+    "bothered": {
+      "scaleY": 0.8,
+      "upperLid": 0.32,
+      "upperLidTilt": 6,
+      "roundness": 0.35,
+      "offsetX": -0.1,
+      "offsetY": -0.05
+    },
+    "scrutinizing": {
+      "left": {
+        "scaleY": 0.5,
+        "upperLid": 0.4,
+        "upperLidTilt": 8,
+        "lowerLid": 0.2
+      },
+      "right": {
+        "scaleY": 0.35,
+        "upperLid": 0.3,
+        "lowerLid": 0.15,
+        "offsetY": -0.11
+      },
+      "roundness": 0.2,
+      "offsetY": -0.01
+    },
+    "unsure": {
+      "scaleY": 0.95,
+      "left": {
+        "upperLid": 0.1,
+        "upperLidTilt": -10,
+        "offsetY": 0
+      },
+      "right": {
+        "upperLid": 0.35,
+        "upperLidTilt": 10,
+        "offsetY": -0.17
+      },
+      "offsetY": -0.05
+    },
+    "curious": {
+      "left": {
+        "scaleY": 0.95
+      },
+      "right": {
+        "scaleX": 1.12,
+        "scaleY": 1.25,
+        "offsetY": -0.1
+      }
+    },
+    "asleep": {
+      "scaleY": 0.5,
+      "upperLid": 0.85,
+      "roundness": 0.8,
+      "offsetY": -0.11
     }
   }
 }

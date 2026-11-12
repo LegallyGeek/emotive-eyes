@@ -24,6 +24,7 @@
       { id: 'network', label: 'Network', status: 'ok', direction: { x: 1, y: 0 } },
     ],
     blinking: true,
+    blinkStyle: 'narrow',
     idleGaze: true,
     forceReducedMotion: false,
     slowMotion: false,
@@ -49,6 +50,7 @@
       color={demo.color}
       glow={demo.glow}
       blinking={demo.blinking}
+      blinkStyle={demo.blinkStyle}
       idleGaze={demo.idleGaze}
       springs={demo.springs}
       timeScale={demo.slowMotion ? SLOW_MOTION_SCALE : 1}
@@ -72,7 +74,11 @@
       {:else if tab === 'Status'}
         <StatusTab bind:demo />
       {:else}
-        <MotionTab bind:demo onblink={() => eyes?.blink()} onglance={(dir) => eyes?.glance(dir)} />
+        <MotionTab
+          bind:demo
+          onblink={(options) => eyes?.blink(options)}
+          onglance={(dir) => eyes?.glance(dir)}
+        />
       {/if}
     </div>
   </div>

@@ -5,6 +5,7 @@ import { defaultSpec } from '../src/index.js';
 
 const { face, motion } = defaultSpec;
 const HMS = 1000 / 240;
+const SURPRISED_SCALE_Y = face.expressions.surprised.scaleY;
 const preset = (name) => ({
   left: resolveParams(face.defaults, face.expressions[name], 'left'),
   right: resolveParams(face.defaults, face.expressions[name], 'right'),
@@ -50,14 +51,14 @@ describe('construction and draw order', () => {
     const { animator, random } = make([0.5, 0.5, 0.1, 0], { idleGaze: false });
     animator.blink();
     expect(random.used()).toBe(4);
-    // double (rDouble 0.1 < 0.15): steps(510)=122; next interval steps(2000)=480.
-    expect(animator.msUntilNextEvent()).toBeCloseTo((122 + 480) * HMS, 9);
+    // double (rDouble 0.1 < 0.15): steps(2*320+90)=175; next interval steps(2000)=480.
+    expect(animator.msUntilNextEvent()).toBeCloseTo((175 + 480) * HMS, 9);
   });
 
   it('a non-double blink uses the single duration', () => {
     const { animator } = make([0.5, 0.5, 0.9, 0], { idleGaze: false });
     animator.blink();
-    expect(animator.msUntilNextEvent()).toBeCloseTo((50 + 480) * HMS, 9); // steps(210)=50
+    expect(animator.msUntilNextEvent()).toBeCloseTo((77 + 480) * HMS, 9); // steps(320)=77
   });
 
   it('blink() during a blink is a no-op without draws', () => {
@@ -132,7 +133,7 @@ describe('transitions', () => {
     expect(animator.isSettled()).toBe(false);
     const frame = animator.step(10000);
     expect(animator.isSettled()).toBe(true);
-    expect(frame.left.scaleY).toBeCloseTo(1.2, 3);
+    expect(frame.left.scaleY).toBeCloseTo(SURPRISED_SCALE_Y, 3);
   });
 
   it('is interruptible: values and velocities survive setTarget', () => {
@@ -155,8 +156,8 @@ describe('transitions', () => {
       for (let i = 0; i < 300; i += 1) max = Math.max(max, animator.step(HMS).left.scaleY);
       return max;
     };
-    expect(peak(false)).toBeGreaterThan(1.2 + 1e-3);
-    expect(peak(true)).toBeLessThanOrEqual(1.2);
+    expect(peak(false)).toBeGreaterThan(SURPRISED_SCALE_Y + 1e-3);
+    expect(peak(true)).toBeLessThanOrEqual(SURPRISED_SCALE_Y);
   });
 
   it('setSprings changes subsequent dynamics', () => {
@@ -170,15 +171,16 @@ describe('transitions', () => {
 });
 
 describe('blink overlay', () => {
-  it('scales eye height by the blink factor and ends back at 1', () => {
+  it('shrinks eye height along the keyframes and ends back at 1', () => {
     const { animator } = make([0.5, 0.5, 0.9, 0.5], { idleGaze: false });
     animator.blink();
     expect(animator.frame().left.scaleY).toBe(1);
-    const mid = animator.step(80); // inside the hold window
-    expect(mid.left.scaleY).toBeCloseTo(0.1, 6);
-    expect(mid.right.scaleY).toBeCloseTo(0.1, 6);
+    const closed = animator.step(25 * HMS); // t = 104 ms, inside the closed hold
+    const minH = Math.min(...motion.blink.styles.narrow.map((k) => k.height));
+    expect(closed.left.scaleY).toBeCloseTo(minH, 6);
+    expect(closed.right.scaleY).toBeCloseTo(minH, 6);
     expect(animator.isSettled()).toBe(false);
-    const end = animator.step(200);
+    const end = animator.step(400);
     expect(end.left.scaleY).toBe(1);
     expect(animator.isSettled()).toBe(true);
   });
@@ -259,6 +261,6 @@ describe('blinking flag', () => {
     animator.setBlinking(false);
     expect(animator.msUntilNextEvent()).toBe(Infinity);
     animator.step(80);
-    expect(animator.frame().left.scaleY).toBeCloseTo(0.1, 6);
+    expect(animator.frame().left.scaleY).toBeLessThan(0.7);
   });
 });

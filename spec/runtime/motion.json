@@ -3,18 +3,152 @@
   "maxStepMs": 10000,
   "settleEpsilon": 0.0005,
   "springs": {
-    "expression": { "stiffness": 220, "damping": 16 },
-    "gaze": { "stiffness": 700, "damping": 45 }
+    "expression": {
+      "stiffness": 220,
+      "damping": 16
+    },
+    "gaze": {
+      "stiffness": 700,
+      "damping": 45
+    }
   },
   "blink": {
-    "closeMs": 70,
-    "holdMs": 20,
-    "openMs": 120,
-    "minScale": 0.1,
     "intervalMs": [2000, 6000],
     "doubleBlinkChance": 0.15,
-    "doubleBlinkGapMs": 90
+    "doubleBlinkGapMs": 90,
+    "anchor": 0,
+    "style": "narrow",
+    "levelFrom": 0.85,
+    "levelTo": 0.15,
+    "styles": {
+      "narrow": [
+        {
+          "height": 0.9,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.662,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.378,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.14,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 1,
+          "ms": 30
+        },
+        {
+          "height": 0.508,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.793,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.939,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.992,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 38
+        }
+      ],
+      "wide": [
+        {
+          "height": 0.9,
+          "width": 1.054,
+          "ms": 20
+        },
+        {
+          "height": 0.662,
+          "width": 1.62,
+          "ms": 20
+        },
+        {
+          "height": 0.378,
+          "width": 3.099,
+          "ms": 20
+        },
+        {
+          "height": 0.14,
+          "width": 5.013,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 6,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 6,
+          "ms": 30
+        },
+        {
+          "height": 0.508,
+          "width": 2.313,
+          "ms": 38
+        },
+        {
+          "height": 0.793,
+          "width": 1.232,
+          "ms": 38
+        },
+        {
+          "height": 0.939,
+          "width": 1.02,
+          "ms": 38
+        },
+        {
+          "height": 0.992,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 38
+        }
+      ]
+    }
   },
-  "saccade": { "intervalMs": [1200, 3500], "amplitude": { "x": 0.08, "y": 0.05 } },
-  "glance": { "holdMs": 900, "offset": { "x": 0.28, "y": 0.18 } }
+  "saccade": {
+    "intervalMs": [1200, 3500],
+    "amplitude": {
+      "x": 0.08,
+      "y": 0.05
+    }
+  },
+  "glance": {
+    "holdMs": 900,
+    "offset": {
+      "x": 0.28,
+      "y": 0.18
+    }
+  }
 }

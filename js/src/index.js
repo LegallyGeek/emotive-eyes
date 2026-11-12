@@ -6,6 +6,7 @@ export { createStatusTracker } from './features/report-status/status-tracker.js'
 export { createEyesController } from './interfaces/eyes-controller.js';
 export {
   SpecError,
+  parseBlinkOptions,
   parseExpression,
   parseFaceSpec,
   parseMotionSpec,

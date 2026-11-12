@@ -35,6 +35,12 @@ describe('checked-in vectors', () => {
       'toggle-every-flag',
       'reduced-motion',
       'set-springs',
+      'blink-anchors-manual',
+      'auto-blink-nonzero-default-anchor',
+      'blink-wide-style',
+      'blink-style-switch-mid-blink',
+      'blink-levels-skeptic-wide',
+      'blink-clears-lids-angry-narrow',
       'settle-and-resume-large-dt',
     ]) {
       expect(names).toContain(required);

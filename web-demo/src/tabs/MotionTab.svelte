@@ -1,4 +1,6 @@
 <script>
+  import { defaultSpec } from 'emotive-eyes';
+
   let { demo = $bindable(), onblink, onglance } = $props();
 
   const COLORS = [
@@ -11,6 +13,8 @@
     ['expression', 'Expression'],
     ['gaze', 'Gaze'],
   ];
+  const BLINK_STYLES = Object.keys(defaultSpec.motion.blink.styles);
+  const BLINK_ANCHOR = 0.5;
   const MAX_STIFFNESS = 3000;
   const MAX_DAMPING = 200;
 </script>
@@ -53,6 +57,14 @@
 
 <div class="row">
   <button onclick={() => onblink()}>Blink</button>
+  <button onclick={() => onblink({ anchor: -BLINK_ANCHOR })}>Blink high</button>
+  <button onclick={() => onblink({ anchor: BLINK_ANCHOR })}>Blink low</button>
+  <span class="muted">Blink style</span>
+  {#each BLINK_STYLES as style (style)}
+    <button aria-pressed={demo.blinkStyle === style} onclick={() => (demo.blinkStyle = style)}
+      >{style[0].toUpperCase() + style.slice(1)}</button
+    >
+  {/each}
   <button onclick={() => onglance({ x: -1, y: 0 })}>Glance left</button>
   <button onclick={() => onglance({ x: 1, y: 0 })}>Glance right</button>
 </div>

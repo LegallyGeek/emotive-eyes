@@ -9,7 +9,7 @@ describe('Eyes component', () => {
   it('renders two masked eyes with the default color', () => {
     const { container } = render(Eyes);
     const masks = container.querySelectorAll('mask');
-    const fills = container.querySelectorAll('svg > rect');
+    const fills = container.querySelectorAll('g[clip-path] > rect');
     expect(masks).toHaveLength(2);
     expect(fills).toHaveLength(2);
     for (const fill of fills) {
@@ -22,7 +22,7 @@ describe('Eyes component', () => {
 
   it('draws only the eye rects, never page-sized shapes, and ignores pointer events', () => {
     const { container } = render(Eyes);
-    const fills = container.querySelectorAll('svg > rect');
+    const fills = container.querySelectorAll('g[clip-path] > rect');
     expect(fills).toHaveLength(2);
     const masked = [...container.querySelectorAll('mask')].map((m) => m.querySelector('rect'));
     fills.forEach((fill, i) => {
@@ -35,6 +35,36 @@ describe('Eyes component', () => {
     for (const shape of container.querySelectorAll('rect, path')) {
       expect(shape.getAttribute('pointer-events')).toBe('none');
     }
+  });
+
+  it('clips drawing to the face rectangle with a per-instance clipPath', () => {
+    const a = render(Eyes);
+    const b = render(Eyes);
+    const clipId = (c) => c.container.querySelector('clipPath').id;
+    expect(clipId(a)).not.toBe(clipId(b));
+    const rect = a.container.querySelector('clipPath rect');
+    expect(['x', 'y', 'width', 'height'].map((k) => rect.getAttribute(k))).toEqual([
+      '0',
+      '0',
+      '200',
+      '100',
+    ]);
+    const group = a.container.querySelector('g[clip-path]');
+    expect(group.getAttribute('clip-path')).toBe(`url(#${clipId(a)})`);
+    expect(group.querySelectorAll('rect')).toHaveLength(2);
+  });
+
+  it('accepts blink options and rejects an out-of-range anchor', () => {
+    const { component } = render(Eyes);
+    expect(() => component.blink({ anchor: -0.5 })).not.toThrow();
+    expect(() => component.blink({ anchor: 2 })).toThrow();
+  });
+
+  it('accepts a blink style and throws on an unknown one like an unknown expression', () => {
+    const { rerender } = render(Eyes, { props: { blinkStyle: 'wide' } });
+    expect(() => rerender({ blinkStyle: 'narrow' })).not.toThrow();
+    expect(() => render(Eyes, { props: { blinkStyle: 'nope' } })).toThrow();
+    expect(() => render(Eyes, { props: { expression: 'nope' } })).toThrow();
   });
 
   it('applies the label as aria-label on an img role', () => {

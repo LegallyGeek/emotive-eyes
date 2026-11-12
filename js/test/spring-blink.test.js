@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import { blinkCurve, blinkFactor, blinkTotalMs } from '../src/entities/blink.js';
 import { createSpring, criticalDamping, stepSpring } from '../src/entities/spring.js';
 import { intervalSteps, lerp, steps } from '../src/entities/timing.js';
 
@@ -53,40 +52,5 @@ describe('spring', () => {
 
   it('critical damping is 2 * sqrt(stiffness)', () => {
     expect(criticalDamping(100)).toBe(20);
-  });
-});
-
-describe('blink timeline', () => {
-  const cfg = { closeMs: 70, holdMs: 20, openMs: 120, minScale: 0.1, doubleBlinkGapMs: 90 };
-
-  it('is 1 before the start and after the end', () => {
-    expect(blinkCurve(-1, cfg)).toBe(1);
-    expect(blinkCurve(0, cfg)).toBe(1);
-    expect(blinkCurve(210, cfg)).toBe(1);
-    expect(blinkCurve(5000, cfg)).toBe(1);
-  });
-
-  it('reaches minScale and holds it', () => {
-    expect(blinkCurve(70, cfg)).toBe(0.1);
-    expect(blinkCurve(89.999, cfg)).toBe(0.1);
-    expect(blinkCurve(35, cfg)).toBeCloseTo(1 - 0.9 * 0.25, 12);
-  });
-
-  it('opens with an ease-out curve', () => {
-    expect(blinkCurve(90, cfg)).toBeCloseTo(0.1, 12);
-    expect(blinkCurve(150, cfg)).toBeCloseTo(0.1 + 0.9 * (1 - 0.25), 12);
-  });
-
-  it('single blink lasts D; double lasts 2D + gap', () => {
-    expect(blinkTotalMs(cfg, false)).toBe(210);
-    expect(blinkTotalMs(cfg, true)).toBe(510);
-  });
-
-  it('double blink repeats the curve after the gap', () => {
-    expect(blinkFactor(70, cfg, true)).toBe(0.1);
-    expect(blinkFactor(250, cfg, true)).toBe(1); // inside the gap
-    expect(blinkFactor(210 + 90 + 70, cfg, true)).toBe(0.1);
-    expect(blinkFactor(510, cfg, true)).toBe(1);
-    expect(blinkFactor(70, cfg, false)).toBe(0.1);
   });
 });

@@ -1,53 +1,78 @@
 /**
- * @typedef {{ closeMs: number, holdMs: number, openMs: number, minScale: number,
- *   doubleBlinkGapMs: number }} BlinkTiming
+ * @typedef {{ height: number, width: number, ms: number }} BlinkKeyframe
+ * @typedef {{ height: number, width: number }} BlinkSample
  */
 
 /**
- * Eyelid-closure factor of a single blink at time `tMs`.
- * @param {number} tMs milliseconds since blink start
- * @param {BlinkTiming} cfg
- * @returns {number} height multiplier in [minScale, 1]
+ * Duration of one blink: the sum of its keyframe durations.
+ * @param {readonly BlinkKeyframe[]} keyframes
+ * @returns {number} milliseconds
  */
-export function blinkCurve(tMs, cfg) {
-  const { closeMs, holdMs, openMs, minScale } = cfg;
-  if (tMs < 0) return 1;
-  if (tMs < closeMs) {
-    const u = tMs / closeMs;
-    return 1 - (1 - minScale) * u * u;
-  }
-  if (tMs < closeMs + holdMs) return minScale;
-  if (tMs < closeMs + holdMs + openMs) {
-    const u = (tMs - closeMs - holdMs) / openMs;
-    return minScale + (1 - minScale) * (1 - (1 - u) * (1 - u));
-  }
-  return 1;
+export function blinkDuration(keyframes) {
+  let d = 0;
+  for (const k of keyframes) d += k.ms;
+  return d;
 }
 
 /**
- * Duration of one blink (or a double blink), in milliseconds.
- * @param {BlinkTiming} cfg
+ * Duration of a blink (single, or double with `gapMs` between the halves), in milliseconds.
+ * @param {readonly BlinkKeyframe[]} keyframes
+ * @param {number} gapMs
  * @param {boolean} isDouble
  * @returns {number}
  */
-export function blinkTotalMs(cfg, isDouble) {
-  const d = cfg.closeMs + cfg.holdMs + cfg.openMs;
-  return isDouble ? 2 * d + cfg.doubleBlinkGapMs : d;
+export function blinkTotalMs(keyframes, gapMs, isDouble) {
+  const d = blinkDuration(keyframes);
+  return isDouble ? 2 * d + gapMs : d;
+}
+
+function singleSample(tMs, keyframes) {
+  if (tMs < 0) return { height: 1, width: 1 };
+  let prevT = 0;
+  let prevH = 1;
+  let prevW = 1;
+  for (const k of keyframes) {
+    const t = prevT + k.ms;
+    if (tMs < t) {
+      const u = (tMs - prevT) / k.ms;
+      return {
+        height: prevH + (k.height - prevH) * u,
+        width: prevW + (k.width - prevW) * u,
+      };
+    }
+    prevT = t;
+    prevH = k.height;
+    prevW = k.width;
+  }
+  return { height: 1, width: 1 };
 }
 
 /**
- * Height multiplier of a blink (single or double) at time `tMs`.
+ * Height and width multipliers of a blink at time `tMs`, interpolating linearly between
+ * keyframes (the implicit start is height 1, width 1).
  * @param {number} tMs milliseconds since blink start
- * @param {BlinkTiming} cfg
+ * @param {readonly BlinkKeyframe[]} keyframes
+ * @param {number} gapMs gap between the halves of a double blink
  * @param {boolean} isDouble
- * @returns {number}
+ * @returns {BlinkSample} (1, 1) outside the blink
  */
-export function blinkFactor(tMs, cfg, isDouble) {
-  if (!isDouble) return blinkCurve(tMs, cfg);
-  const d = cfg.closeMs + cfg.holdMs + cfg.openMs;
-  const gap = cfg.doubleBlinkGapMs;
-  if (tMs < d) return blinkCurve(tMs, cfg);
-  if (tMs < d + gap) return 1;
-  if (tMs < 2 * d + gap) return blinkCurve(tMs - d - gap, cfg);
-  return 1;
+export function blinkSample(tMs, keyframes, gapMs, isDouble) {
+  if (!isDouble) return singleSample(tMs, keyframes);
+  const d = blinkDuration(keyframes);
+  if (tMs < d) return singleSample(tMs, keyframes);
+  if (tMs < d + gapMs) return { height: 1, width: 1 };
+  if (tMs < 2 * d + gapMs) return singleSample(tMs - d - gapMs, keyframes);
+  return { height: 1, width: 1 };
+}
+
+/**
+ * How far lids fade and eyes level: 0 while the eye is taller than `levelFrom`, 1 once it is
+ * at or below `levelTo`.
+ * @param {number} height blink height multiplier
+ * @param {number} levelFrom
+ * @param {number} levelTo
+ * @returns {number} in [0, 1]
+ */
+export function blinkLevel(height, levelFrom, levelTo) {
+  return Math.min(1, Math.max(0, (levelFrom - height) / (levelFrom - levelTo)));
 }

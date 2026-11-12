@@ -39,6 +39,13 @@ import kotlinx.coroutines.delay
 
 private const val CYCLE_HOLD_MS = 2200L
 private const val SLOW_MOTION = 0.25f
+
+// Cozmo's blink faces sit about 0.25 eye-heights off centre; +-0.5 anchors the line at that offset.
+private const val BLINK_HIGH = -0.5
+private const val BLINK_LOW = 0.5
+
+// Names of the keyframe tables in motion.json; narrow is the spec default.
+private val BLINK_STYLES = listOf("narrow", "wide")
 private val STATUSES = listOf("ok", "busy", "warning", "offline", "error")
 private val INPUTS =
     listOf(
@@ -62,6 +69,7 @@ fun DemoScreen() {
     val systemReduced = rememberSystemReducedMotion()
     var reducedOverride by remember { mutableStateOf<Boolean?>(null) }
     val reduced = reducedOverride ?: systemReduced
+    var blinkStyle by remember { mutableStateOf(BLINK_STYLES.first()) }
     var colorIndex by remember { mutableStateOf(0) }
     var statuses by remember { mutableStateOf(INPUTS.associate { it.first to "ok" }) }
     var derived by remember { mutableStateOf("neutral") }
@@ -120,10 +128,29 @@ fun DemoScreen() {
                 }
             }
             Section("Actions") {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                FlowRow(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(4.dp),
+                ) {
                     Button(onClick = { eyes.blink() }) { Text("Blink") }
+                    OutlinedButton(onClick = { eyes.blink(BLINK_HIGH) }) { Text("Blink high") }
+                    OutlinedButton(onClick = { eyes.blink(BLINK_LOW) }) { Text("Blink low") }
                     OutlinedButton(onClick = { eyes.glance(Vec2(-1.0, 0.0)) }) { Text("Glance left") }
                     OutlinedButton(onClick = { eyes.glance(Vec2(1.0, 0.0)) }) { Text("Glance right") }
+                }
+            }
+            Section("Blink style") {
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    BLINK_STYLES.forEach { style ->
+                        FilterChip(
+                            selected = blinkStyle == style,
+                            onClick = {
+                                blinkStyle = style
+                                eyes.setBlinkStyle(style)
+                            },
+                            label = { Text(style.replaceFirstChar { it.uppercase() }) },
+                        )
+                    }
                 }
             }
             Section("Status") {

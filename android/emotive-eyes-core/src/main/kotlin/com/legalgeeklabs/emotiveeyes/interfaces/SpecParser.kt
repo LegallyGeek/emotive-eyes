@@ -1,5 +1,6 @@
 package com.legalgeeklabs.emotiveeyes.interfaces
 
+import com.legalgeeklabs.emotiveeyes.entities.BlinkKeyframe
 import com.legalgeeklabs.emotiveeyes.entities.BlinkSpec
 import com.legalgeeklabs.emotiveeyes.entities.Expression
 import com.legalgeeklabs.emotiveeyes.entities.EyeAnchor
@@ -90,16 +91,25 @@ public object SpecParser {
         onlyKeys(
             b,
             setOf(
-                "closeMs",
-                "holdMs",
-                "openMs",
-                "minScale",
                 "intervalMs",
                 "doubleBlinkChance",
                 "doubleBlinkGapMs",
+                "anchor",
+                "style",
+                "levelFrom",
+                "levelTo",
+                "styles",
             ),
             "motion.blink",
         )
+        val styles = blinkStyles(b["styles"], "motion.blink.styles")
+        val style = (b["style"] as? JsonPrimitive)?.takeIf { it.isString }?.content
+        if (style == null || style !in styles) {
+            fail("motion.blink.style", "must name one of: ${styles.keys.joinToString(", ")}")
+        }
+        val levelFrom = num(b["levelFrom"], "motion.blink.levelFrom", min = 0.0, max = 1.0)
+        val levelTo = num(b["levelTo"], "motion.blink.levelTo", min = 0.0, max = 1.0)
+        if (levelTo >= levelFrom) fail("motion.blink.levelTo", "must be < levelFrom")
         val sc = obj(root["saccade"], "motion.saccade")
         onlyKeys(sc, setOf("intervalMs", "amplitude"), "motion.saccade")
         val g = obj(root["glance"], "motion.glance")
@@ -116,13 +126,14 @@ public object SpecParser {
                 ),
             blink =
                 BlinkSpec(
-                    closeMs = num(b["closeMs"], "motion.blink.closeMs", min = 0.0),
-                    holdMs = num(b["holdMs"], "motion.blink.holdMs", min = 0.0),
-                    openMs = num(b["openMs"], "motion.blink.openMs", min = 0.0),
-                    minScale = num(b["minScale"], "motion.blink.minScale", min = 0.0, max = 1.0),
                     intervalMs = interval(b["intervalMs"], "motion.blink.intervalMs"),
                     doubleBlinkChance = num(b["doubleBlinkChance"], "motion.blink.doubleBlinkChance", 0.0, 1.0),
                     doubleBlinkGapMs = num(b["doubleBlinkGapMs"], "motion.blink.doubleBlinkGapMs", min = 0.0),
+                    anchor = num(b["anchor"], "motion.blink.anchor", min = -1.0, max = 1.0),
+                    style = style,
+                    levelFrom = levelFrom,
+                    levelTo = levelTo,
+                    styles = styles,
                 ),
             saccade =
                 SaccadeSpec(
@@ -213,6 +224,35 @@ public object SpecParser {
         if (if (exclusiveMin) d <= min else d < min) fail(path, "must be ${if (exclusiveMin) ">" else ">="} $min")
         if (d > max) fail(path, "must be <= $max")
         return d
+    }
+
+    private fun blinkStyles(
+        v: JsonElement?,
+        path: String,
+    ): Map<String, List<BlinkKeyframe>> {
+        val out = LinkedHashMap<String, List<BlinkKeyframe>>()
+        for ((name, table) in obj(v, path)) {
+            val tp = "$path.$name"
+            if (table !is JsonArray || table.isEmpty()) fail(tp, "expected a non-empty array")
+            val frames =
+                table.mapIndexed { i, kf ->
+                    val p = "$tp[$i]"
+                    val k = obj(kf, p)
+                    onlyKeys(k, setOf("height", "width", "ms"), p)
+                    BlinkKeyframe(
+                        height = num(k["height"], "$p.height", min = 0.0),
+                        width = num(k["width"], "$p.width", min = 0.0, exclusiveMin = true),
+                        ms = num(k["ms"], "$p.ms", min = 0.0, exclusiveMin = true),
+                    )
+                }
+            val last = frames.last()
+            if (last.height != 1.0 || last.width != 1.0) {
+                fail("$tp[${frames.size - 1}]", "last keyframe must have height 1 and width 1")
+            }
+            out[name] = frames
+        }
+        if (out.isEmpty()) fail(path, "expected at least one style")
+        return out
     }
 
     private fun interval(

@@ -29,13 +29,22 @@ class EyesStateTest {
     // Regression guard: a command after idle time must not integrate that idle time against its new target.
     @Test
     fun commandAfterIdleDoesNotCompleteTransitionInstantly() {
-        val state = EyesState(spec(), random = RandomSource { 0.99 }, nanoClock = { nanos })
+        val spec = spec()
+        val rest = spec.face.layout.eyeHeight
+        val target =
+            rest *
+                checkNotNull(
+                    spec.face.expressions
+                        .getValue("surprised")
+                        .shared.scaleY,
+                )
+        val state = EyesState(spec, random = RandomSource { 0.99 }, nanoClock = { nanos })
         nanos += 1_000_000_000L // 1 s idle while "sleeping"
         state.setExpression("surprised")
-        assertEquals(70.0, eyeHeight(state), 1e-9)
+        assertEquals(rest, eyeHeight(state), 1e-9)
         nanos += 20_000_000L
         state.setExpression("surprised") // catch-up step of 20 ms toward the target
         val h = eyeHeight(state)
-        assertTrue(h > 70.0 && h < 84.0 - 1.0, "mid-transition height was $h")
+        assertTrue(h > rest && h < target - 1.0, "mid-transition height was $h (rest $rest, target $target)")
     }
 }

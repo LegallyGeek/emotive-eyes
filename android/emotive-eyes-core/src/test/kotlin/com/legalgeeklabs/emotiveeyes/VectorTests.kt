@@ -1,6 +1,6 @@
 package com.legalgeeklabs.emotiveeyes
 
-import com.legalgeeklabs.emotiveeyes.entities.BlinkSpec
+import com.legalgeeklabs.emotiveeyes.entities.BlinkKeyframe
 import com.legalgeeklabs.emotiveeyes.entities.EyeAnchor
 import com.legalgeeklabs.emotiveeyes.entities.EyeGeometry
 import com.legalgeeklabs.emotiveeyes.entities.FaceParams
@@ -9,7 +9,7 @@ import com.legalgeeklabs.emotiveeyes.entities.Side
 import com.legalgeeklabs.emotiveeyes.entities.Spring
 import com.legalgeeklabs.emotiveeyes.entities.SpringOverride
 import com.legalgeeklabs.emotiveeyes.entities.Vec2
-import com.legalgeeklabs.emotiveeyes.entities.blinkFactor
+import com.legalgeeklabs.emotiveeyes.entities.blinkSample
 import com.legalgeeklabs.emotiveeyes.entities.computeEyeGeometry
 import com.legalgeeklabs.emotiveeyes.entities.stepSpring
 import com.legalgeeklabs.emotiveeyes.features.animateface.FaceAnimator
@@ -129,23 +129,18 @@ class BlinkVectorTest {
             val case = c.obj()
             val name = case.getValue("name").str()
             dynamicTest(name) {
-                val b = case.getValue("blink").obj()
-                val iv = b.getValue("intervalMs").arr()
-                val cfg =
-                    BlinkSpec(
-                        b.getValue("closeMs").num(),
-                        b.getValue("holdMs").num(),
-                        b.getValue("openMs").num(),
-                        b.getValue("minScale").num(),
-                        com.legalgeeklabs.emotiveeyes.entities
-                            .Interval(iv[0].num(), iv[1].num()),
-                        b.getValue("doubleBlinkChance").num(),
-                        b.getValue("doubleBlinkGapMs").num(),
-                    )
+                val keyframes =
+                    case.getValue("keyframes").arr().map {
+                        val k = it.obj()
+                        BlinkKeyframe(k.getValue("height").num(), k.getValue("width").num(), k.getValue("ms").num())
+                    }
+                val gap = case.getValue("doubleBlinkGapMs").num()
                 val isDouble = case.getValue("isDouble").bool()
                 for (s in case.getValue("samples").arr()) {
                     val t = s.obj().getValue("tMs").num()
-                    assertClose(s.obj().getValue("factor").num(), blinkFactor(t, cfg, isDouble), "$name@$t")
+                    val got = blinkSample(t, keyframes, gap, isDouble)
+                    assertClose(s.obj().getValue("height").num(), got.height, "$name@$t.height")
+                    assertClose(s.obj().getValue("width").num(), got.width, "$name@$t.width")
                 }
             }
         }
@@ -233,7 +228,8 @@ class AnimatorVectorTest {
                     when (val kind = op.getValue("op").str()) {
                         "step" -> frame = animator.step(op.getValue("dt").num())
                         "setTarget" -> animator.setTarget(faceParams(op))
-                        "blink" -> animator.blink()
+                        "blink" -> animator.blink(op["anchor"]?.num())
+                        "setBlinkStyle" -> animator.setBlinkStyle(op.getValue("name").str())
                         "glance" -> animator.glance(Vec2(op.getValue("x").num(), op.getValue("y").num()))
                         "setBlinking" -> animator.setBlinking(op.getValue("value").bool())
                         "setIdleGaze" -> animator.setIdleGaze(op.getValue("value").bool())

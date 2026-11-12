@@ -23,18 +23,43 @@ describe('real spec files', () => {
     expect(parseStatusSpec(runtimeJson('status'))).toEqual(defaultSpec.status);
   });
 
-  it('define the nine presets', () => {
-    expect(Object.keys(defaultSpec.face.expressions)).toEqual([
-      'neutral',
-      'happy',
-      'sad',
-      'angry',
-      'surprised',
-      'worried',
-      'sleepy',
-      'focused',
-      'suspicious',
-    ]);
+  it('define the 32 presets', () => {
+    expect(Object.keys(defaultSpec.face.expressions).sort()).toEqual(
+      [
+        'neutral',
+        'happy',
+        'glee',
+        'sad',
+        'sad-up',
+        'worried',
+        'focused',
+        'annoyed',
+        'surprised',
+        'skeptic',
+        'frustrated',
+        'unimpressed',
+        'sleepy',
+        'suspicious',
+        'squint',
+        'angry',
+        'furious',
+        'scared',
+        'awe',
+        'joy',
+        'bliss',
+        'captivated',
+        'startled',
+        'shocked',
+        'concerned',
+        'hurt',
+        'introspective',
+        'bothered',
+        'scrutinizing',
+        'unsure',
+        'curious',
+        'asleep',
+      ].sort(),
+    );
   });
 });
 
@@ -75,6 +100,32 @@ describe('parser rejects bad input', () => {
     const s = clone(runtimeJson('motion'));
     s.springs.expression.stiffness = 0;
     expect(() => parseMotionSpec(s)).toThrow('stiffness');
+    const anchor = clone(runtimeJson('motion'));
+    anchor.blink.anchor = 1.5;
+    expect(() => parseMotionSpec(anchor)).toThrow('motion.blink.anchor');
+    for (const removed of ['closeMs', 'holdMs', 'openMs', 'minScale', 'stretchX']) {
+      const old = clone(runtimeJson('motion'));
+      old.blink[removed] = 1;
+      expect(() => parseMotionSpec(old)).toThrow(`motion.blink.${removed}`);
+    }
+    const last = clone(runtimeJson('motion'));
+    last.blink.styles.wide.at(-1).width = 2;
+    expect(() => parseMotionSpec(last)).toThrow(/last keyframe/);
+    const lastH = clone(runtimeJson('motion'));
+    lastH.blink.styles.narrow.at(-1).height = 0.5;
+    expect(() => parseMotionSpec(lastH)).toThrow(/last keyframe/);
+    const kf = clone(runtimeJson('motion'));
+    kf.blink.styles.wide[0].ms = 0;
+    expect(() => parseMotionSpec(kf)).toThrow('.ms');
+    const empty = clone(runtimeJson('motion'));
+    empty.blink.styles.wide = [];
+    expect(() => parseMotionSpec(empty)).toThrow(/non-empty/);
+    const style = clone(runtimeJson('motion'));
+    style.blink.style = 'nope';
+    expect(() => parseMotionSpec(style)).toThrow('motion.blink.style');
+    const level = clone(runtimeJson('motion'));
+    level.blink.levelTo = level.blink.levelFrom;
+    expect(() => parseMotionSpec(level)).toThrow('motion.blink.levelTo');
     const hz = clone(runtimeJson('motion'));
     delete hz.substepHz;
     expect(() => parseMotionSpec(hz)).toThrow('motion.substepHz');
@@ -153,7 +204,14 @@ describe('controller', () => {
   it('step returns shapes derived from geometry', () => {
     const { shapes, geometry } = make().step(0);
     expect(shapes.left).toEqual(presentEye(geometry.left));
-    expect(shapes.left.rect).toEqual({ x: 26, y: 15, width: 60, height: 70, rx: 21 });
+    const { layout, defaults } = defaultSpec.face;
+    expect(shapes.left.rect).toEqual({
+      x: layout.eyes.left.x - layout.eyeWidth / 2,
+      y: 50 - layout.eyeHeight / 2,
+      width: layout.eyeWidth,
+      height: layout.eyeHeight,
+      rx: Number((defaults.roundness * layout.eyeHeight).toFixed(3)),
+    });
   });
 
   it('rejects a status spec that references a missing expression', () => {

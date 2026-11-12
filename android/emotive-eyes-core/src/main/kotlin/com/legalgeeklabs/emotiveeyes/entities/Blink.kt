@@ -1,49 +1,68 @@
 package com.legalgeeklabs.emotiveeyes.entities
 
-/** Eyelid-closure factor of a single blink at [tMs] after blink start, in `[minScale, 1]`. */
-public fun blinkCurve(
-    tMs: Double,
-    cfg: BlinkSpec,
-): Double {
-    val closeMs = cfg.closeMs
-    val holdMs = cfg.holdMs
-    val openMs = cfg.openMs
-    val minScale = cfg.minScale
-    if (tMs < 0) return 1.0
-    if (tMs < closeMs) {
-        val u = tMs / closeMs
-        return 1 - (1 - minScale) * u * u
-    }
-    if (tMs < closeMs + holdMs) return minScale
-    if (tMs < closeMs + holdMs + openMs) {
-        val u = (tMs - closeMs - holdMs) / openMs
-        return minScale + (1 - minScale) * (1 - (1 - u) * (1 - u))
-    }
-    return 1.0
+private val OPEN = BlinkSample(1.0, 1.0)
+
+/** Duration of one blink: the sum of its keyframe durations, in milliseconds. */
+public fun blinkDuration(keyframes: List<BlinkKeyframe>): Double {
+    var d = 0.0
+    for (k in keyframes) d += k.ms
+    return d
 }
 
-/** Duration of one blink, or of a double blink, in milliseconds. */
+/** Duration of a blink, or of a double blink with [gapMs] between the halves, in milliseconds. */
 public fun blinkTotalMs(
-    cfg: BlinkSpec,
+    keyframes: List<BlinkKeyframe>,
+    gapMs: Double,
     isDouble: Boolean,
 ): Double {
-    val d = cfg.closeMs + cfg.holdMs + cfg.openMs
-    return if (isDouble) 2 * d + cfg.doubleBlinkGapMs else d
+    val d = blinkDuration(keyframes)
+    return if (isDouble) 2 * d + gapMs else d
 }
 
-/** Height multiplier of a single or double blink at [tMs] after blink start. */
-public fun blinkFactor(
+private fun singleSample(
     tMs: Double,
-    cfg: BlinkSpec,
+    keyframes: List<BlinkKeyframe>,
+): BlinkSample {
+    if (tMs < 0) return OPEN
+    var prevT = 0.0
+    var prevH = 1.0
+    var prevW = 1.0
+    for (k in keyframes) {
+        val t = prevT + k.ms
+        if (tMs < t) {
+            val u = (tMs - prevT) / k.ms
+            return BlinkSample(prevH + (k.height - prevH) * u, prevW + (k.width - prevW) * u)
+        }
+        prevT = t
+        prevH = k.height
+        prevW = k.width
+    }
+    return OPEN
+}
+
+/**
+ * Height and width multipliers [tMs] after blink start, interpolating linearly between keyframes
+ * from an implicit start of (1, 1). Returns (1, 1) outside the blink.
+ */
+public fun blinkSample(
+    tMs: Double,
+    keyframes: List<BlinkKeyframe>,
+    gapMs: Double,
     isDouble: Boolean,
-): Double {
-    if (!isDouble) return blinkCurve(tMs, cfg)
-    val d = cfg.closeMs + cfg.holdMs + cfg.openMs
-    val gap = cfg.doubleBlinkGapMs
+): BlinkSample {
+    if (!isDouble) return singleSample(tMs, keyframes)
+    val d = blinkDuration(keyframes)
     return when {
-        tMs < d -> blinkCurve(tMs, cfg)
-        tMs < d + gap -> 1.0
-        tMs < 2 * d + gap -> blinkCurve(tMs - d - gap, cfg)
-        else -> 1.0
+        tMs < d -> singleSample(tMs, keyframes)
+        tMs < d + gapMs -> OPEN
+        tMs < 2 * d + gapMs -> singleSample(tMs - d - gapMs, keyframes)
+        else -> OPEN
     }
 }
+
+/** How far lids fade and eyes level: 0 above [levelFrom], 1 at or below [levelTo]. */
+public fun blinkLevel(
+    height: Double,
+    levelFrom: Double,
+    levelTo: Double,
+): Double = minOf(1.0, maxOf(0.0, (levelFrom - height) / (levelFrom - levelTo)))

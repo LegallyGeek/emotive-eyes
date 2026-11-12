@@ -18,6 +18,6 @@ npm run preview -w web-demo
 - **Status** - three simulated inputs (Camera, Microphone, Network); shows the derived expression
   and glances toward the input that changed.
 - **Motion** - spring stiffness (up to 3000) and damping (up to 200), blinking, idle gaze, reduced
-  motion, slow motion (0.25x), glow, Blink / Glance buttons, and color presets (white, cyan, ...).
+  motion, slow motion (0.25x), glow, Blink style (Narrow: each eye shrinks to its own line; Wide: the eyes merge into one line), Blink / Blink high / Blink low (anchor ∓0.5) / Glance buttons, and color presets (white, cyan, ...).
 
 Layers: this app and the component are `drivers`; they import only the public `emotive-eyes` API.

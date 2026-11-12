@@ -2,6 +2,7 @@ package com.legalgeeklabs.emotiveeyes
 
 import com.legalgeeklabs.emotiveeyes.entities.Expression
 import com.legalgeeklabs.emotiveeyes.entities.EyeParams
+import com.legalgeeklabs.emotiveeyes.entities.FaceGeometry
 import com.legalgeeklabs.emotiveeyes.entities.PartialEyeParams
 import com.legalgeeklabs.emotiveeyes.entities.Side
 import com.legalgeeklabs.emotiveeyes.entities.Spring
@@ -30,8 +31,23 @@ class RuntimeSpecTest {
         val motion = SpecParser.parseMotionSpec(specText("runtime/motion.json"))
         val status = SpecParser.parseStatusSpec(specText("runtime/status.json"))
         assertEquals(240.0, motion.substepHz)
-        assertEquals(9, face.expressions.size)
+        val expressionCount = specJson("runtime/face.json").getValue("expressions").obj().size
+        assertEquals(expressionCount, face.expressions.size)
+        assertTrue("neutral" in face.expressions)
         assertEquals("angry", status.expressionFor["error"])
+    }
+
+    @Test
+    fun blinkSpecIsValidated() {
+        val motion = specText("runtime/motion.json")
+
+        fun rejects(mutated: String) = assertFailsWith<SpecException> { SpecParser.parseMotionSpec(mutated) }
+        rejects(motion.replace("\"anchor\": 0,", "\"anchor\": 0, \"closeMs\": 70,"))
+        rejects(motion.replace("\"anchor\": 0,", "\"anchor\": 1.5,"))
+        rejects(motion.replace("\"style\": \"narrow\"", "\"style\": \"nope\""))
+        rejects(motion.replace("\"levelTo\": 0.15", "\"levelTo\": 1"))
+        rejects(motion.replace("\"height\": 1,", "\"height\": 0.9,"))
+        rejects(motion.replace("\"ms\": 20", "\"ms\": 0"))
     }
 
     @Test
@@ -43,7 +59,7 @@ class RuntimeSpecTest {
             SpecParser.parseFaceSpec(face.replace("\"happy\"", "\"happy\": { \"bogus\": 1 }, \"x\""))
         }
         assertFailsWith<SpecException> {
-            SpecParser.parseFaceSpec(face.replace("\"upperLid\": 0.38", "\"upperLid\": \"0.38\""))
+            SpecParser.parseFaceSpec(face.replace("\"roundness\": 0.22", "\"roundness\": \"0.22\""))
         }
     }
 
@@ -79,7 +95,7 @@ class GeometryBehaviorTest {
 
     @Test
     fun happyLowerLidPeakIsHalfTheBend() {
-        val p = resolved("happy")
+        val p = resolved("glee")
         val g = computeEyeGeometry(p, face.layout, Side.LEFT)
         val eh = face.layout.eyeHeight * p.scaleY
         val lowY = g.eye.bottom - eh * p.lowerLid
@@ -200,7 +216,7 @@ class ControllerBehaviorTest {
         c.setExpression(Expression(PartialEyeParams(scaleX = 0.5)))
         repeat(600) { c.step(16.6) }
         val g = c.step(0.0).left.eye
-        assertEquals(30.0, g.right - g.left, 0.01)
+        assertEquals(c.layout.eyeWidth / 2, g.right - g.left, 0.01)
         assertEquals(EyeParams.KEYS.size, 9)
     }
 
@@ -219,5 +235,68 @@ class ControllerBehaviorTest {
                 .step(0.0)
                 .left.eye.left > before + 1.0,
         )
+    }
+
+    // Time at which the narrow table first reaches its minimum height.
+    private val closedMs: Double =
+        SpecParser.parseMotionSpec(specText("runtime/motion.json")).blink.styles.getValue("narrow").let { table ->
+            val minHeight = table.minOf { it.height }
+            table.takeWhile { it.height != minHeight }.sumOf { it.ms } + table.first { it.height == minHeight }.ms
+        }
+
+    private fun blinkClosed(
+        style: String?,
+        anchor: Double? = null,
+        expression: String? = null,
+    ): FaceGeometry {
+        val c = controller()
+        style?.let(c::setBlinkStyle)
+        expression?.let {
+            c.setExpression(it)
+            repeat(300) { c.step(16.6) }
+        }
+        c.blink(anchor)
+        c.step(closedMs + 5.0) // just inside the closed hold
+        return c.step(0.0)
+    }
+
+    @Test
+    fun blinkAnchorMovesTheClosedLine() {
+        fun centre(anchor: Double?): Double = blinkClosed(null, anchor).left.eye.let { (it.top + it.bottom) / 2 }
+        val high = centre(-0.5)
+        val mid = centre(null)
+        val low = centre(0.5)
+        assertTrue(high < mid && mid < low, "high=$high mid=$mid low=$low")
+        assertFailsWith<IllegalArgumentException> { controller().blink(1.5) }
+    }
+
+    @Test
+    fun narrowKeepsEyesSeparateAndWideMergesThem() {
+        val narrow = blinkClosed("narrow")
+        val wide = blinkClosed("wide")
+        assertTrue(narrow.left.eye.bottom - narrow.left.eye.top < 5.0, "closed line is thin")
+        assertEquals(narrow.left.eye.right - narrow.left.eye.left, narrow.right.eye.right - narrow.right.eye.left, 1e-9)
+        assertTrue(narrow.left.eye.right < narrow.right.eye.left, "narrow eyes stay apart")
+        assertTrue(wide.left.eye.right > wide.right.eye.left, "wide eyes overlap into one line")
+    }
+
+    @Test
+    fun closedBlinkLevelsAsymmetricExpressionAndClearsLids() {
+        val g = blinkClosed("narrow", expression = "skeptic")
+        assertEquals(g.left.eye.top, g.right.eye.top, 1e-9)
+        assertEquals(g.left.eye.bottom, g.right.eye.bottom, 1e-9)
+        val angry = blinkClosed("narrow", expression = "angry")
+        assertEquals(angry.left.upperLid[2].y, angry.left.upperLid[3].y, 1e-9, "tilt removed")
+    }
+
+    @Test
+    fun blinkStyleSwitchTakesEffectAtNextBlinkAndUnknownThrows() {
+        val c = controller()
+        c.blink()
+        c.step(60.0)
+        val before = c.step(0.0).left.eye
+        c.setBlinkStyle("wide")
+        assertEquals(before, c.step(0.0).left.eye, "blink in progress is unaffected")
+        assertFailsWith<IllegalArgumentException> { c.setBlinkStyle("nope") }
     }
 }

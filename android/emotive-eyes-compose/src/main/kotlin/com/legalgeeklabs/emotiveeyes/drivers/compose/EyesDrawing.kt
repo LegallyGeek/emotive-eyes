@@ -7,6 +7,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.PathOperation
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.clipRect
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.graphics.drawscope.translate
 import com.legalgeeklabs.emotiveeyes.entities.EyeGeometry
@@ -63,8 +64,11 @@ internal fun DrawScope.drawFace(
     val dy = (size.height - layout.height.toFloat() * s) / 2
     translate(dx, dy) {
         scale(s, s, pivot = Offset.Zero) {
-            drawPath(eyePath(geometry.left), color)
-            drawPath(eyePath(geometry.right), color)
+            // Line-merge blinks from wide presets extend past the face; the contract clips to its rectangle.
+            clipRect(0f, 0f, layout.width.toFloat(), layout.height.toFloat()) {
+                drawPath(eyePath(geometry.left), color)
+                drawPath(eyePath(geometry.right), color)
+            }
         }
     }
 }

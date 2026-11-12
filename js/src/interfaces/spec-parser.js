@@ -135,6 +135,30 @@ export function parseFaceSpec(raw) {
   return { layout, defaults, expressions };
 }
 
+function blinkStyles(v, path) {
+  const o = object(v, path);
+  const out = {};
+  for (const [name, table] of Object.entries(o)) {
+    const tp = `${path}.${name}`;
+    if (!Array.isArray(table) || table.length === 0) fail(tp, 'expected a non-empty array');
+    out[name] = table.map((kf, i) => {
+      const p = `${tp}[${i}]`;
+      const k = object(kf, p);
+      onlyKeys(k, ['height', 'width', 'ms'], p);
+      return {
+        height: num(k.height, `${p}.height`, { min: 0 }),
+        width: num(k.width, `${p}.width`, { min: 0, exclusiveMin: true }),
+        ms: num(k.ms, `${p}.ms`, { min: 0, exclusiveMin: true }),
+      };
+    });
+    const last = out[name].at(-1);
+    if (last.height !== 1 || last.width !== 1)
+      fail(`${tp}[${table.length - 1}]`, 'last keyframe must have height 1 and width 1');
+  }
+  if (Object.keys(out).length === 0) fail(path, 'expected at least one style');
+  return out;
+}
+
 /**
  * Validates and copies `motion.json`.
  * @param {unknown} raw
@@ -156,16 +180,24 @@ export function parseMotionSpec(raw) {
   onlyKeys(
     b,
     [
-      'closeMs',
-      'holdMs',
-      'openMs',
-      'minScale',
       'intervalMs',
       'doubleBlinkChance',
       'doubleBlinkGapMs',
+      'anchor',
+      'style',
+      'levelFrom',
+      'levelTo',
+      'styles',
     ],
     'motion.blink',
   );
+  const styles = blinkStyles(b.styles, 'motion.blink.styles');
+  if (typeof b.style !== 'string' || !Object.hasOwn(styles, b.style)) {
+    fail('motion.blink.style', `must name one of: ${Object.keys(styles).join(', ')}`);
+  }
+  const levelFrom = num(b.levelFrom, 'motion.blink.levelFrom', { min: 0, max: 1 });
+  const levelTo = num(b.levelTo, 'motion.blink.levelTo', { min: 0, max: 1 });
+  if (!(levelTo < levelFrom)) fail('motion.blink.levelTo', 'must be < levelFrom');
   const sc = object(root.saccade, 'motion.saccade');
   onlyKeys(sc, ['intervalMs', 'amplitude'], 'motion.saccade');
   const g = object(root.glance, 'motion.glance');
@@ -180,11 +212,12 @@ export function parseMotionSpec(raw) {
       gaze: springConstants(sp.gaze, 'motion.springs.gaze', false),
     },
     blink: {
-      closeMs: num(b.closeMs, 'motion.blink.closeMs', { min: 0 }),
-      holdMs: num(b.holdMs, 'motion.blink.holdMs', { min: 0 }),
-      openMs: num(b.openMs, 'motion.blink.openMs', { min: 0 }),
-      minScale: num(b.minScale, 'motion.blink.minScale', { min: 0, max: 1 }),
       intervalMs: interval(b.intervalMs, 'motion.blink.intervalMs'),
+      anchor: num(b.anchor, 'motion.blink.anchor', { min: -1, max: 1 }),
+      style: b.style,
+      levelFrom,
+      levelTo,
+      styles,
       doubleBlinkChance: num(b.doubleBlinkChance, 'motion.blink.doubleBlinkChance', {
         min: 0,
         max: 1,
@@ -244,4 +277,16 @@ export function parseSpringOverrides(raw) {
   if ('expression' in o) out.expression = springConstants(o.expression, 'springs.expression', true);
   if ('gaze' in o) out.gaze = springConstants(o.gaze, 'springs.gaze', true);
   return out;
+}
+
+/**
+ * Validates the optional argument of `blink(options)`.
+ * @param {unknown} [raw] `{ anchor?: number }` with `anchor` in [-1, 1]; `undefined` means defaults
+ * @returns {{ anchor?: number }}
+ */
+export function parseBlinkOptions(raw) {
+  if (raw === undefined) return {};
+  const o = object(raw, 'blink');
+  onlyKeys(o, ['anchor'], 'blink');
+  return 'anchor' in o ? { anchor: num(o.anchor, 'blink.anchor', { min: -1, max: 1 }) } : {};
 }

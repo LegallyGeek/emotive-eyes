@@ -1,550 +1,1586 @@
 {
   "cases": [
     {
-      "name": "default-single",
-      "blink": {
-        "closeMs": 70,
-        "holdMs": 20,
-        "openMs": 120,
-        "minScale": 0.1,
-        "intervalMs": [
-          2000,
-          6000
-        ],
-        "doubleBlinkChance": 0.15,
-        "doubleBlinkGapMs": 90
-      },
+      "name": "narrow-single",
+      "keyframes": [
+        {
+          "height": 0.9,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.662,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.378,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.14,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 1,
+          "ms": 30
+        },
+        {
+          "height": 0.508,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.793,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.939,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.992,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 38
+        }
+      ],
+      "doubleBlinkGapMs": 90,
       "isDouble": false,
       "samples": [
         {
           "tMs": -10,
-          "factor": 1
+          "height": 1,
+          "width": 1
         },
         {
           "tMs": -0.001,
-          "factor": 1
+          "height": 1,
+          "width": 1
         },
         {
           "tMs": 0,
-          "factor": 1
+          "height": 1,
+          "width": 1
         },
         {
-          "tMs": 1,
-          "factor": 0.9998163265306123
+          "tMs": 0.5,
+          "height": 0.9975,
+          "width": 1
         },
         {
-          "tMs": 35,
-          "factor": 0.775
+          "tMs": 10,
+          "height": 0.95,
+          "width": 1
         },
         {
-          "tMs": 70,
-          "factor": 0.1
+          "tMs": 19.999,
+          "height": 0.900005,
+          "width": 1
         },
         {
-          "tMs": 80,
-          "factor": 0.1
+          "tMs": 20,
+          "height": 0.9,
+          "width": 1
         },
         {
-          "tMs": 90,
-          "factor": 0.1
+          "tMs": 20.001,
+          "height": 0.8999881,
+          "width": 1
         },
         {
-          "tMs": 150,
-          "factor": 0.775
+          "tMs": 30,
+          "height": 0.781,
+          "width": 1
         },
         {
-          "tMs": 209.999,
-          "factor": 0.9999999999375
+          "tMs": 39.999,
+          "height": 0.6620119,
+          "width": 1
         },
         {
-          "tMs": 210,
-          "factor": 1
+          "tMs": 40,
+          "height": 0.662,
+          "width": 1
         },
         {
-          "tMs": 255,
-          "factor": 1
-        },
-        {
-          "tMs": 299.999,
-          "factor": 1
-        },
-        {
-          "tMs": 300,
-          "factor": 1
-        },
-        {
-          "tMs": 335,
-          "factor": 1
-        },
-        {
-          "tMs": 370,
-          "factor": 1
-        },
-        {
-          "tMs": 509.999,
-          "factor": 1
-        },
-        {
-          "tMs": 510,
-          "factor": 1
-        },
-        {
-          "tMs": 560,
-          "factor": 1
-        }
-      ]
-    },
-    {
-      "name": "default-double",
-      "blink": {
-        "closeMs": 70,
-        "holdMs": 20,
-        "openMs": 120,
-        "minScale": 0.1,
-        "intervalMs": [
-          2000,
-          6000
-        ],
-        "doubleBlinkChance": 0.15,
-        "doubleBlinkGapMs": 90
-      },
-      "isDouble": true,
-      "samples": [
-        {
-          "tMs": -10,
-          "factor": 1
-        },
-        {
-          "tMs": -0.001,
-          "factor": 1
-        },
-        {
-          "tMs": 0,
-          "factor": 1
-        },
-        {
-          "tMs": 1,
-          "factor": 0.9998163265306123
-        },
-        {
-          "tMs": 35,
-          "factor": 0.775
-        },
-        {
-          "tMs": 70,
-          "factor": 0.1
-        },
-        {
-          "tMs": 80,
-          "factor": 0.1
-        },
-        {
-          "tMs": 90,
-          "factor": 0.1
-        },
-        {
-          "tMs": 150,
-          "factor": 0.775
-        },
-        {
-          "tMs": 209.999,
-          "factor": 0.9999999999375
-        },
-        {
-          "tMs": 210,
-          "factor": 1
-        },
-        {
-          "tMs": 255,
-          "factor": 1
-        },
-        {
-          "tMs": 299.999,
-          "factor": 1
-        },
-        {
-          "tMs": 300,
-          "factor": 1
-        },
-        {
-          "tMs": 335,
-          "factor": 0.775
-        },
-        {
-          "tMs": 370,
-          "factor": 0.1
-        },
-        {
-          "tMs": 509.999,
-          "factor": 0.9999999999375
-        },
-        {
-          "tMs": 510,
-          "factor": 1
-        },
-        {
-          "tMs": 560,
-          "factor": 1
-        }
-      ]
-    },
-    {
-      "name": "no-hold-single",
-      "blink": {
-        "closeMs": 70,
-        "holdMs": 0,
-        "openMs": 120,
-        "minScale": 0.1,
-        "intervalMs": [
-          2000,
-          6000
-        ],
-        "doubleBlinkChance": 0.15,
-        "doubleBlinkGapMs": 90
-      },
-      "isDouble": false,
-      "samples": [
-        {
-          "tMs": -10,
-          "factor": 1
-        },
-        {
-          "tMs": -0.001,
-          "factor": 1
-        },
-        {
-          "tMs": 0,
-          "factor": 1
-        },
-        {
-          "tMs": 1,
-          "factor": 0.9998163265306123
-        },
-        {
-          "tMs": 35,
-          "factor": 0.775
-        },
-        {
-          "tMs": 70,
-          "factor": 0.1
-        },
-        {
-          "tMs": 130,
-          "factor": 0.775
-        },
-        {
-          "tMs": 189.999,
-          "factor": 0.9999999999375
-        },
-        {
-          "tMs": 190,
-          "factor": 1
-        },
-        {
-          "tMs": 235,
-          "factor": 1
-        },
-        {
-          "tMs": 279.999,
-          "factor": 1
-        },
-        {
-          "tMs": 280,
-          "factor": 1
-        },
-        {
-          "tMs": 315,
-          "factor": 1
-        },
-        {
-          "tMs": 350,
-          "factor": 1
-        },
-        {
-          "tMs": 469.999,
-          "factor": 1
-        },
-        {
-          "tMs": 470,
-          "factor": 1
-        },
-        {
-          "tMs": 520,
-          "factor": 1
-        }
-      ]
-    },
-    {
-      "name": "no-hold-double",
-      "blink": {
-        "closeMs": 70,
-        "holdMs": 0,
-        "openMs": 120,
-        "minScale": 0.1,
-        "intervalMs": [
-          2000,
-          6000
-        ],
-        "doubleBlinkChance": 0.15,
-        "doubleBlinkGapMs": 90
-      },
-      "isDouble": true,
-      "samples": [
-        {
-          "tMs": -10,
-          "factor": 1
-        },
-        {
-          "tMs": -0.001,
-          "factor": 1
-        },
-        {
-          "tMs": 0,
-          "factor": 1
-        },
-        {
-          "tMs": 1,
-          "factor": 0.9998163265306123
-        },
-        {
-          "tMs": 35,
-          "factor": 0.775
-        },
-        {
-          "tMs": 70,
-          "factor": 0.1
-        },
-        {
-          "tMs": 130,
-          "factor": 0.775
-        },
-        {
-          "tMs": 189.999,
-          "factor": 0.9999999999375
-        },
-        {
-          "tMs": 190,
-          "factor": 1
-        },
-        {
-          "tMs": 235,
-          "factor": 1
-        },
-        {
-          "tMs": 279.999,
-          "factor": 1
-        },
-        {
-          "tMs": 280,
-          "factor": 1
-        },
-        {
-          "tMs": 315,
-          "factor": 0.775
-        },
-        {
-          "tMs": 350,
-          "factor": 0.1
-        },
-        {
-          "tMs": 469.999,
-          "factor": 0.9999999999375
-        },
-        {
-          "tMs": 470,
-          "factor": 1
-        },
-        {
-          "tMs": 520,
-          "factor": 1
-        }
-      ]
-    },
-    {
-      "name": "slow-single",
-      "blink": {
-        "closeMs": 100,
-        "holdMs": 50,
-        "openMs": 200,
-        "minScale": 0,
-        "intervalMs": [
-          2000,
-          6000
-        ],
-        "doubleBlinkChance": 0.15,
-        "doubleBlinkGapMs": 40
-      },
-      "isDouble": false,
-      "samples": [
-        {
-          "tMs": -10,
-          "factor": 1
-        },
-        {
-          "tMs": -0.001,
-          "factor": 1
-        },
-        {
-          "tMs": 0,
-          "factor": 1
-        },
-        {
-          "tMs": 1,
-          "factor": 0.9999
+          "tMs": 40.001,
+          "height": 0.6619858000000001,
+          "width": 1
         },
         {
           "tMs": 50,
-          "factor": 0.75
+          "height": 0.52,
+          "width": 1
+        },
+        {
+          "tMs": 59.999,
+          "height": 0.37801419999999997,
+          "width": 1
+        },
+        {
+          "tMs": 60,
+          "height": 0.378,
+          "width": 1
+        },
+        {
+          "tMs": 60.001,
+          "height": 0.37798810000000005,
+          "width": 1
+        },
+        {
+          "tMs": 70,
+          "height": 0.259,
+          "width": 1
+        },
+        {
+          "tMs": 79.999,
+          "height": 0.14001190000000008,
+          "width": 1
+        },
+        {
+          "tMs": 80,
+          "height": 0.14,
+          "width": 1
+        },
+        {
+          "tMs": 80.001,
+          "height": 0.13999499999999998,
+          "width": 1
+        },
+        {
+          "tMs": 90,
+          "height": 0.09000000000000001,
+          "width": 1
+        },
+        {
+          "tMs": 99.999,
+          "height": 0.04000500000000003,
+          "width": 1
         },
         {
           "tMs": 100,
-          "factor": 0
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 125,
-          "factor": 0
+          "tMs": 100.001,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 150,
-          "factor": 0
+          "tMs": 115,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 250,
-          "factor": 0.75
+          "tMs": 129.999,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 349.999,
-          "factor": 0.999999999975
+          "tMs": 130,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 350,
-          "factor": 1
+          "tMs": 130.001,
+          "height": 0.04001231578947374,
+          "width": 1
         },
         {
-          "tMs": 370,
-          "factor": 1
+          "tMs": 149,
+          "height": 0.274,
+          "width": 1
         },
         {
-          "tMs": 389.999,
-          "factor": 1
+          "tMs": 167.999,
+          "height": 0.5079876842105263,
+          "width": 1
         },
         {
-          "tMs": 390,
-          "factor": 1
+          "tMs": 168,
+          "height": 0.508,
+          "width": 1
         },
         {
-          "tMs": 440,
-          "factor": 1
+          "tMs": 168.001,
+          "height": 0.5080075000000001,
+          "width": 1
         },
         {
-          "tMs": 490,
-          "factor": 1
+          "tMs": 187,
+          "height": 0.6505000000000001,
+          "width": 1
         },
         {
-          "tMs": 739.999,
-          "factor": 1
+          "tMs": 205.999,
+          "height": 0.7929925,
+          "width": 1
         },
         {
-          "tMs": 740,
-          "factor": 1
+          "tMs": 206,
+          "height": 0.793,
+          "width": 1
         },
         {
-          "tMs": 790,
-          "factor": 1
+          "tMs": 206.001,
+          "height": 0.7930038421052632,
+          "width": 1
+        },
+        {
+          "tMs": 225,
+          "height": 0.866,
+          "width": 1
+        },
+        {
+          "tMs": 243.999,
+          "height": 0.9389961578947368,
+          "width": 1
+        },
+        {
+          "tMs": 244,
+          "height": 0.939,
+          "width": 1
+        },
+        {
+          "tMs": 244.001,
+          "height": 0.9390013947368421,
+          "width": 1
+        },
+        {
+          "tMs": 263,
+          "height": 0.9655,
+          "width": 1
+        },
+        {
+          "tMs": 281.999,
+          "height": 0.991998605263158,
+          "width": 1
+        },
+        {
+          "tMs": 282,
+          "height": 0.992,
+          "width": 1
+        },
+        {
+          "tMs": 282.001,
+          "height": 0.9920002105263158,
+          "width": 1
+        },
+        {
+          "tMs": 301,
+          "height": 0.996,
+          "width": 1
+        },
+        {
+          "tMs": 319.999,
+          "height": 0.9999997894736842,
+          "width": 1
+        },
+        {
+          "tMs": 320,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 320.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 409.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 410,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 419.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 420,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 729.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 730,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 780,
+          "height": 1,
+          "width": 1
         }
       ]
     },
     {
-      "name": "slow-double",
-      "blink": {
-        "closeMs": 100,
-        "holdMs": 50,
-        "openMs": 200,
-        "minScale": 0,
-        "intervalMs": [
-          2000,
-          6000
-        ],
-        "doubleBlinkChance": 0.15,
-        "doubleBlinkGapMs": 40
-      },
+      "name": "narrow-double",
+      "keyframes": [
+        {
+          "height": 0.9,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.662,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.378,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.14,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 1,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 1,
+          "ms": 30
+        },
+        {
+          "height": 0.508,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.793,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.939,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 0.992,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 38
+        }
+      ],
+      "doubleBlinkGapMs": 90,
       "isDouble": true,
       "samples": [
         {
           "tMs": -10,
-          "factor": 1
+          "height": 1,
+          "width": 1
         },
         {
           "tMs": -0.001,
-          "factor": 1
+          "height": 1,
+          "width": 1
         },
         {
           "tMs": 0,
-          "factor": 1
+          "height": 1,
+          "width": 1
         },
         {
-          "tMs": 1,
-          "factor": 0.9999
+          "tMs": 0.5,
+          "height": 0.9975,
+          "width": 1
+        },
+        {
+          "tMs": 10,
+          "height": 0.95,
+          "width": 1
+        },
+        {
+          "tMs": 19.999,
+          "height": 0.900005,
+          "width": 1
+        },
+        {
+          "tMs": 20,
+          "height": 0.9,
+          "width": 1
+        },
+        {
+          "tMs": 20.001,
+          "height": 0.8999881,
+          "width": 1
+        },
+        {
+          "tMs": 30,
+          "height": 0.781,
+          "width": 1
+        },
+        {
+          "tMs": 39.999,
+          "height": 0.6620119,
+          "width": 1
+        },
+        {
+          "tMs": 40,
+          "height": 0.662,
+          "width": 1
+        },
+        {
+          "tMs": 40.001,
+          "height": 0.6619858000000001,
+          "width": 1
         },
         {
           "tMs": 50,
-          "factor": 0.75
+          "height": 0.52,
+          "width": 1
+        },
+        {
+          "tMs": 59.999,
+          "height": 0.37801419999999997,
+          "width": 1
+        },
+        {
+          "tMs": 60,
+          "height": 0.378,
+          "width": 1
+        },
+        {
+          "tMs": 60.001,
+          "height": 0.37798810000000005,
+          "width": 1
+        },
+        {
+          "tMs": 70,
+          "height": 0.259,
+          "width": 1
+        },
+        {
+          "tMs": 79.999,
+          "height": 0.14001190000000008,
+          "width": 1
+        },
+        {
+          "tMs": 80,
+          "height": 0.14,
+          "width": 1
+        },
+        {
+          "tMs": 80.001,
+          "height": 0.13999499999999998,
+          "width": 1
+        },
+        {
+          "tMs": 90,
+          "height": 0.09000000000000001,
+          "width": 1
+        },
+        {
+          "tMs": 99.999,
+          "height": 0.04000500000000003,
+          "width": 1
         },
         {
           "tMs": 100,
-          "factor": 0
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 125,
-          "factor": 0
+          "tMs": 100.001,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 150,
-          "factor": 0
+          "tMs": 115,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 250,
-          "factor": 0.75
+          "tMs": 129.999,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 349.999,
-          "factor": 0.999999999975
+          "tMs": 130,
+          "height": 0.04,
+          "width": 1
         },
         {
-          "tMs": 350,
-          "factor": 1
+          "tMs": 130.001,
+          "height": 0.04001231578947374,
+          "width": 1
         },
         {
-          "tMs": 370,
-          "factor": 1
+          "tMs": 149,
+          "height": 0.274,
+          "width": 1
         },
         {
-          "tMs": 389.999,
-          "factor": 1
+          "tMs": 167.999,
+          "height": 0.5079876842105263,
+          "width": 1
         },
         {
-          "tMs": 390,
-          "factor": 1
+          "tMs": 168,
+          "height": 0.508,
+          "width": 1
         },
         {
-          "tMs": 440,
-          "factor": 0.75
+          "tMs": 168.001,
+          "height": 0.5080075000000001,
+          "width": 1
         },
         {
-          "tMs": 490,
-          "factor": 0
+          "tMs": 187,
+          "height": 0.6505000000000001,
+          "width": 1
         },
         {
-          "tMs": 739.999,
-          "factor": 0.999999999975
+          "tMs": 205.999,
+          "height": 0.7929925,
+          "width": 1
         },
         {
-          "tMs": 740,
-          "factor": 1
+          "tMs": 206,
+          "height": 0.793,
+          "width": 1
         },
         {
-          "tMs": 790,
-          "factor": 1
+          "tMs": 206.001,
+          "height": 0.7930038421052632,
+          "width": 1
+        },
+        {
+          "tMs": 225,
+          "height": 0.866,
+          "width": 1
+        },
+        {
+          "tMs": 243.999,
+          "height": 0.9389961578947368,
+          "width": 1
+        },
+        {
+          "tMs": 244,
+          "height": 0.939,
+          "width": 1
+        },
+        {
+          "tMs": 244.001,
+          "height": 0.9390013947368421,
+          "width": 1
+        },
+        {
+          "tMs": 263,
+          "height": 0.9655,
+          "width": 1
+        },
+        {
+          "tMs": 281.999,
+          "height": 0.991998605263158,
+          "width": 1
+        },
+        {
+          "tMs": 282,
+          "height": 0.992,
+          "width": 1
+        },
+        {
+          "tMs": 282.001,
+          "height": 0.9920002105263158,
+          "width": 1
+        },
+        {
+          "tMs": 301,
+          "height": 0.996,
+          "width": 1
+        },
+        {
+          "tMs": 319.999,
+          "height": 0.9999997894736842,
+          "width": 1
+        },
+        {
+          "tMs": 320,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 320.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 409.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 410,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 419.999,
+          "height": 0.9500049999999999,
+          "width": 1
+        },
+        {
+          "tMs": 420,
+          "height": 0.95,
+          "width": 1
+        },
+        {
+          "tMs": 729.999,
+          "height": 0.9999997894736842,
+          "width": 1
+        },
+        {
+          "tMs": 730,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 780,
+          "height": 1,
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "wide-single",
+      "keyframes": [
+        {
+          "height": 0.9,
+          "width": 1.054,
+          "ms": 20
+        },
+        {
+          "height": 0.662,
+          "width": 1.62,
+          "ms": 20
+        },
+        {
+          "height": 0.378,
+          "width": 3.099,
+          "ms": 20
+        },
+        {
+          "height": 0.14,
+          "width": 5.013,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 6,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 6,
+          "ms": 30
+        },
+        {
+          "height": 0.508,
+          "width": 2.313,
+          "ms": 38
+        },
+        {
+          "height": 0.793,
+          "width": 1.232,
+          "ms": 38
+        },
+        {
+          "height": 0.939,
+          "width": 1.02,
+          "ms": 38
+        },
+        {
+          "height": 0.992,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 38
+        }
+      ],
+      "doubleBlinkGapMs": 90,
+      "isDouble": false,
+      "samples": [
+        {
+          "tMs": -10,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": -0.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0.5,
+          "height": 0.9975,
+          "width": 1.00135
+        },
+        {
+          "tMs": 10,
+          "height": 0.95,
+          "width": 1.0270000000000001
+        },
+        {
+          "tMs": 19.999,
+          "height": 0.900005,
+          "width": 1.0539973
+        },
+        {
+          "tMs": 20,
+          "height": 0.9,
+          "width": 1.054
+        },
+        {
+          "tMs": 20.001,
+          "height": 0.8999881,
+          "width": 1.0540283000000001
+        },
+        {
+          "tMs": 30,
+          "height": 0.781,
+          "width": 1.3370000000000002
+        },
+        {
+          "tMs": 39.999,
+          "height": 0.6620119,
+          "width": 1.6199717000000002
+        },
+        {
+          "tMs": 40,
+          "height": 0.662,
+          "width": 1.62
+        },
+        {
+          "tMs": 40.001,
+          "height": 0.6619858000000001,
+          "width": 1.6200739499999999
+        },
+        {
+          "tMs": 50,
+          "height": 0.52,
+          "width": 2.3595
+        },
+        {
+          "tMs": 59.999,
+          "height": 0.37801419999999997,
+          "width": 3.09892605
+        },
+        {
+          "tMs": 60,
+          "height": 0.378,
+          "width": 3.099
+        },
+        {
+          "tMs": 60.001,
+          "height": 0.37798810000000005,
+          "width": 3.0990957
+        },
+        {
+          "tMs": 70,
+          "height": 0.259,
+          "width": 4.056
+        },
+        {
+          "tMs": 79.999,
+          "height": 0.14001190000000008,
+          "width": 5.0129043
+        },
+        {
+          "tMs": 80,
+          "height": 0.14,
+          "width": 5.013
+        },
+        {
+          "tMs": 80.001,
+          "height": 0.13999499999999998,
+          "width": 5.01304935
+        },
+        {
+          "tMs": 90,
+          "height": 0.09000000000000001,
+          "width": 5.5065
+        },
+        {
+          "tMs": 99.999,
+          "height": 0.04000500000000003,
+          "width": 5.99995065
+        },
+        {
+          "tMs": 100,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 100.001,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 115,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 129.999,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 130,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 130.001,
+          "height": 0.04001231578947374,
+          "width": 5.99990297368421
+        },
+        {
+          "tMs": 149,
+          "height": 0.274,
+          "width": 4.1565
+        },
+        {
+          "tMs": 167.999,
+          "height": 0.5079876842105263,
+          "width": 2.31309702631579
+        },
+        {
+          "tMs": 168,
+          "height": 0.508,
+          "width": 2.313
+        },
+        {
+          "tMs": 168.001,
+          "height": 0.5080075000000001,
+          "width": 2.312971552631579
+        },
+        {
+          "tMs": 187,
+          "height": 0.6505000000000001,
+          "width": 1.7725
+        },
+        {
+          "tMs": 205.999,
+          "height": 0.7929925,
+          "width": 1.232028447368421
+        },
+        {
+          "tMs": 206,
+          "height": 0.793,
+          "width": 1.232
+        },
+        {
+          "tMs": 206.001,
+          "height": 0.7930038421052632,
+          "width": 1.2319944210526315
+        },
+        {
+          "tMs": 225,
+          "height": 0.866,
+          "width": 1.126
+        },
+        {
+          "tMs": 243.999,
+          "height": 0.9389961578947368,
+          "width": 1.0200055789473685
+        },
+        {
+          "tMs": 244,
+          "height": 0.939,
+          "width": 1.02
+        },
+        {
+          "tMs": 244.001,
+          "height": 0.9390013947368421,
+          "width": 1.0199994736842106
+        },
+        {
+          "tMs": 263,
+          "height": 0.9655,
+          "width": 1.01
+        },
+        {
+          "tMs": 281.999,
+          "height": 0.991998605263158,
+          "width": 1.0000005263157894
+        },
+        {
+          "tMs": 282,
+          "height": 0.992,
+          "width": 1
+        },
+        {
+          "tMs": 282.001,
+          "height": 0.9920002105263158,
+          "width": 1
+        },
+        {
+          "tMs": 301,
+          "height": 0.996,
+          "width": 1
+        },
+        {
+          "tMs": 319.999,
+          "height": 0.9999997894736842,
+          "width": 1
+        },
+        {
+          "tMs": 320,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 320.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 409.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 410,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 419.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 420,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 729.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 730,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 780,
+          "height": 1,
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "wide-double",
+      "keyframes": [
+        {
+          "height": 0.9,
+          "width": 1.054,
+          "ms": 20
+        },
+        {
+          "height": 0.662,
+          "width": 1.62,
+          "ms": 20
+        },
+        {
+          "height": 0.378,
+          "width": 3.099,
+          "ms": 20
+        },
+        {
+          "height": 0.14,
+          "width": 5.013,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 6,
+          "ms": 20
+        },
+        {
+          "height": 0.04,
+          "width": 6,
+          "ms": 30
+        },
+        {
+          "height": 0.508,
+          "width": 2.313,
+          "ms": 38
+        },
+        {
+          "height": 0.793,
+          "width": 1.232,
+          "ms": 38
+        },
+        {
+          "height": 0.939,
+          "width": 1.02,
+          "ms": 38
+        },
+        {
+          "height": 0.992,
+          "width": 1,
+          "ms": 38
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 38
+        }
+      ],
+      "doubleBlinkGapMs": 90,
+      "isDouble": true,
+      "samples": [
+        {
+          "tMs": -10,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": -0.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0.5,
+          "height": 0.9975,
+          "width": 1.00135
+        },
+        {
+          "tMs": 10,
+          "height": 0.95,
+          "width": 1.0270000000000001
+        },
+        {
+          "tMs": 19.999,
+          "height": 0.900005,
+          "width": 1.0539973
+        },
+        {
+          "tMs": 20,
+          "height": 0.9,
+          "width": 1.054
+        },
+        {
+          "tMs": 20.001,
+          "height": 0.8999881,
+          "width": 1.0540283000000001
+        },
+        {
+          "tMs": 30,
+          "height": 0.781,
+          "width": 1.3370000000000002
+        },
+        {
+          "tMs": 39.999,
+          "height": 0.6620119,
+          "width": 1.6199717000000002
+        },
+        {
+          "tMs": 40,
+          "height": 0.662,
+          "width": 1.62
+        },
+        {
+          "tMs": 40.001,
+          "height": 0.6619858000000001,
+          "width": 1.6200739499999999
+        },
+        {
+          "tMs": 50,
+          "height": 0.52,
+          "width": 2.3595
+        },
+        {
+          "tMs": 59.999,
+          "height": 0.37801419999999997,
+          "width": 3.09892605
+        },
+        {
+          "tMs": 60,
+          "height": 0.378,
+          "width": 3.099
+        },
+        {
+          "tMs": 60.001,
+          "height": 0.37798810000000005,
+          "width": 3.0990957
+        },
+        {
+          "tMs": 70,
+          "height": 0.259,
+          "width": 4.056
+        },
+        {
+          "tMs": 79.999,
+          "height": 0.14001190000000008,
+          "width": 5.0129043
+        },
+        {
+          "tMs": 80,
+          "height": 0.14,
+          "width": 5.013
+        },
+        {
+          "tMs": 80.001,
+          "height": 0.13999499999999998,
+          "width": 5.01304935
+        },
+        {
+          "tMs": 90,
+          "height": 0.09000000000000001,
+          "width": 5.5065
+        },
+        {
+          "tMs": 99.999,
+          "height": 0.04000500000000003,
+          "width": 5.99995065
+        },
+        {
+          "tMs": 100,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 100.001,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 115,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 129.999,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 130,
+          "height": 0.04,
+          "width": 6
+        },
+        {
+          "tMs": 130.001,
+          "height": 0.04001231578947374,
+          "width": 5.99990297368421
+        },
+        {
+          "tMs": 149,
+          "height": 0.274,
+          "width": 4.1565
+        },
+        {
+          "tMs": 167.999,
+          "height": 0.5079876842105263,
+          "width": 2.31309702631579
+        },
+        {
+          "tMs": 168,
+          "height": 0.508,
+          "width": 2.313
+        },
+        {
+          "tMs": 168.001,
+          "height": 0.5080075000000001,
+          "width": 2.312971552631579
+        },
+        {
+          "tMs": 187,
+          "height": 0.6505000000000001,
+          "width": 1.7725
+        },
+        {
+          "tMs": 205.999,
+          "height": 0.7929925,
+          "width": 1.232028447368421
+        },
+        {
+          "tMs": 206,
+          "height": 0.793,
+          "width": 1.232
+        },
+        {
+          "tMs": 206.001,
+          "height": 0.7930038421052632,
+          "width": 1.2319944210526315
+        },
+        {
+          "tMs": 225,
+          "height": 0.866,
+          "width": 1.126
+        },
+        {
+          "tMs": 243.999,
+          "height": 0.9389961578947368,
+          "width": 1.0200055789473685
+        },
+        {
+          "tMs": 244,
+          "height": 0.939,
+          "width": 1.02
+        },
+        {
+          "tMs": 244.001,
+          "height": 0.9390013947368421,
+          "width": 1.0199994736842106
+        },
+        {
+          "tMs": 263,
+          "height": 0.9655,
+          "width": 1.01
+        },
+        {
+          "tMs": 281.999,
+          "height": 0.991998605263158,
+          "width": 1.0000005263157894
+        },
+        {
+          "tMs": 282,
+          "height": 0.992,
+          "width": 1
+        },
+        {
+          "tMs": 282.001,
+          "height": 0.9920002105263158,
+          "width": 1
+        },
+        {
+          "tMs": 301,
+          "height": 0.996,
+          "width": 1
+        },
+        {
+          "tMs": 319.999,
+          "height": 0.9999997894736842,
+          "width": 1
+        },
+        {
+          "tMs": 320,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 320.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 409.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 410,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 419.999,
+          "height": 0.9500049999999999,
+          "width": 1.0269973000000001
+        },
+        {
+          "tMs": 420,
+          "height": 0.95,
+          "width": 1.0270000000000001
+        },
+        {
+          "tMs": 729.999,
+          "height": 0.9999997894736842,
+          "width": 1
+        },
+        {
+          "tMs": 730,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 780,
+          "height": 1,
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "custom-two-step-single",
+      "keyframes": [
+        {
+          "height": 0.2,
+          "width": 3,
+          "ms": 40
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 60
+        }
+      ],
+      "doubleBlinkGapMs": 90,
+      "isDouble": false,
+      "samples": [
+        {
+          "tMs": -10,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": -0.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0.5,
+          "height": 0.99,
+          "width": 1.025
+        },
+        {
+          "tMs": 20,
+          "height": 0.6,
+          "width": 2
+        },
+        {
+          "tMs": 39.999,
+          "height": 0.20001999999999986,
+          "width": 2.99995
+        },
+        {
+          "tMs": 40,
+          "height": 0.2,
+          "width": 3
+        },
+        {
+          "tMs": 40.001,
+          "height": 0.20001333333333332,
+          "width": 2.999966666666667
+        },
+        {
+          "tMs": 70,
+          "height": 0.6000000000000001,
+          "width": 2
+        },
+        {
+          "tMs": 99.999,
+          "height": 0.9999866666666666,
+          "width": 1.0000333333333336
+        },
+        {
+          "tMs": 100,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 100.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 189.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 190,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 209.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 210,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 289.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 290,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 340,
+          "height": 1,
+          "width": 1
+        }
+      ]
+    },
+    {
+      "name": "custom-two-step-double",
+      "keyframes": [
+        {
+          "height": 0.2,
+          "width": 3,
+          "ms": 40
+        },
+        {
+          "height": 1,
+          "width": 1,
+          "ms": 60
+        }
+      ],
+      "doubleBlinkGapMs": 90,
+      "isDouble": true,
+      "samples": [
+        {
+          "tMs": -10,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": -0.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 0.5,
+          "height": 0.99,
+          "width": 1.025
+        },
+        {
+          "tMs": 20,
+          "height": 0.6,
+          "width": 2
+        },
+        {
+          "tMs": 39.999,
+          "height": 0.20001999999999986,
+          "width": 2.99995
+        },
+        {
+          "tMs": 40,
+          "height": 0.2,
+          "width": 3
+        },
+        {
+          "tMs": 40.001,
+          "height": 0.20001333333333332,
+          "width": 2.999966666666667
+        },
+        {
+          "tMs": 70,
+          "height": 0.6000000000000001,
+          "width": 2
+        },
+        {
+          "tMs": 99.999,
+          "height": 0.9999866666666666,
+          "width": 1.0000333333333336
+        },
+        {
+          "tMs": 100,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 100.001,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 189.999,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 190,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 209.999,
+          "height": 0.60002,
+          "width": 1.9999499999999997
+        },
+        {
+          "tMs": 210,
+          "height": 0.6,
+          "width": 2
+        },
+        {
+          "tMs": 289.999,
+          "height": 0.999986666666667,
+          "width": 1.0000333333333324
+        },
+        {
+          "tMs": 290,
+          "height": 1,
+          "width": 1
+        },
+        {
+          "tMs": 340,
+          "height": 1,
+          "width": 1
         }
       ]
     }

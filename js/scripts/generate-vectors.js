@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { blinkFactor } from '../src/entities/blink.js';
+import { blinkSample } from '../src/entities/blink.js';
 import { resolveParams } from '../src/entities/eye-shape.js';
 import { computeEyeGeometry } from '../src/entities/geometry.js';
 import { createSpring, criticalDamping, stepSpring } from '../src/entities/spring.js';
@@ -81,44 +81,44 @@ function springVectors() {
 }
 
 function blinkVectors() {
-  const base = motion.blink;
-  const variants = [
-    ['default', base],
-    ['no-hold', { ...base, holdMs: 0 }],
-    ['slow', { ...base, closeMs: 100, holdMs: 50, openMs: 200, minScale: 0, doubleBlinkGapMs: 40 }],
+  const { styles } = motion.blink;
+  const gap = motion.blink.doubleBlinkGapMs;
+  const tables = [
+    ['narrow', styles.narrow],
+    ['wide', styles.wide],
+    [
+      'custom-two-step',
+      [
+        { height: 0.2, width: 3, ms: 40 },
+        { height: 1, width: 1, ms: 60 },
+      ],
+    ],
   ];
   const cases = [];
-  for (const [label, cfg] of variants) {
-    const d = cfg.closeMs + cfg.holdMs + cfg.openMs;
-    const gap = cfg.doubleBlinkGapMs;
-    const times = new Set([
-      -10,
-      -0.001,
-      0,
-      1,
-      cfg.closeMs / 2,
-      cfg.closeMs,
-      cfg.closeMs + cfg.holdMs / 2,
-      cfg.closeMs + cfg.holdMs,
-      cfg.closeMs + cfg.holdMs + cfg.openMs / 2,
-      d - 0.001,
-      d,
-      d + gap / 2,
-      d + gap - 0.001,
-      d + gap,
-      d + gap + cfg.closeMs / 2,
-      d + gap + cfg.closeMs,
-      2 * d + gap - 0.001,
-      2 * d + gap,
-      2 * d + gap + 50,
-    ]);
+  for (const [label, keyframes] of tables) {
+    const d = keyframes.reduce((sum, k) => sum + k.ms, 0);
+    const times = new Set([-10, -0.001, 0, 0.5]);
+    let t = 0;
+    for (const k of keyframes) {
+      times.add(t + k.ms / 2);
+      t += k.ms;
+      times.add(t - 0.001);
+      times.add(t);
+      times.add(t + 0.001);
+    }
+    for (const base of [d, d + gap, d + gap + keyframes[0].ms / 2, 2 * d + gap]) {
+      times.add(base - 0.001);
+      times.add(base);
+    }
+    times.add(2 * d + gap + 50);
     const sorted = [...times].sort((a, b) => a - b);
     for (const isDouble of [false, true]) {
       cases.push({
         name: `${label}-${isDouble ? 'double' : 'single'}`,
-        blink: cfg,
+        keyframes,
+        doubleBlinkGapMs: gap,
         isDouble,
-        samples: sorted.map((tMs) => ({ tMs, factor: blinkFactor(tMs, cfg, isDouble) })),
+        samples: sorted.map((tMs) => ({ tMs, ...blinkSample(tMs, keyframes, gap, isDouble) })),
       });
     }
   }
@@ -156,10 +156,13 @@ function applyOp(animator, op) {
       animator.setTarget({ left: op.left, right: op.right });
       break;
     case 'blink':
-      animator.blink();
+      animator.blink(op.anchor === undefined ? undefined : { anchor: op.anchor });
       break;
     case 'glance':
       animator.glance({ x: op.x, y: op.y });
+      break;
+    case 'setBlinkStyle':
+      animator.setBlinkStyle(op.name);
       break;
     case 'setBlinking':
       animator.setBlinking(op.value);
@@ -348,13 +351,86 @@ function animatorVectors() {
         ...stepOps([10000, 5000]),
       ],
     }),
+    animatorCase('blink-anchors-manual', {
+      flags: { idleGaze: false },
+      randoms: [0.5, 0.5, 0.9, 0.5, 0.1, 0.5, 0.9, 0.5, 0.9, 0.5],
+      ops: [
+        { op: 'blink', anchor: -1 },
+        ...stepOps(repeat(14, () => 16.6)),
+        target('sad'),
+        { op: 'blink', anchor: 1 },
+        ...stepOps(repeat(14, () => 16.6)),
+        { op: 'blink', anchor: 0.5 },
+        ...stepOps(repeat(34, () => 16.6)),
+        { op: 'blink' },
+        { op: 'blink', anchor: -1 },
+        ...stepOps([16.6, 33.4, 250]),
+      ],
+    }),
+    animatorCase('auto-blink-nonzero-default-anchor', {
+      flags: { idleGaze: false },
+      motion: fast({
+        blink: { ...motion.blink, anchor: 0.5, intervalMs: [100, 100], doubleBlinkChance: 0 },
+      }),
+      randoms: pad([0.5, 0.5, 0.9, 0.5], 20),
+      ops: [
+        ...stepOps(repeat(22, () => 16.6)),
+        { op: 'blink', anchor: -0.5 },
+        ...stepOps(repeat(14, () => 16.6)),
+      ],
+    }),
+    animatorCase('blink-wide-style', {
+      flags: { idleGaze: false },
+      randoms: [0.5, 0.5, 0.9, 0.5, 0.9, 0.5],
+      ops: [
+        { op: 'setBlinkStyle', name: 'wide' },
+        { op: 'blink', anchor: -0.5 },
+        ...stepOps(repeat(24, () => 16.6)),
+        { op: 'blink' },
+        ...stepOps(repeat(24, () => 16.6)),
+      ],
+    }),
+    animatorCase('blink-style-switch-mid-blink', {
+      flags: { idleGaze: false },
+      randoms: [0.5, 0.5, 0.9, 0.5, 0.1, 0.5, 0.9, 0.5],
+      ops: [
+        { op: 'blink' },
+        ...stepOps(repeat(6, () => 16.6)),
+        { op: 'setBlinkStyle', name: 'wide' },
+        ...stepOps(repeat(14, () => 16.6)),
+        { op: 'blink' },
+        ...stepOps(repeat(14, () => 16.6)),
+        { op: 'setBlinkStyle', name: 'narrow' },
+        ...stepOps(repeat(40, () => 16.6)),
+        { op: 'blink' },
+        ...stepOps(repeat(20, () => 16.6)),
+      ],
+    }),
+    animatorCase('blink-levels-skeptic-wide', {
+      flags: quiet,
+      initial: preset('skeptic'),
+      motion: fast({ blink: { ...motion.blink, style: 'wide' } }),
+      randoms: [0.5, 0.5, 0.9, 0.5],
+      ops: [{ op: 'blink' }, ...stepOps(repeat(24, () => 15))],
+    }),
+    animatorCase('blink-clears-lids-angry-narrow', {
+      flags: quiet,
+      initial: preset('angry'),
+      randoms: [0.5, 0.5, 0.9, 0.5, 0.9, 0.5],
+      ops: [
+        { op: 'blink' },
+        ...stepOps(repeat(24, () => 15)),
+        { op: 'blink', anchor: 1 },
+        ...stepOps(repeat(24, () => 15)),
+      ],
+    }),
     animatorCase('all-flags-off', {
       flags: { blinking: false, idleGaze: false },
       randoms: [0.5, 0.5],
       ops: [...stepOps([16.6]), target('worried'), ...stepOps([5000]), ...stepOps([5000])],
     }),
-    animatorCase('suspicious-initial-asymmetric', {
-      initial: preset('suspicious'),
+    animatorCase('skeptic-initial-asymmetric', {
+      initial: preset('skeptic'),
       flags: quiet,
       randoms: [0.5, 0.5],
       ops: [...stepOps([16.6]), target('neutral'), ...stepOps(repeat(12, () => 33.4))],

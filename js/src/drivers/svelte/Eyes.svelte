@@ -5,7 +5,9 @@
 
   /**
    * Procedural robot eyes as an SVG. Drivers: Svelte 5, requestAnimationFrame.
-   * Setting `statuses` takes precedence over `expression`. An unknown expression name throws.
+   * Drawing is clipped to the face rectangle. Setting `statuses` takes precedence over `expression`. An unknown expression or blink style
+   * name throws. `blinkStyle` (a key of `motion.blink.styles`, e.g. `narrow`, `wide`) applies from the
+   * next blink; `null` follows `motion.blink.style`.
    * `springs` is a partial override of the spec's spring constants; removing a key restores it.
    * @type {{
    *   expression?: string | Record<string, any>,
@@ -13,6 +15,7 @@
    *   color?: string,
    *   glow?: boolean,
    *   blinking?: boolean,
+   *   blinkStyle?: string | null,
    *   idleGaze?: boolean,
    *   springs?: { expression?: { stiffness?: number, damping?: number },
    *     gaze?: { stiffness?: number, damping?: number } } | null,
@@ -28,6 +31,7 @@
     color = '#FFFFFF',
     glow = false,
     blinking = true,
+    blinkStyle = null,
     idleGaze = true,
     springs = null,
     timeScale = 1,
@@ -65,9 +69,13 @@
   /** Applies a controller mutation through the loop so elapsed time is stepped first. */
   const apply = (mutate) => (loop ? loop.update(mutate) : mutate());
 
-  /** Plays a blink now. */
-  export function blink() {
-    apply(() => controller.blink());
+  /**
+   * Plays a blink now.
+   * @param {{ anchor?: number }} [options] `anchor` in [-1, 1] places the closed line: -1 high,
+   *   0 centre, +1 low; defaults to the spec's `blink.anchor`
+   */
+  export function blink(options) {
+    apply(() => controller.blink(options));
   }
 
   /**
@@ -119,6 +127,10 @@
   });
 
   $effect(() => {
+    apply(() => controller.setBlinkStyle(blinkStyle ?? motion.blink.style));
+  });
+
+  $effect(() => {
     apply(() => controller.setIdleGaze(idleGaze));
   });
 
@@ -155,6 +167,9 @@
   {...rest}
 >
   <defs>
+    <clipPath id="eyes-{uid}-face">
+      <rect x="0" y="0" {width} {height} pointer-events="none" />
+    </clipPath>
     {#each sides as side (side)}
       <mask
         id="eyes-{uid}-{side}"
@@ -170,12 +185,14 @@
       </mask>
     {/each}
   </defs>
-  {#each sides as side (side)}
-    <rect
-      {...shapes[side].rect}
-      fill={color}
-      mask="url(#eyes-{uid}-{side})"
-      pointer-events="none"
-    />
-  {/each}
+  <g clip-path="url(#eyes-{uid}-face)" pointer-events="none">
+    {#each sides as side (side)}
+      <rect
+        {...shapes[side].rect}
+        fill={color}
+        mask="url(#eyes-{uid}-{side})"
+        pointer-events="none"
+      />
+    {/each}
+  </g>
 </svg>

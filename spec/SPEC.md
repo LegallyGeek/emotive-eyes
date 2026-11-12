@@ -13,8 +13,9 @@ generated from the JS reference (`npm run vectors`) and never hand-edited.
 
 ### Coordinates and layout (`face.json` → `layout`)
 
-- Logical face space **200 × 100** units, origin top-left, y down. Renderers scale uniformly to fit and center.
-- `layout = { width: 200, height: 100, eyeWidth: 60, eyeHeight: 70, lidOverscan: 1, eyes: { left: { x: 56, y: 50 }, right: { x: 144, y: 50 } } }`.
+- Logical face space **200 × 100** units, origin top-left, y down. Renderers scale uniformly to fit and center. Renderers clip drawing to the face rectangle (0..width, 0..height): a closed line-merge blink from a wide preset (e.g. `surprised`, `awe`) extends past the face edges, and should end at the screen edge like Cozmo's.
+- `layout = { width: 200, height: 100, eyeWidth: 52, eyeHeight: 56, lidOverscan: 1, eyes: { left: { x: 69, y: 50 }, right: { x: 131, y: 50 } } }`.
+- Cozmo-like proportions: near-square eyes, nearly touching (neutral gap 10 units, about 0.19 of the eye width). Invariants for every preset at rest: the gap between the eyes is at least 2 units and both eyes lie inside the 200 × 100 face. Presets that scale up push the eyes apart with opposite per-eye `offsetX` overrides to keep the gap.
 - "left" is the eye on the viewer's left. The left eye's **inner** (nose-side) edge is its right edge.
 
 ### Eye parameters (`face.json` → `defaults`)
@@ -25,7 +26,7 @@ generated from the JS reference (`npm run vectors`) and never hand-edited.
 | `offsetY`      | 0       | none                  | fraction of `eyeHeight`                                                                                                                                     |
 | `scaleX`       | 1       | ≥ 0                   | width multiplier                                                                                                                                            |
 | `scaleY`       | 1       | ≥ 0                   | height multiplier                                                                                                                                           |
-| `roundness`    | 0.3     | ≥ 0                   | corner radius as fraction of eye height; radius additionally clamped to `min(ew, eh)/2`                                                                     |
+| `roundness`    | 0.22    | ≥ 0                   | corner radius as fraction of eye height; radius additionally clamped to `min(ew, eh)/2`                                                                     |
 | `upperLid`     | 0       | [0, 1]                | 0 open, 1 fully covers the eye from the top                                                                                                                 |
 | `upperLidTilt` | 0       | [-45, 45]             | degrees; positive drops the **inner** corner (angry), negative drops the outer (sad); mirrored per eye                                                      |
 | `lowerLid`     | 0       | [0, 1]                | 0 open, 1 fully covers the eye from the bottom                                                                                                              |
@@ -35,25 +36,7 @@ Springs may overshoot freely; clamping happens only in geometry.
 
 ### Expressions (`face.json` → `expressions`)
 
-Each expression is a partial override of `defaults`, optionally with `left` / `right` partial overrides for asymmetry. Resolution per side: `defaults ← expression (shared keys) ← expression[side]`. Unknown keys, non-numeric values, or nested keys other than `left`/`right` are parse errors. Initial presets (first guesses, to be tuned in the demo):
-
-```json
-{
-  "neutral": {},
-  "happy": { "lowerLid": 0.42, "lowerLidBend": 0.55, "roundness": 0.5, "offsetY": -0.03 },
-  "sad": { "upperLid": 0.32, "upperLidTilt": -20, "scaleY": 0.92, "offsetY": 0.08 },
-  "angry": { "upperLid": 0.38, "upperLidTilt": 24, "scaleY": 0.9, "roundness": 0.22 },
-  "surprised": { "scaleX": 1.08, "scaleY": 1.2, "roundness": 0.42 },
-  "worried": { "upperLid": 0.18, "upperLidTilt": -12, "scaleY": 1.04, "offsetY": 0.04 },
-  "sleepy": { "upperLid": 0.62, "lowerLid": 0.1, "scaleY": 0.85 },
-  "focused": { "upperLid": 0.12, "lowerLid": 0.12, "scaleY": 0.72, "roundness": 0.25 },
-  "suspicious": {
-    "upperLid": 0.2,
-    "left": { "upperLid": 0.5, "upperLidTilt": 8 },
-    "right": { "scaleY": 1.05 }
-  }
-}
-```
+Each expression is a partial override of `defaults`, optionally with `left` / `right` partial overrides for asymmetry. Resolution per side: `defaults ← expression (shared keys) ← expression[side]`. Unknown keys, non-numeric values, or nested keys other than `left`/`right` are parse errors. The 32 presets (names are normative; values live in `spec/runtime/face.json`, designed by eye and inspired by the expressions of Anki's Cozmo robot): `neutral, happy, glee, sad, sad-up, worried, focused, annoyed, surprised, skeptic, frustrated, unimpressed, sleepy, suspicious, squint, angry, furious, scared, awe, joy, bliss, captivated, startled, shocked, concerned, hurt, introspective, bothered, scrutinizing, unsure, curious, asleep`. Notes on the easily confused ones: `happy` is the flat-bottomed dome, `glee` the thicker crescent and `bliss` a thin arch (eyes closed in contentment), `joy` big round eyes with raised cheeks; `sad` looks down, `sad-up` looks up, `introspective` is small round eyes glancing down and inward; `skeptic`, `unsure` and `curious` are lopsided pairs, `suspicious` is both eyes evenly narrowed and `scrutinizing` narrows them harder and unevenly; `asleep` is closed eyes, `sleepy` lopsided drooping lids. Blinks (see Blink timeline) are not presets. Eye rotation is not supported, so `sleepy` approximates tilted eyes with lopsided lids.
 
 ### Geometry (pure; per eye)
 
@@ -86,8 +69,13 @@ Per scalar: `a = stiffness*(target - value) - damping*velocity; velocity = veloc
 
 ### Blink timeline (pure)
 
-`curve(tMs)` with `{closeMs, holdMs, openMs, minScale}`: t<0 → 1; t<close → `1-(1-min)*u*u` (u=t/close); t<close+hold → min; t<close+hold+open → `min+(1-min)*(1-(1-u)*(1-u))` (u=(t-close-hold)/open); else 1.
-With `D = closeMs+holdMs+openMs` and `gap = doubleBlinkGapMs`, a blink's factor at time t is: single → `curve(t)`; double → `t < D: curve(t)`, `t < D+gap: 1`, `t < 2D+gap: curve(t-D-gap)`, else 1. `totalMs = D` (single) or `2D+gap` (double); `totalSteps = steps(totalMs)`.
+A blink is a table of keyframes `{ height, width, ms }` (`height`/`width` are multipliers of the eye's scaleY/scaleX), selected by a named **style**. The shipped tables sample our own curve: a smoothstep close (100 ms), a short closed hold (30 ms) and a slower cubic ease-out opening (190 ms), 320 ms in total, closing to a line 0.04 of the eye height thick.
+
+- **Styles.** `narrow` (default): each eye shrinks to its own thin line (every `width` is 1). `wide`: the eyes also grow wide as they close, `width = 1 + 5 * closure²` with `closure = (1 - height) / (1 - 0.04)`, reaching 6× at the closed moment so the pair merges into one line spanning the whole face (renderers clip to the face). Both share the same heights and durations.
+- **Timeline of one blink.** Points: `P0 = (t 0, h 1, w 1)`, then keyframe `k` at `t_k = ms_0 + … + ms_k`; `D = t_last`. For `0 ≤ t < D`, take the segment `[t_{k-1}, t_k]` containing `t` (`t_{-1} = 0` carrying P0's values) and `u = (t - t_{k-1}) / ms_k`: `h = h_{k-1} + (h_k - h_{k-1}) * u`, and the same for `w`. Outside `[0, D)` the result is `(1, 1)`.
+- **Double blink.** `t < D` → single(t); `t < D + gap` → (1, 1); `t < 2D + gap` → single(`t - D - gap`); else (1, 1), with `gap = doubleBlinkGapMs`. `totalMs = D` (single) or `2D + gap` (double); `totalSteps = steps(totalMs)`.
+- **Captured at blink start:** the style (set by `setBlinkStyle`, default `blink.style`) and the anchor (from `blink({anchor})`, default `blink.anchor`). Both halves of a double blink use them. `anchor` is in [-1, 1]: -1 forms the line at the top of the eye ("blink high"), +1 at the bottom ("blink low"), 0 at the centre.
+- **Levelling.** Once the eye is thinner than `levelFrom`, the lids fade and the two eyes converge to one height and thickness, reaching it at `levelTo` (defaults 0.85 and 0.15: the lids fade early enough that no lopsided lid is left on a stretching eye, which would show as a diagonal sliver in the wide style) (see Animator → Frame), so the closed line is clean and level whatever the expression.
 
 ### Motion defaults (`motion.json`)
 
@@ -101,18 +89,36 @@ With `D = closeMs+holdMs+openMs` and `gap = doubleBlinkGapMs`, a blink's factor 
     "gaze": { "stiffness": 700, "damping": 45 }
   },
   "blink": {
-    "closeMs": 70,
-    "holdMs": 20,
-    "openMs": 120,
-    "minScale": 0.1,
     "intervalMs": [2000, 6000],
     "doubleBlinkChance": 0.15,
-    "doubleBlinkGapMs": 90
+    "doubleBlinkGapMs": 90,
+    "anchor": 0,
+    "style": "narrow",
+    "levelFrom": 0.85,
+    "levelTo": 0.15,
+    "styles": {
+      "wide": [
+        { "height": 0.9, "width": 1.054, "ms": 20 },
+        { "height": 0.662, "width": 1.62, "ms": 20 },
+        { "height": 0.378, "width": 3.099, "ms": 20 },
+        { "height": 0.14, "width": 5.013, "ms": 20 },
+        { "height": 0.04, "width": 6, "ms": 20 },
+        { "height": 0.04, "width": 6, "ms": 30 },
+        { "height": 0.508, "width": 2.313, "ms": 38 },
+        { "height": 0.793, "width": 1.232, "ms": 38 },
+        { "height": 0.939, "width": 1.02, "ms": 38 },
+        { "height": 0.992, "width": 1, "ms": 38 },
+        { "height": 1, "width": 1, "ms": 38 }
+      ],
+      "narrow": "the same heights and ms as `wide`, every width 1"
+    }
   },
   "saccade": { "intervalMs": [1200, 3500], "amplitude": { "x": 0.08, "y": 0.05 } },
   "glance": { "holdMs": 900, "offset": { "x": 0.28, "y": 0.18 } }
 }
 ```
+
+Blink parser rules: every style is a non-empty array with `height ≥ 0`, `width > 0`, `ms > 0`; the **last keyframe must be `height 1, width 1`**; `style` must name an existing style; `0 ≤ levelTo < levelFrom ≤ 1`; `anchor` in [-1, 1]. The old fields `closeMs`, `holdMs`, `openMs`, `minScale`, `stretchX` are removed and are parse errors. In `motion.json` itself the `narrow` value is a full keyframe array (shown abbreviated above).
 
 `substepHz` is fixed for an animator's lifetime. Spring constants may change at runtime via `setSprings`.
 
@@ -120,7 +126,7 @@ With `D = closeMs+holdMs+openMs` and `gap = doubleBlinkGapMs`, a blink's factor 
 
 `createFaceAnimator({ motion, random, initial, blinking = true, idleGaze = true, reducedMotion = false })`, where `initial = { left: params, right: params }` (fully resolved per-eye params; the animator knows nothing about expression names).
 
-**State:** 18 expression springs (9 params × 2 eyes) initialised at `initial` with velocity 0 and target = value; gaze springs `gx`, `gy` at 0; three integer timers — `blinkTimer`, `saccadeTimer`, `glanceTimer` — each with a count and an active flag; blink state `{ inProgress, elapsedSteps, isDouble, totalSteps }`; flags `blinking`, `idleGaze`, `reducedMotion`. `saccadesEnabled = idleGaze && !reducedMotion`.
+**State:** 18 expression springs (9 params × 2 eyes) initialised at `initial` with velocity 0 and target = value; gaze springs `gx`, `gy` at 0; three integer timers — `blinkTimer`, `saccadeTimer`, `glanceTimer` — each with a count and an active flag; blink state `{ inProgress, elapsedSteps, isDouble, totalSteps, anchor }`; flags `blinking`, `idleGaze`, `reducedMotion`. `saccadesEnabled = idleGaze && !reducedMotion`.
 
 **Random draws** (each `random()` ∈ [0,1); order is normative):
 
@@ -133,9 +139,10 @@ With `D = closeMs+holdMs+openMs` and `gap = doubleBlinkGapMs`, a blink's factor 
 **Commands (take effect at call time, before the next substep):**
 
 - `setTarget({left, right})`: set the 18 spring targets; values and velocities are kept (interruptible).
-- `blink()`: if a blink is in progress, no-op with no draws; otherwise blink start.
+- `blink(options?)`: `options.anchor` in [-1, 1] (default `blink.anchor`) is the anchor for this blink, both halves of a double blink included. If a blink is in progress, no-op with no draws; otherwise blink start. The anchor is not random, so the draw order is unchanged. Automatic blinks use `blink.anchor`. `blink({ anchor })` rejects an anchor outside [-1, 1].
 - `glance({x, y})`: gaze target = `(x*glance.offset.x, y*glance.offset.y)`, `glanceTimer = steps(glance.holdMs)`, active (restarts if already active). Works in reduced motion too; there the gaze springs are critically damped, so the glance has no bounce.
 - `setReducedMotion(true)`: apply the saccade rule above (idle saccades stop; gaze target returns to (0,0) unless a glance is active) and switch every spring to critical damping. An active glance continues. Blinking is unaffected. `setReducedMotion(false)`: restore configured damping; saccade rule above.
+- `setBlinkStyle(name)`: sets the style captured by subsequent blink starts (an in-progress blink keeps its style). An unknown name throws.
 - `setSprings({ expression?, gaze? })`: replace those spring constants for subsequent substeps.
 
 **`step(dtMs)`:** if `dtMs` is NaN or negative treat as 0; `dt = min(dtMs, maxStepMs)`; `acc = acc + dt`; `n = floor(acc / hMs)` with `hMs = 1000 / substepHz`; `acc = acc - n * hMs`; run `n` substeps; return the current frame (also when `n = 0`).
@@ -146,10 +153,16 @@ With `D = closeMs+holdMs+openMs` and `gap = doubleBlinkGapMs`, a blink's factor 
 2. Integrate the 18 expression springs, then `gx`, `gy`.
 3. If a blink is in progress: `elapsedSteps += 1`; if `elapsedSteps >= totalSteps`, the blink ends (`inProgress = false`).
 
-**Frame:** per eye, the 9 spring values with overlays `offsetX += gx`, `offsetY += gy`, `scaleY *= factor`, where `factor = blinkFactor(elapsedSteps * hMs)` if a blink is in progress, else 1.
+**Frame:** per eye. Inputs: `(h, w)` from the blink timeline of the in-progress blink's captured style (`(1, 1)` when no blink is in progress); the spring values `s.*`; the in-progress blink's captured `anchor`; and, over both eyes, `avgOffsetY = (sL.offsetY + sR.offsetY) / 2`, `avgScaleY = (sL.scaleY + sR.scaleY) / 2`. In this order:
 
-**`isSettled()`:** every one of the 20 springs has `abs(value - target) < settleEpsilon` and `abs(velocity) < settleEpsilon`, no blink in progress, and no glance active.
-**`msUntilNextEvent()`:** `min(count) * hMs` over timers that will decrement on the next substep (active blink timer; active saccade timer if no glance is active; active glance timer); `Infinity` if none (serialised as `null` in vectors).
+1. `k = clamp((levelFrom - h) / (levelFrom - levelTo), 0, 1)`
+2. `upperLid = s.upperLid * (1 - k)`; `upperLidTilt = s.upperLidTilt * (1 - k)`; `lowerLid = s.lowerLid * (1 - k)`; `lowerLidBend = s.lowerLidBend * (1 - k)`
+3. `levelOffsetY = s.offsetY + (avgOffsetY - s.offsetY) * k`
+4. `sYb = s.scaleY + (avgScaleY - s.scaleY) * k`
+5. `offsetX = s.offsetX + gx`
+6. `offsetY = levelOffsetY + (gy + anchor * (1 - h) * sYb / 2)`
+7. `scaleX = s.scaleX * w`; `scaleY = sYb * h`
+8. `roundness` is unchanged.
 
 Drivers may stop their frame loop while settled, sleep `msUntilNextEvent()` (only if finite), then call `step(actualElapsedMs)` measured from the clock, not the nominal delay. **Catch up before every command:** before applying any command (`setTarget`/`setExpression`/`setStatuses`, `blink`, `glance`, flag setters, `setSprings`), a driver must first call `step(elapsedMs)` for the real time since its last step, then apply the command, then render and reschedule. Stepping the idle time after the command integrates it against the new target, so a transition (or a whole glance) completes inside one frame.
 
@@ -178,16 +191,16 @@ Drivers may stop their frame loop while settled, sleep `msUntilNextEvent()` (onl
 
 ### Controller (interfaces)
 
-`createEyesController({ face, motion, status, random, initialExpression = "neutral", blinking, idleGaze, reducedMotion })` → `setExpression(nameOrObject)` (unknown name throws; an object is a partial expression resolved like a preset), `setStatuses(inputs)` (updates tracker, sets target, glances), `glance(dir)`, `blink()`, `setBlinking`, `setIdleGaze`, `setReducedMotion`, `setSprings`, `step(dtMs) → { shapes: {left, right}, geometry: {left, right} }`, `isSettled`, `msUntilNextEvent`, `expressionNames`. The last of `setExpression` / `setStatuses` wins. Same API on both platforms (Kotlin idioms allowed).
+`createEyesController({ face, motion, status, random, initialExpression = "neutral", blinking, idleGaze, reducedMotion })` → `setExpression(nameOrObject)` (unknown name throws; an object is a partial expression resolved like a preset), `setStatuses(inputs)` (updates tracker, sets target, glances), `glance(dir)`, `blink(options?)` (`{ anchor? }`, invalid values throw), `setBlinkStyle(name)` (unknown names throw), `setBlinking`, `setIdleGaze`, `setReducedMotion`, `setSprings`, `step(dtMs) → { shapes: {left, right}, geometry: {left, right} }`, `isSettled`, `msUntilNextEvent`, `expressionNames`. The last of `setExpression` / `setStatuses` wins. Same API on both platforms (Kotlin idioms allowed).
 
 ### Test vectors (`spec/vectors/`)
 
 Generated by `js/scripts/generate-vectors.js`; byte-identical on re-run; a JS test asserts checked-in vectors equal a fresh generation.
 
-- `geometry.json`: `{ layout, cases: [{ name, left, right, expected: { left, right } }] }` — every preset plus edge cases (clamped lids, zero scale, ±45° tilt, negative bend, huge roundness, a bow-tie-prone case: `upperLid: 0, upperLidTilt: 30`).
+- `geometry.json`: `{ layout, cases: [{ name, left, right, expected: { left, right } }] }` — every preset (19) plus edge cases (clamped lids, zero scale, ±45° tilt, negative bend, huge roundness, a bow-tie-prone case: `upperLid: 0, upperLidTilt: 30`).
 - `spring.json`: `{ cases: [{ name, stiffness, damping, substepHz, start: {value, velocity}, target, steps, expected: [{value, velocity}] /* after every substep */ }] }`.
-- `blink.json`: `{ cases: [{ name, blink, isDouble, samples: [{ tMs, factor }] }] }` including boundary times.
-- `animator.json`: `{ cases: [{ name, motion, randoms: [...], initial: {left, right}, flags: {blinking, idleGaze, reducedMotion}, ops: [{op:"step", dt} | {op:"setTarget", left, right} | {op:"blink"} | {op:"glance", x, y} | {op:"setBlinking", value} | {op:"setIdleGaze", value} | {op:"setReducedMotion", value} | {op:"setSprings", springs}], expected: [{ afterOp, left, right, settled, msUntilNextEvent, randomsConsumed }] }] }` — an expected entry after every op. Test random sources return `randoms` in order and **throw when exhausted**. Cases must cover: uneven dt (e.g. 16.6, 33.4, 7, 250), a timer landing exactly on a substep boundary, interrupted transition, manual blink during a blink, double blink, glance during saccades, glance restart, toggling every flag, reduced motion, `setSprings`, a settle-and-resume with a large dt.
+- `blink.json`: `{ cases: [{ name, keyframes, doubleBlinkGapMs, isDouble, samples: [{ tMs, height, width }] }] }` for both styles, single and double, including every keyframe time and boundary times.
+- `animator.json`: `{ cases: [{ name, motion, randoms: [...], initial: {left, right}, flags: {blinking, idleGaze, reducedMotion}, ops: [{op:"step", dt} | {op:"setTarget", left, right} | {op:"blink", anchor?} | {op:"setBlinkStyle", name} | {op:"glance", x, y} | {op:"setBlinking", value} | {op:"setIdleGaze", value} | {op:"setReducedMotion", value} | {op:"setSprings", springs}], expected: [{ afterOp, left, right, settled, msUntilNextEvent, randomsConsumed }] }] }` — an expected entry after every op. Test random sources return `randoms` in order and **throw when exhausted**. Cases must cover: uneven dt (e.g. 16.6, 33.4, 7, 250), a timer landing exactly on a substep boundary, interrupted transition, manual blink during a blink, double blink, glance during saccades, glance restart, toggling every flag, reduced motion, `setSprings`, a settle-and-resume with a large dt, both blink styles, a `setBlinkStyle` during a blink (applies at the next blink), levelling from an asymmetric expression, and lids cleared at closure.
 - `status.json`: `{ status, sequences: [{ name, updates: [inputs], expected: [{ expression, glance }] }] }`.
 - Tolerance on both platforms: absolute `1e-9` (only geometry's `tan` may differ in the last ULP).
 

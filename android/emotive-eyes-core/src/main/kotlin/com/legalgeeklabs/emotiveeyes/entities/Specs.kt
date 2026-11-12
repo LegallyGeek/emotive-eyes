@@ -24,15 +24,37 @@ public data class Vec2(
     val y: Double,
 )
 
-/** Blink timing (motion.json `blink`). */
+/** One blink keyframe: eye height and width multipliers reached [ms] after the previous keyframe. */
+public data class BlinkKeyframe(
+    val height: Double,
+    val width: Double,
+    val ms: Double,
+)
+
+/** Height and width multipliers of a blink at one instant; (1, 1) means no blink. */
+public data class BlinkSample(
+    val height: Double,
+    val width: Double,
+)
+
+/**
+ * Blink behaviour (motion.json `blink`).
+ *
+ * @property anchor default line position for automatic blinks, in `[-1, 1]`: -1 top, 0 centre, +1 bottom
+ * @property style name of the default entry in [styles]
+ * @property levelFrom eye height multiplier below which lids fade and the eyes start levelling
+ * @property levelTo height multiplier at or below which lids are gone and both eyes are level
+ * @property styles named keyframe tables; each ends at height 1, width 1
+ */
 public data class BlinkSpec(
-    val closeMs: Double,
-    val holdMs: Double,
-    val openMs: Double,
-    val minScale: Double,
     val intervalMs: Interval,
     val doubleBlinkChance: Double,
     val doubleBlinkGapMs: Double,
+    val anchor: Double,
+    val style: String,
+    val levelFrom: Double,
+    val levelTo: Double,
+    val styles: Map<String, List<BlinkKeyframe>>,
 )
 
 /** Idle gaze saccades (motion.json `saccade`). */

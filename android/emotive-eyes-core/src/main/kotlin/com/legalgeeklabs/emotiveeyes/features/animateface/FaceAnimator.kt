@@ -1,5 +1,7 @@
 package com.legalgeeklabs.emotiveeyes.features.animateface
 
+import com.legalgeeklabs.emotiveeyes.entities.BlinkKeyframe
+import com.legalgeeklabs.emotiveeyes.entities.BlinkSample
 import com.legalgeeklabs.emotiveeyes.entities.EyeParams
 import com.legalgeeklabs.emotiveeyes.entities.FaceParams
 import com.legalgeeklabs.emotiveeyes.entities.MotionSpec
@@ -7,7 +9,8 @@ import com.legalgeeklabs.emotiveeyes.entities.Spring
 import com.legalgeeklabs.emotiveeyes.entities.SpringConstants
 import com.legalgeeklabs.emotiveeyes.entities.SpringOverride
 import com.legalgeeklabs.emotiveeyes.entities.Vec2
-import com.legalgeeklabs.emotiveeyes.entities.blinkFactor
+import com.legalgeeklabs.emotiveeyes.entities.blinkLevel
+import com.legalgeeklabs.emotiveeyes.entities.blinkSample
 import com.legalgeeklabs.emotiveeyes.entities.blinkTotalMs
 import com.legalgeeklabs.emotiveeyes.entities.criticalDamping
 import com.legalgeeklabs.emotiveeyes.entities.intervalSteps
@@ -32,6 +35,8 @@ private class BlinkState {
     var elapsedSteps = 0
     var isDouble = false
     var totalSteps = 0
+    var anchor = 0.0
+    var keyframes: List<BlinkKeyframe> = emptyList()
 }
 
 /**
@@ -75,6 +80,7 @@ public class FaceAnimator(
     private var blinkingFlag = blinking
     private var idleGazeFlag = idleGaze
     private var reducedMotionFlag = reducedMotion
+    private var blinkStyle = blinkCfg.style
     private var acc = 0.0
 
     init {
@@ -101,13 +107,17 @@ public class FaceAnimator(
         gy.target = y
     }
 
-    private fun startBlink() {
+    // Style and anchor are captured here so both halves of a double blink agree.
+    private fun startBlink(anchor: Double) {
         val rDouble = random.next()
         val rNext = random.next()
         blinkState.isDouble = rDouble < blinkCfg.doubleBlinkChance
         blinkState.inProgress = true
+        blinkState.anchor = anchor
+        blinkState.keyframes = blinkCfg.styles.getValue(blinkStyle)
         blinkState.elapsedSteps = 0
-        blinkState.totalSteps = steps(blinkTotalMs(blinkCfg, blinkState.isDouble), hz)
+        blinkState.totalSteps =
+            steps(blinkTotalMs(blinkState.keyframes, blinkCfg.doubleBlinkGapMs, blinkState.isDouble), hz)
         blinkTimer.count = blinkState.totalSteps + drawBlinkInterval(rNext)
         blinkTimer.active = blinkingFlag
     }
@@ -134,7 +144,7 @@ public class FaceAnimator(
     private fun substep() {
         if (blinkTimer.active) {
             blinkTimer.count -= 1
-            if (blinkTimer.count <= 0) startBlink()
+            if (blinkTimer.count <= 0) startBlink(blinkCfg.anchor)
         }
         // The glance-active check must precede the glance timer's decrement below.
         if (saccadeTimer.active && !glanceTimer.active) {
@@ -165,28 +175,46 @@ public class FaceAnimator(
 
     private fun eyeFrame(
         s: List<Spring>,
-        factor: Double,
-    ) = EyeParams(
-        offsetX = s[0].value + gx.value,
-        offsetY = s[1].value + gy.value,
-        scaleX = s[2].value,
-        scaleY = s[3].value * factor,
-        roundness = s[4].value,
-        upperLid = s[5].value,
-        upperLidTilt = s[6].value,
-        lowerLid = s[7].value,
-        lowerLidBend = s[8].value,
-    )
+        sample: BlinkSample,
+        k: Double,
+        avgOffsetY: Double,
+        avgScaleY: Double,
+    ): EyeParams {
+        val levelOffsetY = s[1].value + (avgOffsetY - s[1].value) * k
+        val scaleYBase = s[3].value + (avgScaleY - s[3].value) * k
+        return EyeParams(
+            offsetX = s[0].value + gx.value,
+            offsetY = levelOffsetY + (gy.value + (blinkState.anchor * (1 - sample.height) * scaleYBase) / 2),
+            scaleX = s[2].value * sample.width,
+            scaleY = scaleYBase * sample.height,
+            roundness = s[4].value,
+            upperLid = s[5].value * (1 - k),
+            upperLidTilt = s[6].value * (1 - k),
+            lowerLid = s[7].value * (1 - k),
+            lowerLidBend = s[8].value * (1 - k),
+        )
+    }
 
     /** The current frame without advancing time. */
     public fun frame(): FaceParams {
-        val factor =
+        val sample =
             if (blinkState.inProgress) {
-                blinkFactor(blinkState.elapsedSteps * hMs, blinkCfg, blinkState.isDouble)
+                blinkSample(
+                    blinkState.elapsedSteps * hMs,
+                    blinkState.keyframes,
+                    blinkCfg.doubleBlinkGapMs,
+                    blinkState.isDouble,
+                )
             } else {
-                1.0
+                BlinkSample(1.0, 1.0)
             }
-        return FaceParams(eyeFrame(leftSprings, factor), eyeFrame(rightSprings, factor))
+        val k = blinkLevel(sample.height, blinkCfg.levelFrom, blinkCfg.levelTo)
+        val avgOffsetY = (leftSprings[1].value + rightSprings[1].value) / 2
+        val avgScaleY = (leftSprings[3].value + rightSprings[3].value) / 2
+        return FaceParams(
+            eyeFrame(leftSprings, sample, k, avgOffsetY, avgScaleY),
+            eyeFrame(rightSprings, sample, k, avgOffsetY, avgScaleY),
+        )
     }
 
     /**
@@ -216,9 +244,16 @@ public class FaceAnimator(
         p.toList().forEachIndexed { i, v -> springs[i].target = v }
     }
 
-    /** Starts a blink unless one is in progress (then a no-op that draws nothing). */
-    public fun blink() {
-        if (!blinkState.inProgress) startBlink()
+    /**
+     * Starts a blink unless one is in progress (then a no-op that draws nothing).
+     *
+     * @param anchor where the closed line forms, in `[-1, 1]` (-1 top, 0 centre, +1 bottom), for both halves of
+     *   a double blink; `null` uses the configured default
+     * @throws IllegalArgumentException if [anchor] is outside `[-1, 1]`
+     */
+    public fun blink(anchor: Double? = null) {
+        require(anchor == null || anchor in -1.0..1.0) { "blink.anchor: must be within [-1, 1]" }
+        if (!blinkState.inProgress) startBlink(anchor ?: blinkCfg.anchor)
     }
 
     /** Looks toward [direction] (components in `[-1, 1]`) for the configured hold; works under reduced motion too (critically damped). */
@@ -226,6 +261,16 @@ public class FaceAnimator(
         setGazeTarget(direction.x * glanceCfg.offset.x, direction.y * glanceCfg.offset.y)
         glanceTimer.count = steps(glanceCfg.holdMs, hz)
         glanceTimer.active = true
+    }
+
+    /**
+     * Selects the keyframe table used from the next blink start; a blink in progress is unaffected.
+     *
+     * @throws IllegalArgumentException if [name] is not a style in the motion spec
+     */
+    public fun setBlinkStyle(name: String) {
+        require(name in blinkCfg.styles) { "Unknown blink style \"$name\"" }
+        blinkStyle = name
     }
 
     /** Enables or disables automatic blinking; an in-progress blink always finishes. No-op if unchanged. */

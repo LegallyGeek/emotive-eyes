@@ -7,7 +7,7 @@ numerically equal (1e-9) to the JS reference by the shared `spec/vectors/*.json`
 |---|---|---|
 | `emotive-eyes-core` | `entities`, `features`, `interfaces` | Pure Kotlin/JVM, no Android or Compose. `FaceAnimator`, `StatusTracker`, `SpecParser` (kotlinx.serialization), `EyesController`. |
 | `emotive-eyes-compose` | `drivers` | Android library. `drivers.compose`: `Eyes`, `EyesState`. `drivers.android`: asset spec loader, random adapter, system reduced-motion. Packages `spec/runtime/*.json` as assets. |
-| `demo` | app | Pure-black demo: eyes pinned on top; expression chips, Cycle all, status simulator, toggles, color. Sized for the Light Phone III (1080x1240 @ 420 dpi). |
+| `demo` | app | Pure-black demo: eyes pinned on top; chips for all 32 presets (wrapping block, scrolls under the pinned eyes), Cycle all, Blink / Blink high / Blink low, Narrow/Wide blink style, status simulator, toggles, color. Sized for the Light Phone III (1080x1240 @ 420 dpi). |
 
 Toolchain: Gradle 9.6.0, AGP 9.5.1, Kotlin 2.4.21, Compose BOM 2026.06.01 (Compose 1.11.4; newer
 BOMs need compileSdk 37), compileSdk 36, minSdk 26, JDK 17.
@@ -19,12 +19,15 @@ val state = rememberEyesState()
 Box(Modifier.fillMaxSize().background(Color.Black)) {
     Eyes(Modifier.fillMaxWidth().aspectRatio(2f), state = state, expression = "happy")
 }
-state.blink()
+state.blink()                 // default anchor and style
+state.blink(anchor = -0.5)    // "blink high": line forms above centre (+0.5 for low)
 state.glance(Vec2(1.0, 0.0))
 state.setStatuses(listOf(StatusInput("net", "error", Vec2(1.0, 0.0))))
 ```
 
 Reduced motion (system "remove animations" by default) means critically damped transitions and glances, no idle saccades, blinks kept; the demo has a switch to override it.
+
+Blinks follow a keyframe table from `motion.json`: `narrow` (default) shrinks each eye to its own line, `wide` merges both eyes into one line. While closing, lids fade and the eyes level, so the closed line is always clean. `state.setBlinkStyle("wide")` applies from the next blink; `anchor` in `[-1, 1]` picks where the line forms. Drawing is clipped to the face rectangle, so wide blinks end at the panel edge.
 
 `Eyes` draws only the eyes (white by default, glow off; glow needs API 31+). The frame loop sleeps
 while settled. Every `EyesState` command first steps the clock to "now", then mutates, then wakes

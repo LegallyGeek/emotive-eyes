@@ -92,9 +92,23 @@ public class EyesController(
         animator.glance(direction)
     }
 
-    /** Starts a blink unless one is in progress. */
-    public fun blink() {
-        animator.blink()
+    /**
+     * Starts a blink unless one is in progress.
+     *
+     * @param anchor where the closed line forms, in `[-1, 1]` (-1 top, 0 centre, +1 bottom); `null` uses the default
+     * @throws IllegalArgumentException if [anchor] is outside `[-1, 1]`
+     */
+    public fun blink(anchor: Double? = null) {
+        animator.blink(anchor)
+    }
+
+    /**
+     * Selects the blink keyframe table used from the next blink start.
+     *
+     * @throws IllegalArgumentException if [name] is not a style in the motion spec
+     */
+    public fun setBlinkStyle(name: String) {
+        animator.setBlinkStyle(name)
     }
 
     /** Enables or disables automatic blinking. */

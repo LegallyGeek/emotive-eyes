@@ -1,4 +1,4 @@
-import { blinkFactor, blinkTotalMs } from '../../entities/blink.js';
+import { blinkLevel, blinkSample, blinkTotalMs } from '../../entities/blink.js';
 import { PARAM_KEYS, SIDES } from '../../entities/eye-shape.js';
 import { createSpring, criticalDamping, stepSpring } from '../../entities/spring.js';
 import { intervalSteps, steps } from '../../entities/timing.js';
@@ -10,8 +10,9 @@ import { intervalSteps, steps } from '../../entities/timing.js';
  * @property {(dtMs: number) => FaceParams} step advances time and returns the current frame
  * @property {() => FaceParams} frame current frame without advancing time
  * @property {(target: FaceParams) => void} setTarget
- * @property {() => void} blink
+ * @property {(options?: { anchor?: number }) => void} blink `anchor` in [-1, 1]: -1 line forms at the top, +1 at the bottom
  * @property {(dir: { x: number, y: number }) => void} glance works under reduced motion too (critically damped)
+ * @property {(name: string) => void} setBlinkStyle takes effect at the next blink start; unknown names throw
  * @property {(value: boolean) => void} setBlinking
  * @property {(value: boolean) => void} setIdleGaze
  * @property {(value: boolean) => void} setReducedMotion critical damping and no idle saccades; an active glance continues
@@ -64,7 +65,15 @@ export function createFaceAnimator({
   const blinkTimer = newTimer();
   const saccadeTimer = newTimer();
   const glanceTimer = newTimer();
-  const blinkState = { inProgress: false, elapsedSteps: 0, isDouble: false, totalSteps: 0 };
+  const blinkState = {
+    inProgress: false,
+    elapsedSteps: 0,
+    isDouble: false,
+    totalSteps: 0,
+    anchor: 0,
+    keyframes: blinkCfg.styles[blinkCfg.style],
+  };
+  let blinkStyle = blinkCfg.style;
   const flags = { blinking, idleGaze, reducedMotion };
   let acc = 0;
 
@@ -84,13 +93,19 @@ export function createFaceAnimator({
   saccadeTimer.count = drawSaccadeInterval(rSaccade);
   saccadeTimer.active = saccadesEnabled();
 
-  function startBlink() {
+  // Style and anchor are captured here so both halves of a double blink agree.
+  function startBlink(anchor) {
     const rDouble = random();
     const rNext = random();
     blinkState.isDouble = rDouble < blinkCfg.doubleBlinkChance;
     blinkState.inProgress = true;
+    blinkState.anchor = anchor;
+    blinkState.keyframes = blinkCfg.styles[blinkStyle];
     blinkState.elapsedSteps = 0;
-    blinkState.totalSteps = steps(blinkTotalMs(blinkCfg, blinkState.isDouble), hz);
+    blinkState.totalSteps = steps(
+      blinkTotalMs(blinkState.keyframes, blinkCfg.doubleBlinkGapMs, blinkState.isDouble),
+      hz,
+    );
     blinkTimer.count = blinkState.totalSteps + drawBlinkInterval(rNext);
     blinkTimer.active = flags.blinking;
   }
@@ -118,7 +133,7 @@ export function createFaceAnimator({
   function substep() {
     if (blinkTimer.active) {
       blinkTimer.count -= 1;
-      if (blinkTimer.count <= 0) startBlink();
+      if (blinkTimer.count <= 0) startBlink(blinkCfg.anchor);
     }
     if (saccadeTimer.active && !glanceTimer.active) {
       saccadeTimer.count -= 1;
@@ -147,17 +162,35 @@ export function createFaceAnimator({
   }
 
   function frame() {
-    const factor = blinkState.inProgress
-      ? blinkFactor(blinkState.elapsedSteps * hMs, blinkCfg, blinkState.isDouble)
-      : 1;
+    const { height: h, width: w } = blinkState.inProgress
+      ? blinkSample(
+          blinkState.elapsedSteps * hMs,
+          blinkState.keyframes,
+          blinkCfg.doubleBlinkGapMs,
+          blinkState.isDouble,
+        )
+      : { height: 1, width: 1 };
+    const k = blinkLevel(h, blinkCfg.levelFrom, blinkCfg.levelTo);
+    const l = eyes.left;
+    const r = eyes.right;
+    const avgOffsetY = (l.offsetY.value + r.offsetY.value) / 2;
+    const avgScaleY = (l.scaleY.value + r.scaleY.value) / 2;
     const out = {};
     for (const side of SIDES) {
       const s = eyes[side];
-      out[side] = {};
-      for (const key of PARAM_KEYS) out[side][key] = s[key].value;
-      out[side].offsetX = s.offsetX.value + gx.value;
-      out[side].offsetY = s.offsetY.value + gy.value;
-      out[side].scaleY = s.scaleY.value * factor;
+      const levelOffsetY = s.offsetY.value + (avgOffsetY - s.offsetY.value) * k;
+      const sYb = s.scaleY.value + (avgScaleY - s.scaleY.value) * k;
+      out[side] = {
+        offsetX: s.offsetX.value + gx.value,
+        offsetY: levelOffsetY + (gy.value + (blinkState.anchor * (1 - h) * sYb) / 2),
+        scaleX: s.scaleX.value * w,
+        scaleY: sYb * h,
+        roundness: s.roundness.value,
+        upperLid: s.upperLid.value * (1 - k),
+        upperLidTilt: s.upperLidTilt.value * (1 - k),
+        lowerLid: s.lowerLid.value * (1 - k),
+        lowerLidBend: s.lowerLidBend.value * (1 - k),
+      };
     }
     return out;
   }
@@ -181,13 +214,17 @@ export function createFaceAnimator({
         for (const key of PARAM_KEYS) eyes[side][key].target = target[side][key];
       }
     },
-    blink() {
-      if (!blinkState.inProgress) startBlink();
+    blink(options) {
+      if (!blinkState.inProgress) startBlink(options?.anchor ?? blinkCfg.anchor);
     },
     glance({ x, y }) {
       setGazeTarget(x * glanceCfg.offset.x, y * glanceCfg.offset.y);
       glanceTimer.count = steps(glanceCfg.holdMs, hz);
       glanceTimer.active = true;
+    },
+    setBlinkStyle(name) {
+      if (!Object.hasOwn(blinkCfg.styles, name)) throw new Error(`Unknown blink style "${name}"`);
+      blinkStyle = name;
     },
     setBlinking(value) {
       if (flags.blinking === value) return;

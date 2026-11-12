@@ -41,7 +41,7 @@ completes in a single frame.
 
 - `defaultSpec` - `{ face, motion, status }`, the validated `spec/runtime/*.json`.
 - `createEyesController(options)` - `setExpression`, `setStatuses`, `glance`, `blink`, `setBlinking`,
-  `setIdleGaze`, `setReducedMotion`, `setSprings`, `step`, `isSettled`, `msUntilNextEvent`,
+  `setBlinkStyle`, `setIdleGaze`, `setReducedMotion`, `setSprings`, `step`, `isSettled`, `msUntilNextEvent`,
   `expressionNames`. An unknown expression name throws.
 - `createFaceAnimator(options)` - the deterministic animator (`step`, `frame`, `setTarget`, ...).
 - `createStatusTracker(statusSpec)` - `update(inputs) -> { expression, glance }`.
@@ -50,6 +50,24 @@ completes in a single frame.
 - `parseFaceSpec`, `parseMotionSpec`, `parseStatusSpec`, `parseExpression`,
   `parseSpringOverrides`, `SpecError` - validation with path-qualified error messages.
 - `PARAM_KEYS` - the nine eye parameter names.
+
+## Presets and blinks
+
+`defaultSpec.face.expressions` holds 32 presets, designed by eye and inspired by Cozmo's expressions:
+`neutral, happy, glee, sad, sad-up, worried, focused, annoyed, surprised, skeptic, frustrated,
+unimpressed, sleepy, suspicious, squint, angry, furious, scared, awe, joy, bliss, captivated,
+startled, shocked, concerned, hurt, introspective, bothered, scrutinizing, unsure, curious, asleep`.
+
+Blinks are keyframe tables (`motion.blink.styles`, 320 ms: a smoothstep close, a short closed hold
+and a slower ease-out opening). Two styles:
+`narrow` (default) shrinks each eye to its own thin line; `wide` also widens the eyes as they close, up to 6x at the closed moment, so the pair merges into one line. Switch with `setBlinkStyle(name)` (applies from the next blink;
+unknown names throw) or `motion.blink.style`. While the eye is thinner than `levelFrom` the lids
+fade and the eyes level to one height, so the closed line is clean for every expression.
+
+`blink(options?)` takes `{ anchor }` in `[-1, 1]` (-1 the line forms at the top of the eye, +1 at
+the bottom, 0 the centre; default is `motion.blink.anchor`). Style and anchor are captured at blink
+start. Full anchors put the line at the very edge of a resting eye; the Cozmo "Blink (high/low)"
+faces sit closer to the centre, about `anchor: -0.5` / `0.5`.
 
 ## Reduced motion
 
@@ -96,20 +114,26 @@ animation loop (`frame-loop.js`, with injectable scheduling seams) and an SVG vi
 <button onclick={() => eyes.blink()}>Blink</button>
 ```
 
-| Prop            | Default        | Meaning                                                                      |
-| --------------- | -------------- | ---------------------------------------------------------------------------- |
-| `expression`    | `'neutral'`    | preset name or partial expression object (throws on an unknown name)         |
-| `statuses`      | `null`         | `[{ id, status, direction? }]`; when set it takes precedence over expression |
-| `color`         | `'#FFFFFF'`    | eye fill                                                                     |
-| `glow`          | `false`        | CSS drop-shadow glow in `color`                                              |
-| `blinking`      | `true`         | automatic blinks                                                             |
-| `idleGaze`      | `true`         | automatic saccades                                                           |
-| `springs`       | `null`         | partial `{ expression?, gaze? }` override of the spec spring constants       |
-| `timeScale`     | `1`            | simulated time per real time (`0.25` = slow motion, `0` freezes)             |
-| `reducedMotion` | `null`         | `true`/`false` forces it; `null` follows `prefers-reduced-motion` (live)     |
-| `label`         | `'Robot eyes'` | `aria-label` of the `role="img"` SVG; other attributes pass through          |
+| Prop            | Default        | Meaning                                                                                        |
+| --------------- | -------------- | ---------------------------------------------------------------------------------------------- |
+| `expression`    | `'neutral'`    | preset name or partial expression object (throws on an unknown name)                           |
+| `statuses`      | `null`         | `[{ id, status, direction? }]`; when set it takes precedence over expression                   |
+| `color`         | `'#FFFFFF'`    | eye fill                                                                                       |
+| `glow`          | `false`        | CSS drop-shadow glow in `color`                                                                |
+| `blinking`      | `true`         | automatic blinks                                                                               |
+| `blinkStyle`    | `null`         | `narrow` or `wide` (keys of `motion.blink.styles`), from the next blink; `null` = spec default |
+| `idleGaze`      | `true`         | automatic saccades                                                                             |
+| `springs`       | `null`         | partial `{ expression?, gaze? }` override of the spec spring constants                         |
+| `timeScale`     | `1`            | simulated time per real time (`0.25` = slow motion, `0` freezes)                               |
+| `reducedMotion` | `null`         | `true`/`false` forces it; `null` follows `prefers-reduced-motion` (live)                       |
+| `label`         | `'Robot eyes'` | `aria-label` of the `role="img"` SVG; other attributes pass through                            |
 
-Instance methods: `blink()` and `glance({ x, y })` (components in `[-1, 1]`).
+Instance methods: `blink({ anchor }?)` (`anchor` in `[-1, 1]`: -1 forms the closed line high, +1 low,
+default the spec's `blink.anchor`) and `glance({ x, y })` (components in `[-1, 1]`).
+
+Drawing is clipped to the face rectangle (0..width x 0..height, per-instance `<clipPath>`), so the
+wide closed line of a line-merge blink ends at the face edge. Pointer events pass through the
+drawn shapes to the `<svg>`.
 
 Behavior: the loop uses `requestAnimationFrame` while animating and sleeps on one `setTimeout`
 while settled (never with a non-finite delay); after waking it steps by measured elapsed time. Any

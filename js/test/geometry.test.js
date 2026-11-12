@@ -31,9 +31,10 @@ describe('lid tilt direction', () => {
 
   it('matches the hand-computed drop for a 45 degree tilt', () => {
     const g = computeEyeGeometry(params({ upperLid: 0.5, upperLidTilt: 45 }), layout, 'left');
-    const lidY = g.eye.top + 70 * 0.5;
-    expect(g.upperLid[2][1]).toBeCloseTo(lidY + 30, 9);
-    expect(g.upperLid[3][1]).toBeCloseTo(lidY - 30, 9);
+    const lidY = g.eye.top + layout.eyeHeight * 0.5;
+    const drop = layout.eyeWidth / 2; // tan(45deg) = 1
+    expect(g.upperLid[2][1]).toBeCloseTo(lidY + drop, 9);
+    expect(g.upperLid[3][1]).toBeCloseTo(lidY - drop, 9);
   });
 });
 
@@ -42,12 +43,23 @@ describe('lower lid', () => {
     const bend = 0.55;
     const lowerLid = 0.42;
     const g = computeEyeGeometry(params({ lowerLid, lowerLidBend: bend }), layout, 'left');
-    const eh = 70;
+    const eh = layout.eyeHeight;
     const lowY = g.eye.bottom - eh * lowerLid;
     const { edgeLeft, control, edgeRight } = g.lowerLid;
     expect(control[1]).toBeCloseTo(lowY - eh * bend, 9);
     const peakY = 0.25 * edgeLeft[1] + 0.5 * control[1] + 0.25 * edgeRight[1];
     expect(peakY).toBeCloseTo(lowY - 0.5 * eh * bend, 9);
+  });
+
+  it('glee peaks at half its control offset above the lid line', () => {
+    const { left } = sides('glee');
+    const g = computeEyeGeometry(left, layout, 'left');
+    const eh = layout.eyeHeight * left.scaleY;
+    const lowY = g.eye.bottom - eh * left.lowerLid;
+    const { edgeLeft, control, edgeRight } = g.lowerLid;
+    const peakY = 0.25 * edgeLeft[1] + 0.5 * control[1] + 0.25 * edgeRight[1];
+    expect(peakY).toBeCloseTo(lowY - 0.5 * eh * left.lowerLidBend, 9);
+    expect(peakY).toBeLessThan(lowY);
   });
 
   it('keeps the polygon below the control point so it never self-intersects', () => {
@@ -100,12 +112,12 @@ describe('clamps', () => {
 
   it('caps the corner radius at half the smaller side', () => {
     const g = computeEyeGeometry(params({ roundness: 50 }), layout, 'left');
-    expect(g.eye.radius).toBe(30);
+    expect(g.eye.radius).toBe(layout.eyeWidth / 2);
   });
 
   it('uses roundness times height when below the cap', () => {
     const g = computeEyeGeometry(params({ roundness: 0.3 }), layout, 'left');
-    expect(g.eye.radius).toBeCloseTo(21, 9);
+    expect(g.eye.radius).toBeCloseTo(0.3 * layout.eyeHeight, 9);
   });
 
   it('collapses to a point at zero scale without NaN', () => {
@@ -118,8 +130,8 @@ describe('clamps', () => {
 describe('layout and offsets', () => {
   it('centres each eye on its layout position', () => {
     const g = computeFaceGeometry({ left: params(), right: params() }, layout);
-    expect((g.left.eye.left + g.left.eye.right) / 2).toBe(56);
-    expect((g.right.eye.left + g.right.eye.right) / 2).toBe(144);
+    expect((g.left.eye.left + g.left.eye.right) / 2).toBe(layout.eyes.left.x);
+    expect((g.right.eye.left + g.right.eye.right) / 2).toBe(layout.eyes.right.x);
     expect((g.left.eye.top + g.left.eye.bottom) / 2).toBe(50);
   });
 
@@ -128,8 +140,9 @@ describe('layout and offsets', () => {
       { left: params({ offsetX: 0.1 }), right: params({ offsetX: 0.1 }) },
       layout,
     );
-    expect(g.left.eye.left).toBeCloseTo(26 + 6, 9);
-    expect(g.right.eye.left).toBeCloseTo(114 + 6, 9);
+    const shift = 0.1 * layout.eyeWidth;
+    expect(g.left.eye.left).toBeCloseTo(layout.eyes.left.x - layout.eyeWidth / 2 + shift, 9);
+    expect(g.right.eye.left).toBeCloseTo(layout.eyes.right.x - layout.eyeWidth / 2 + shift, 9);
   });
 });
 

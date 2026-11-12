@@ -89,8 +89,20 @@ public class EyesState(
     /** Looks toward [direction] (components in `[-1, 1]`) for a moment. */
     public fun glance(direction: Vec2): Unit = command { controller.glance(direction) }
 
-    /** Blinks now unless a blink is in progress. */
-    public fun blink(): Unit = command { controller.blink() }
+    /**
+     * Blinks now unless a blink is in progress.
+     *
+     * @param anchor where the closed line forms, in `[-1, 1]` (-1 top, 0 centre, +1 bottom); `null` uses the default
+     * @throws IllegalArgumentException if [anchor] is outside `[-1, 1]`
+     */
+    public fun blink(anchor: Double? = null): Unit = command { controller.blink(anchor) }
+
+    /**
+     * Selects the blink keyframe table (e.g. "narrow" or "wide") used from the next blink start.
+     *
+     * @throws IllegalArgumentException if [name] is not a style in the motion spec
+     */
+    public fun setBlinkStyle(name: String): Unit = command { controller.setBlinkStyle(name) }
 
     /** Enables or disables automatic blinking. */
     public fun setBlinking(value: Boolean): Unit = command { controller.setBlinking(value) }

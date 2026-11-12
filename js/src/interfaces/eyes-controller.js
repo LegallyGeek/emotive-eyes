@@ -2,7 +2,12 @@ import { resolveParams } from '../entities/eye-shape.js';
 import { computeFaceGeometry } from '../entities/geometry.js';
 import { createFaceAnimator } from '../features/animate-face/face-animator.js';
 import { createStatusTracker } from '../features/report-status/status-tracker.js';
-import { SpecError, parseExpression, parseSpringOverrides } from './spec-parser.js';
+import {
+  SpecError,
+  parseBlinkOptions,
+  parseExpression,
+  parseSpringOverrides,
+} from './spec-parser.js';
 import { presentFace } from './svg-presenter.js';
 
 /**
@@ -20,7 +25,8 @@ import { presentFace } from './svg-presenter.js';
  *   setExpression: (nameOrObject: string | Record<string, any>) => void,
  *   setStatuses: (inputs: readonly import('../features/report-status/status-tracker.js').StatusInput[]) => void,
  *   glance: (dir: { x: number, y: number }) => void,
- *   blink: () => void,
+ *   blink: (options?: { anchor?: number }) => void,
+ *   setBlinkStyle: (name: string) => void,
  *   setBlinking: (value: boolean) => void,
  *   setIdleGaze: (value: boolean) => void,
  *   setReducedMotion: (value: boolean) => void,
@@ -86,7 +92,8 @@ export function createEyesController({
       if (glance) animator.glance(glance);
     },
     glance: (dir) => animator.glance(dir),
-    blink: () => animator.blink(),
+    blink: (options) => animator.blink(parseBlinkOptions(options)),
+    setBlinkStyle: (name) => animator.setBlinkStyle(name),
     setBlinking: (value) => animator.setBlinking(value),
     setIdleGaze: (value) => animator.setIdleGaze(value),
     setReducedMotion: (value) => animator.setReducedMotion(value),

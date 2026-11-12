@@ -9,7 +9,9 @@ Cozmo's expressive eyes. One shared spec drives two implementations:
   ([`android/`](android/README.md)).
 
 Each eye is a rounded rectangle with eyelids cut out of it, described by nine numbers. Expressions
-are presets of those numbers, transitions are springs, and blinks, idle glances and status glances
+(32 presets) are values for those numbers, transitions are springs, and blinks (two styles:
+`narrow`, the default, where each eye closes to its own line, and `wide`, where the eyes merge into
+one line), idle glances and status glances
 are layered on top. Defaults suit the Light Phone III target: white eyes on black, glow off.
 
 ## Layout
