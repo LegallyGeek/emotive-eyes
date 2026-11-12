@@ -98,7 +98,7 @@ public class EyesState(
     /** Enables or disables idle gaze saccades. */
     public fun setIdleGaze(value: Boolean): Unit = command { controller.setIdleGaze(value) }
 
-    /** Turns reduced motion (critically damped, no saccades or glances) on or off. */
+    /** Turns reduced motion (critically damped transitions and glances, no idle saccades, blinks kept) on or off. */
     public fun setReducedMotion(value: Boolean): Unit = command { controller.setReducedMotion(value) }
 
     /** Merges the supplied spring constants into the current ones. */

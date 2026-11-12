@@ -19,6 +19,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -31,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.legalgeeklabs.emotiveeyes.drivers.compose.Eyes
 import com.legalgeeklabs.emotiveeyes.drivers.compose.rememberEyesState
+import com.legalgeeklabs.emotiveeyes.drivers.compose.rememberSystemReducedMotion
 import com.legalgeeklabs.emotiveeyes.entities.Vec2
 import com.legalgeeklabs.emotiveeyes.features.reportstatus.StatusInput
 import kotlinx.coroutines.delay
@@ -57,6 +59,9 @@ fun DemoScreen() {
     var idleGaze by remember { mutableStateOf(true) }
     var glow by remember { mutableStateOf(false) }
     var slow by remember { mutableStateOf(false) }
+    val systemReduced = rememberSystemReducedMotion()
+    var reducedOverride by remember { mutableStateOf<Boolean?>(null) }
+    val reduced = reducedOverride ?: systemReduced
     var colorIndex by remember { mutableStateOf(0) }
     var statuses by remember { mutableStateOf(INPUTS.associate { it.first to "ok" }) }
     var derived by remember { mutableStateOf("neutral") }
@@ -91,6 +96,7 @@ fun DemoScreen() {
             timeScale = if (slow) SLOW_MOTION else 1f,
             blinking = blinking,
             idleGaze = idleGaze,
+            reducedMotion = reduced,
             label = "Robot eyes showing $expression",
         )
         Column(
@@ -143,6 +149,18 @@ fun DemoScreen() {
                 ToggleRow("Idle gaze", idleGaze) { idleGaze = it }
                 ToggleRow("Glow", glow) { glow = it }
                 ToggleRow("Slow motion", slow) { slow = it }
+                ToggleRow("Reduced motion", reduced) { reducedOverride = it }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = reducedCaption(reducedOverride, systemReduced),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.outline,
+                        modifier = Modifier.weight(1f),
+                    )
+                    if (reducedOverride != null) {
+                        TextButton(onClick = { reducedOverride = null }) { Text("Use system") }
+                    }
+                }
             }
             Section("Color") {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -177,3 +195,13 @@ private fun ToggleRow(
         Switch(checked = checked, onCheckedChange = onChange)
     }
 }
+
+private fun reducedCaption(
+    override: Boolean?,
+    systemReduced: Boolean,
+): String =
+    when {
+        override != null -> "Overridden (system: ${if (systemReduced) "animations removed" else "animations on"})"
+        systemReduced -> "Following system: animations removed"
+        else -> "Following system"
+    }

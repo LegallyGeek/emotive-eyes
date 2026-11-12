@@ -39,7 +39,7 @@ private const val GLOW_ALPHA = 0.7f
  * @param timeScale multiplier on elapsed time; 0.25 is slow motion
  * @param blinking whether eyes blink on their own
  * @param idleGaze whether eyes drift around on their own
- * @param reducedMotion critically damped transitions without idle gaze or glances; defaults to the
+ * @param reducedMotion critically damped transitions and glances, no idle saccades, blinks kept; defaults to the
  *   system "remove animations" setting
  * @param label accessibility description of the face
  */

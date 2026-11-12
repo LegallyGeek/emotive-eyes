@@ -302,7 +302,7 @@ function animatorVectors() {
       ],
     }),
     animatorCase('reduced-motion', {
-      randoms: [0.1, 0.1, 0.5, 0.5, 0.2, 0.3, 0.9, 0.9, 0.9],
+      randoms: pad([0.1, 0.1, 0.5, 0.5, 0.2, 0.3, 0.9, 0.9, 0.9], 20),
       ops: [
         { op: 'glance', x: 1, y: 1 },
         ...stepOps([100, 100]),
@@ -312,8 +312,11 @@ function animatorVectors() {
         ...stepOps(repeat(20, () => 16.6)),
         { op: 'blink' },
         ...stepOps(repeat(20, () => 16.6)),
+        ...stepOps([250, 250]),
+        { op: 'glance', x: 0.5, y: -1 },
+        ...stepOps([100, 100, 250]),
         { op: 'setReducedMotion', value: false },
-        ...stepOps([16.6, 33.4]),
+        ...stepOps([16.6, 33.4, 250, 250]),
       ],
     }),
     animatorCase('set-springs', {

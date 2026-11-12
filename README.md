@@ -52,7 +52,9 @@ the vectors by hand.
 ## Reduced motion
 
 Both platforms honour the system preference (`prefers-reduced-motion` on the web; Android's
-"Remove animations", i.e. `animator_duration_scale = 0`). In that mode transitions are critically
-damped (no bounce) and idle gaze and glances are off; blinks remain. Many emulators and some
-devices ship with animations removed, so check
-`adb shell settings get global animator_duration_scale` if the eyes look less lively than expected.
+"Remove animations", i.e. `animator_duration_scale = 0`). In that mode transitions and glances are
+critically damped (no bounce) and the random idle gaze is off; blinks remain. Glances stay on
+because they show which input changed. Many emulators and some devices ship with animations
+removed, so check `adb shell settings get global animator_duration_scale` if the eyes look calmer
+than expected. The Android demo shows whether it is following the system and lets you override
+it; the web demo's Motion tab can force reduced motion on.

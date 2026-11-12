@@ -201,11 +201,15 @@ describe('gaze', () => {
     expect(animator.isSettled()).toBe(true);
   });
 
-  it('glance is ignored under reduced motion', () => {
+  it('glance works under reduced motion without overshooting its target', () => {
     const { animator } = make([0, 0], { ...quiet, reducedMotion: true });
     animator.glance({ x: 1, y: 1 });
-    expect(animator.step(300).left.offsetX).toBe(0);
-    expect(animator.msUntilNextEvent()).toBe(Infinity);
+    let max = 0;
+    for (let i = 0; i < 200; i += 1) max = Math.max(max, animator.step(HMS).left.offsetX);
+    expect(max).toBeGreaterThan(0.25);
+    expect(max).toBeLessThanOrEqual(0.28);
+    expect(animator.msUntilNextEvent()).toBeGreaterThan(0);
+    expect(animator.msUntilNextEvent()).toBeLessThan(900);
   });
 
   it('saccades are frozen while a glance holds', () => {
@@ -225,13 +229,17 @@ describe('gaze', () => {
     expect(animator.msUntilNextEvent()).toBeCloseTo(288 * HMS, 9);
   });
 
-  it('reduced motion cancels saccades and a glance in progress', () => {
+  it('reduced motion cancels saccades but keeps a glance in progress', () => {
     const { animator } = make([0, 0], { blinking: false });
     animator.glance({ x: 1, y: 0 });
     animator.setReducedMotion(true);
-    expect(animator.msUntilNextEvent()).toBe(Infinity);
+    // Only the glance timer remains: 216 steps.
+    expect(animator.msUntilNextEvent()).toBeCloseTo(216 * HMS, 9);
+    animator.step(600);
+    expect(animator.frame().left.offsetX).toBeGreaterThan(0.2);
     animator.step(5000);
     expect(animator.frame().left.offsetX).toBeCloseTo(0, 3);
+    expect(animator.msUntilNextEvent()).toBe(Infinity);
   });
 });
 

@@ -221,9 +221,8 @@ public class FaceAnimator(
         if (!blinkState.inProgress) startBlink()
     }
 
-    /** Looks toward [direction] (components in `[-1, 1]`) for the configured hold; no-op under reduced motion. */
+    /** Looks toward [direction] (components in `[-1, 1]`) for the configured hold; works under reduced motion too (critically damped). */
     public fun glance(direction: Vec2) {
-        if (reducedMotionFlag) return
         setGazeTarget(direction.x * glanceCfg.offset.x, direction.y * glanceCfg.offset.y)
         glanceTimer.count = steps(glanceCfg.holdMs, hz)
         glanceTimer.active = true
@@ -249,15 +248,11 @@ public class FaceAnimator(
         onSaccadesEnabledChanged(was)
     }
 
-    /** Turns reduced motion on (critical damping, no saccades or glances) or off. No-op if unchanged. */
+    /** Turns reduced motion on (critical damping, no idle saccades; an active glance continues) or off. No-op if unchanged. */
     public fun setReducedMotion(value: Boolean) {
         if (reducedMotionFlag == value) return
         val was = saccadesEnabled()
         reducedMotionFlag = value
-        if (value) {
-            glanceTimer.active = false
-            setGazeTarget(0.0, 0.0)
-        }
         onSaccadesEnabledChanged(was)
     }
 

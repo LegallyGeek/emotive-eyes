@@ -10946,7 +10946,18 @@
         0.3,
         0.9,
         0.9,
-        0.9
+        0.9,
+        0.37,
+        0.74,
+        0.10999999999999988,
+        0.48,
+        0.8500000000000001,
+        0.21999999999999975,
+        0.5899999999999999,
+        0.96,
+        0.33000000000000007,
+        0.7000000000000002,
+        0.07000000000000028
       ],
       "initial": {
         "left": {
@@ -11189,6 +11200,31 @@
           "dt": 16.6
         },
         {
+          "op": "step",
+          "dt": 250
+        },
+        {
+          "op": "step",
+          "dt": 250
+        },
+        {
+          "op": "glance",
+          "x": 0.5,
+          "y": -1
+        },
+        {
+          "op": "step",
+          "dt": 100
+        },
+        {
+          "op": "step",
+          "dt": 100
+        },
+        {
+          "op": "step",
+          "dt": 250
+        },
+        {
           "op": "setReducedMotion",
           "value": false
         },
@@ -11199,6 +11235,14 @@
         {
           "op": "step",
           "dt": 33.4
+        },
+        {
+          "op": "step",
+          "dt": 250
+        },
+        {
+          "op": "step",
+          "dt": 250
         }
       ],
       "expected": [
@@ -11311,7 +11355,7 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2200,
+          "msUntilNextEvent": 700,
           "randomsConsumed": 2
         },
         {
@@ -11339,7 +11383,7 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2200,
+          "msUntilNextEvent": 900.0000000000001,
           "randomsConsumed": 2
         },
         {
@@ -11367,14 +11411,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2200,
+          "msUntilNextEvent": 900.0000000000001,
           "randomsConsumed": 2
         },
         {
           "afterOp": 6,
           "left": {
-            "offsetX": 0.26254966532765767,
-            "offsetY": 0.16878192771063705,
+            "offsetX": 0.24515658218100878,
+            "offsetY": 0.15760065997350564,
             "scaleX": 1.0016813885315259,
             "scaleY": 1.0042034713288146,
             "roundness": 0.3025220827972887,
@@ -11384,8 +11428,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.26254966532765767,
-            "offsetY": 0.16878192771063705,
+            "offsetX": 0.24515658218100878,
+            "offsetY": 0.15760065997350564,
             "scaleX": 1.0016813885315259,
             "scaleY": 1.0042034713288146,
             "roundness": 0.3025220827972887,
@@ -11395,14 +11439,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2187.5,
+          "msUntilNextEvent": 887.5000000000001,
           "randomsConsumed": 2
         },
         {
           "afterOp": 7,
           "left": {
-            "offsetX": 0.2205570958247742,
-            "offsetY": 0.14178670445878336,
+            "offsetX": 0.16083387001917288,
+            "offsetY": 0.10339320215518256,
             "scaleX": 1.0066228233267038,
             "scaleY": 1.0165570583167594,
             "roundness": 0.30993423499005557,
@@ -11412,8 +11456,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.2205570958247742,
-            "offsetY": 0.14178670445878336,
+            "offsetX": 0.16083387001917288,
+            "offsetY": 0.10339320215518256,
             "scaleX": 1.0066228233267038,
             "scaleY": 1.0165570583167594,
             "roundness": 0.30993423499005557,
@@ -11423,14 +11467,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2170.8333333333335,
+          "msUntilNextEvent": 870.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 8,
           "left": {
-            "offsetX": 0.17489353465218455,
-            "offsetY": 0.11243155799069003,
+            "offsetX": 0.06942043174688428,
+            "offsetY": 0.044627420408711344,
             "scaleX": 1.013238276485645,
             "scaleY": 1.0330956912141123,
             "roundness": 0.31985741472846746,
@@ -11440,8 +11484,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.17489353465218455,
-            "offsetY": 0.11243155799069003,
+            "offsetX": 0.06942043174688428,
+            "offsetY": 0.044627420408711344,
             "scaleX": 1.013238276485645,
             "scaleY": 1.0330956912141123,
             "roundness": 0.31985741472846746,
@@ -11451,14 +11495,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2154.166666666667,
+          "msUntilNextEvent": 854.1666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 9,
           "left": {
-            "offsetX": 0.1341183558906207,
-            "offsetY": 0.08621894307254187,
+            "offsetX": -0.012111664555326779,
+            "offsetY": -0.0077860700712814885,
             "scaleX": 1.0205076782822406,
             "scaleY": 1.0512691957056015,
             "roundness": 0.3307615174233609,
@@ -11468,8 +11512,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.1341183558906207,
-            "offsetY": 0.08621894307254187,
+            "offsetX": -0.012111664555326779,
+            "offsetY": -0.0077860700712814885,
             "scaleX": 1.0205076782822406,
             "scaleY": 1.0512691957056015,
             "roundness": 0.3307615174233609,
@@ -11479,14 +11523,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2137.5,
+          "msUntilNextEvent": 837.5000000000001,
           "randomsConsumed": 2
         },
         {
           "afterOp": 10,
           "left": {
-            "offsetX": 0.10072361758770541,
-            "offsetY": 0.06475089702066776,
+            "offsetX": -0.07884676267472135,
+            "offsetY": -0.05068720457660657,
             "scaleX": 1.0277962776445637,
             "scaleY": 1.0694906941114097,
             "roundness": 0.34169441646684573,
@@ -11496,8 +11540,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.10072361758770541,
-            "offsetY": 0.06475089702066776,
+            "offsetX": -0.07884676267472135,
+            "offsetY": -0.05068720457660657,
             "scaleX": 1.0277962776445637,
             "scaleY": 1.0694906941114097,
             "roundness": 0.34169441646684573,
@@ -11507,14 +11551,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2120.8333333333335,
+          "msUntilNextEvent": 820.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 11,
           "left": {
-            "offsetX": 0.0746203173718017,
-            "offsetY": 0.04797020402472966,
+            "offsetX": -0.1309930841338084,
+            "offsetY": -0.08420983980030539,
             "scaleX": 1.034728645658581,
             "scaleY": 1.086821614146453,
             "roundness": 0.3520929684878718,
@@ -11524,8 +11568,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0746203173718017,
-            "offsetY": 0.04797020402472966,
+            "offsetX": -0.1309930841338084,
+            "offsetY": -0.08420983980030539,
             "scaleX": 1.034728645658581,
             "scaleY": 1.086821614146453,
             "roundness": 0.3520929684878718,
@@ -11535,14 +11579,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2104.166666666667,
+          "msUntilNextEvent": 804.1666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 12,
           "left": {
-            "offsetX": 0.054778587760731995,
-            "offsetY": 0.03521480641761342,
+            "offsetX": -0.17062232800037483,
+            "offsetY": -0.10968578228595524,
             "scaleX": 1.041101268686225,
             "scaleY": 1.1027531717155634,
             "roundness": 0.3616519030293379,
@@ -11552,8 +11596,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.054778587760731995,
-            "offsetY": 0.03521480641761342,
+            "offsetX": -0.17062232800037483,
+            "offsetY": -0.10968578228595524,
             "scaleX": 1.041101268686225,
             "scaleY": 1.1027531717155634,
             "roundness": 0.3616519030293379,
@@ -11563,14 +11607,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2087.5,
+          "msUntilNextEvent": 787.5,
           "randomsConsumed": 2
         },
         {
           "afterOp": 13,
           "left": {
-            "offsetX": 0.039961974948435924,
-            "offsetY": 0.025689841038280235,
+            "offsetX": -0.20021099041519086,
+            "offsetY": -0.1287070652669084,
             "scaleX": 1.0468223146222722,
             "scaleY": 1.117055786555681,
             "roundness": 0.37023347193340844,
@@ -11580,8 +11624,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.039961974948435924,
-            "offsetY": 0.025689841038280235,
+            "offsetX": -0.20021099041519086,
+            "offsetY": -0.1287070652669084,
             "scaleX": 1.0468223146222722,
             "scaleY": 1.117055786555681,
             "roundness": 0.37023347193340844,
@@ -11591,14 +11635,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2070.8333333333335,
+          "msUntilNextEvent": 770.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 14,
           "left": {
-            "offsetX": 0.029026812947970694,
-            "offsetY": 0.01866009403798116,
+            "offsetX": -0.22204640858783437,
+            "offsetY": -0.14274411980646495,
             "scaleX": 1.051870467017146,
             "scaleY": 1.1296761675428657,
             "roundness": 0.3778057005257194,
@@ -11608,8 +11652,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.029026812947970694,
-            "offsetY": 0.01866009403798116,
+            "offsetX": -0.22204640858783437,
+            "offsetY": -0.14274411980646495,
             "scaleX": 1.051870467017146,
             "scaleY": 1.1296761675428657,
             "roundness": 0.3778057005257194,
@@ -11619,14 +11663,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2054.166666666667,
+          "msUntilNextEvent": 754.1666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 15,
           "left": {
-            "offsetX": 0.021020077527908416,
-            "offsetY": 0.01351290698222684,
+            "offsetX": -0.23803331240000214,
+            "offsetY": -0.15302141511428707,
             "scaleX": 1.056267083922167,
             "scaleY": 1.1406677098054188,
             "roundness": 0.38440062588325113,
@@ -11636,8 +11680,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.021020077527908416,
-            "offsetY": 0.01351290698222684,
+            "offsetX": -0.23803331240000214,
+            "offsetY": -0.15302141511428707,
             "scaleX": 1.056267083922167,
             "scaleY": 1.1406677098054188,
             "roundness": 0.38440062588325113,
@@ -11647,14 +11691,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2037.5000000000002,
+          "msUntilNextEvent": 737.5,
           "randomsConsumed": 2
         },
         {
           "afterOp": 16,
           "left": {
-            "offsetX": 0.015189450315613426,
-            "offsetY": 0.009764646631465776,
+            "offsetX": -0.24967471150538997,
+            "offsetY": -0.16050517168203637,
             "scaleX": 1.0600576214334438,
             "scaleY": 1.1501440535836107,
             "roundness": 0.3900864321501662,
@@ -11664,8 +11708,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.015189450315613426,
-            "offsetY": 0.009764646631465776,
+            "offsetX": -0.24967471150538997,
+            "offsetY": -0.16050517168203637,
             "scaleX": 1.0600576214334438,
             "scaleY": 1.1501440535836107,
             "roundness": 0.3900864321501662,
@@ -11675,14 +11719,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2020.8333333333335,
+          "msUntilNextEvent": 720.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 17,
           "left": {
-            "offsetX": 0.010959591111178552,
-            "offsetY": 0.0070454514286147855,
+            "offsetX": -0.25811976777979184,
+            "offsetY": -0.16593413642986618,
             "scaleX": 1.063299459581828,
             "scaleY": 1.158248648954571,
             "roundness": 0.3949491893727422,
@@ -11692,8 +11736,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.010959591111178552,
-            "offsetY": 0.0070454514286147855,
+            "offsetX": -0.25811976777979184,
+            "offsetY": -0.16593413642986618,
             "scaleX": 1.063299459581828,
             "scaleY": 1.158248648954571,
             "roundness": 0.3949491893727422,
@@ -11703,14 +11747,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 2004.1666666666667,
+          "msUntilNextEvent": 704.1666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 18,
           "left": {
-            "offsetX": 0.00789917730135497,
-            "offsetY": 0.005078042550871054,
+            "offsetX": -0.26422985565066814,
+            "offsetY": -0.1698620500611438,
             "scaleX": 1.066054119108022,
             "scaleY": 1.1651352977700562,
             "roundness": 0.3990811786620333,
@@ -11720,8 +11764,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00789917730135497,
-            "offsetY": 0.005078042550871054,
+            "offsetX": -0.26422985565066814,
+            "offsetY": -0.1698620500611438,
             "scaleX": 1.066054119108022,
             "scaleY": 1.1651352977700562,
             "roundness": 0.3990811786620333,
@@ -11731,14 +11775,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1987.5000000000002,
+          "msUntilNextEvent": 687.5,
           "randomsConsumed": 2
         },
         {
           "afterOp": 19,
           "left": {
-            "offsetX": 0.00568904101024957,
-            "offsetY": 0.003657240649446153,
+            "offsetX": -0.2686423053054748,
+            "offsetY": -0.17269862483923376,
             "scaleX": 1.0683824610671886,
             "scaleY": 1.1709561526679728,
             "roundness": 0.4025736916007831,
@@ -11748,8 +11792,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00568904101024957,
-            "offsetY": 0.003657240649446153,
+            "offsetX": -0.2686423053054748,
+            "offsetY": -0.17269862483923376,
             "scaleX": 1.0683824610671886,
             "scaleY": 1.1709561526679728,
             "roundness": 0.4025736916007831,
@@ -11759,14 +11803,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1970.8333333333335,
+          "msUntilNextEvent": 670.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 20,
           "left": {
-            "offsetX": 0.0040950683875407845,
-            "offsetY": 0.0026325439634190765,
+            "offsetX": -0.271824574313344,
+            "offsetY": -0.1747443692014354,
             "scaleX": 1.0703418881830802,
             "scaleY": 1.175854720457702,
             "roundness": 0.40551283227462054,
@@ -11776,8 +11820,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0040950683875407845,
-            "offsetY": 0.0026325439634190765,
+            "offsetX": -0.271824574313344,
+            "offsetY": -0.1747443692014354,
             "scaleX": 1.0703418881830802,
             "scaleY": 1.175854720457702,
             "roundness": 0.40551283227462054,
@@ -11787,14 +11831,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1954.1666666666667,
+          "msUntilNextEvent": 654.1666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 21,
           "left": {
-            "offsetX": 0.0029465629265724427,
-            "offsetY": 0.0018942190242251424,
+            "offsetX": -0.27411747779259193,
+            "offsetY": -0.17621837858095196,
             "scaleX": 1.071984868233746,
             "scaleY": 1.179962170584366,
             "roundness": 0.4079773023506189,
@@ -11804,8 +11848,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0029465629265724427,
-            "offsetY": 0.0018942190242251424,
+            "offsetX": -0.27411747779259193,
+            "offsetY": -0.17621837858095196,
             "scaleX": 1.071984868233746,
             "scaleY": 1.179962170584366,
             "roundness": 0.4079773023506189,
@@ -11815,14 +11859,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1937.5000000000002,
+          "msUntilNextEvent": 637.5,
           "randomsConsumed": 2
         },
         {
           "afterOp": 22,
           "left": {
-            "offsetX": 0.002119584849101212,
-            "offsetY": 0.0013625902601364943,
+            "offsetX": -0.27576846740564415,
+            "offsetY": -0.17727972904648553,
             "scaleX": 1.0733583118118528,
             "scaleY": 1.1833957795296328,
             "roundness": 0.4100374677177792,
@@ -11832,8 +11876,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.002119584849101212,
-            "offsetY": 0.0013625902601364943,
+            "offsetX": -0.27576846740564415,
+            "offsetY": -0.17727972904648553,
             "scaleX": 1.0733583118118528,
             "scaleY": 1.1833957795296328,
             "roundness": 0.4100374677177792,
@@ -11843,14 +11887,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1920.8333333333335,
+          "msUntilNextEvent": 620.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 23,
           "left": {
-            "offsetX": 0.0015244059715294322,
-            "offsetY": 0.0009799752674117784,
+            "offsetX": -0.2769566855208661,
+            "offsetY": -0.1780435835491282,
             "scaleX": 1.0745034854879647,
             "scaleY": 1.1862587137199128,
             "roundness": 0.41175522823194727,
@@ -11860,8 +11904,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0015244059715294322,
-            "offsetY": 0.0009799752674117784,
+            "offsetX": -0.2769566855208661,
+            "offsetY": -0.1780435835491282,
             "scaleX": 1.0745034854879647,
             "scaleY": 1.1862587137199128,
             "roundness": 0.41175522823194727,
@@ -11871,14 +11915,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1904.1666666666667,
+          "msUntilNextEvent": 604.1666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 24,
           "left": {
-            "offsetX": 0.0010961995531325347,
-            "offsetY": 0.0007046997127280586,
+            "offsetX": -0.2778115566107693,
+            "offsetY": -0.17859314353549452,
             "scaleX": 1.0754562452049459,
             "scaleY": 1.188640613012365,
             "roundness": 0.4131843678074188,
@@ -11888,8 +11932,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0010961995531325347,
-            "offsetY": 0.0007046997127280586,
+            "offsetX": -0.2778115566107693,
+            "offsetY": -0.17859314353549452,
             "scaleX": 1.0754562452049459,
             "scaleY": 1.188640613012365,
             "roundness": 0.4131843678074188,
@@ -11899,14 +11943,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1887.5000000000002,
+          "msUntilNextEvent": 587.5,
           "randomsConsumed": 2
         },
         {
           "afterOp": 25,
           "left": {
-            "offsetX": 0.0007881976698158895,
-            "offsetY": 0.0005066985020245008,
+            "offsetX": -0.2784264502102415,
+            "offsetY": -0.1789884322780124,
             "scaleX": 1.0762474468175285,
             "scaleY": 1.1906186170438222,
             "roundness": 0.41437117022629305,
@@ -11916,8 +11960,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0007881976698158895,
-            "offsetY": 0.0005066985020245008,
+            "offsetX": -0.2784264502102415,
+            "offsetY": -0.1789884322780124,
             "scaleX": 1.0762474468175285,
             "scaleY": 1.1906186170438222,
             "roundness": 0.41437117022629305,
@@ -11927,14 +11971,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1870.8333333333335,
+          "msUntilNextEvent": 570.8333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 26,
           "left": {
-            "offsetX": 0.0007881976698158895,
-            "offsetY": 0.0005066985020245008,
+            "offsetX": -0.2784264502102415,
+            "offsetY": -0.1789884322780124,
             "scaleX": 1.0762474468175285,
             "scaleY": 1.1906186170438222,
             "roundness": 0.41437117022629305,
@@ -11944,8 +11988,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0007881976698158895,
-            "offsetY": 0.0005066985020245008,
+            "offsetX": -0.2784264502102415,
+            "offsetY": -0.1789884322780124,
             "scaleX": 1.0762474468175285,
             "scaleY": 1.1906186170438222,
             "roundness": 0.41437117022629305,
@@ -11955,14 +11999,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4208.333333333334,
+          "msUntilNextEvent": 570.8333333333334,
           "randomsConsumed": 4
         },
         {
           "afterOp": 27,
           "left": {
-            "offsetX": 0.0005666953362674247,
-            "offsetY": 0.0003643041447433448,
+            "offsetX": -0.27886865586750625,
+            "offsetY": -0.17927270734339687,
             "scaleX": 1.0769034404326263,
             "scaleY": 1.1314290806182208,
             "roundness": 0.41535516064893946,
@@ -11972,8 +12016,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0005666953362674247,
-            "offsetY": 0.0003643041447433448,
+            "offsetX": -0.27886865586750625,
+            "offsetY": -0.17927270734339687,
             "scaleX": 1.0769034404326263,
             "scaleY": 1.1314290806182208,
             "roundness": 0.41535516064893946,
@@ -11983,14 +12027,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4191.666666666667,
+          "msUntilNextEvent": 554.1666666666667,
           "randomsConsumed": 4
         },
         {
           "afterOp": 28,
           "left": {
-            "offsetX": 0.0004074196422426087,
-            "offsetY": 0.000261912627155963,
+            "offsetX": -0.279186632391594,
+            "offsetY": -0.17947712082316755,
             "scaleX": 1.077446589257414,
             "scaleY": 0.9500212745428143,
             "roundness": 0.4161698838861214,
@@ -12000,8 +12044,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0004074196422426087,
-            "offsetY": 0.000261912627155963,
+            "offsetX": -0.279186632391594,
+            "offsetY": -0.17947712082316755,
             "scaleX": 1.077446589257414,
             "scaleY": 0.9500212745428143,
             "roundness": 0.4161698838861214,
@@ -12011,14 +12055,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4175,
+          "msUntilNextEvent": 537.5,
           "randomsConsumed": 4
         },
         {
           "afterOp": 29,
           "left": {
-            "offsetX": 0.00029289937968469536,
-            "offsetY": 0.00018829245836873292,
+            "offsetX": -0.27941525942149326,
+            "offsetY": -0.1796240953423885,
             "scaleX": 1.0778957767403843,
             "scaleY": 0.6461345961030707,
             "roundness": 0.41684366511057636,
@@ -12028,8 +12072,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00029289937968469536,
-            "offsetY": 0.00018829245836873292,
+            "offsetX": -0.27941525942149326,
+            "offsetY": -0.1796240953423885,
             "scaleX": 1.0778957767403843,
             "scaleY": 0.6461345961030707,
             "roundness": 0.41684366511057636,
@@ -12039,14 +12083,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4158.333333333334,
+          "msUntilNextEvent": 520.8333333333334,
           "randomsConsumed": 4
         },
         {
           "afterOp": 30,
           "left": {
-            "offsetX": 0.00021056376011040548,
-            "offsetY": 0.00013536241721383226,
+            "offsetX": -0.2795796332892809,
+            "offsetY": -0.17972976425739487,
             "scaleX": 1.0782668812314256,
             "scaleY": 0.21961234342259311,
             "roundness": 0.41740032184713777,
@@ -12056,8 +12100,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00021056376011040548,
-            "offsetY": 0.00013536241721383226,
+            "offsetX": -0.2795796332892809,
+            "offsetY": -0.17972976425739487,
             "scaleX": 1.0782668812314256,
             "scaleY": 0.21961234342259311,
             "roundness": 0.41740032184713777,
@@ -12067,14 +12111,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4141.666666666667,
+          "msUntilNextEvent": 504.1666666666667,
           "randomsConsumed": 4
         },
         {
           "afterOp": 31,
           "left": {
-            "offsetX": 0.00015137031678269628,
-            "offsetY": 0.00009730948936030487,
+            "offsetX": -0.2796978063437904,
+            "offsetY": -0.1798057326495795,
             "scaleX": 1.0785732075436736,
             "scaleY": 0.11964330188591839,
             "roundness": 0.41785981131551003,
@@ -12084,8 +12128,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00015137031678269628,
-            "offsetY": 0.00009730948936030487,
+            "offsetX": -0.2796978063437904,
+            "offsetY": -0.1798057326495795,
             "scaleX": 1.0785732075436736,
             "scaleY": 0.11964330188591839,
             "roundness": 0.41785981131551003,
@@ -12095,14 +12139,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4125,
+          "msUntilNextEvent": 487.50000000000006,
           "randomsConsumed": 4
         },
         {
           "afterOp": 32,
           "left": {
-            "offsetX": 0.00010881581948752861,
-            "offsetY": 0.00006995302681341135,
+            "offsetX": -0.2797827615910025,
+            "offsetY": -0.17986034673707302,
             "scaleX": 1.0788258713270562,
             "scaleY": 0.291784515339925,
             "roundness": 0.41823880699058374,
@@ -12112,8 +12156,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00010881581948752861,
-            "offsetY": 0.00006995302681341135,
+            "offsetX": -0.2797827615910025,
+            "offsetY": -0.17986034673707302,
             "scaleX": 1.0788258713270562,
             "scaleY": 0.291784515339925,
             "roundness": 0.41823880699058374,
@@ -12123,14 +12167,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4108.333333333334,
+          "msUntilNextEvent": 470.83333333333337,
           "randomsConsumed": 4
         },
         {
           "afterOp": 33,
           "left": {
-            "offsetX": 0.0000782238573414002,
-            "offsetY": 0.00005028676543375735,
+            "offsetX": -0.27984383497655857,
+            "offsetY": -0.17989960819921613,
             "scaleX": 1.0790341362203157,
             "scaleY": 0.5455666551398041,
             "roundness": 0.41855120433047294,
@@ -12140,8 +12184,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0000782238573414002,
-            "offsetY": 0.00005028676543375735,
+            "offsetX": -0.27984383497655857,
+            "offsetY": -0.17989960819921613,
             "scaleX": 1.0790341362203157,
             "scaleY": 0.5455666551398041,
             "roundness": 0.41855120433047294,
@@ -12151,14 +12195,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4091.666666666667,
+          "msUntilNextEvent": 454.1666666666667,
           "randomsConsumed": 4
         },
         {
           "afterOp": 34,
           "left": {
-            "offsetX": 0.000056231992229175366,
-            "offsetY": 0.0000361491378616128,
+            "offsetX": -0.27988773923713156,
+            "offsetY": -0.17992783236672735,
             "scaleX": 1.0792057061432543,
             "scaleY": 0.7579104137092098,
             "roundness": 0.41880855921488136,
@@ -12168,8 +12212,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000056231992229175366,
-            "offsetY": 0.0000361491378616128,
+            "offsetX": -0.27988773923713156,
+            "offsetY": -0.17992783236672735,
             "scaleX": 1.0792057061432543,
             "scaleY": 0.7579104137092098,
             "roundness": 0.41880855921488136,
@@ -12179,14 +12223,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4075.0000000000005,
+          "msUntilNextEvent": 437.50000000000006,
           "randomsConsumed": 4
         },
         {
           "afterOp": 35,
           "left": {
-            "offsetX": 0.00004042272675710674,
-            "offsetY": 0.00002598603862956866,
+            "offsetX": -0.27991930063680814,
+            "offsetY": -0.179948121837948,
             "scaleX": 1.0793469763847015,
             "scaleY": 0.9287347667453595,
             "roundness": 0.4190204645770521,
@@ -12196,8 +12240,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00004042272675710674,
-            "offsetY": 0.00002598603862956866,
+            "offsetX": -0.27991930063680814,
+            "offsetY": -0.179948121837948,
             "scaleX": 1.0793469763847015,
             "scaleY": 0.9287347667453595,
             "roundness": 0.4190204645770521,
@@ -12207,14 +12251,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4058.3333333333335,
+          "msUntilNextEvent": 420.83333333333337,
           "randomsConsumed": 4
         },
         {
           "afterOp": 36,
           "left": {
-            "offsetX": 0.000029058034580621687,
-            "offsetY": 0.000018680165087542544,
+            "offsetX": -0.2799419889500718,
+            "offsetY": -0.1799627071821889,
             "scaleX": 1.079463247720592,
             "scaleY": 1.0579822705779043,
             "roundness": 0.4191948715808881,
@@ -12224,8 +12268,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000029058034580621687,
-            "offsetY": 0.000018680165087542544,
+            "offsetX": -0.2799419889500718,
+            "offsetY": -0.1799627071821889,
             "scaleX": 1.079463247720592,
             "scaleY": 1.0579822705779043,
             "roundness": 0.4191948715808881,
@@ -12235,14 +12279,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4041.666666666667,
+          "msUntilNextEvent": 404.1666666666667,
           "randomsConsumed": 4
         },
         {
           "afterOp": 37,
           "left": {
-            "offsetX": 0.00002088842960721188,
-            "offsetY": 0.000013428276176064805,
+            "offsetX": -0.2799582986349235,
+            "offsetY": -0.17997319197959363,
             "scaleX": 1.0795589079245247,
             "scaleY": 1.1456129467085865,
             "roundness": 0.4193383618867867,
@@ -12252,8 +12296,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.00002088842960721188,
-            "offsetY": 0.000013428276176064805,
+            "offsetX": -0.2799582986349235,
+            "offsetY": -0.17997319197959363,
             "scaleX": 1.0795589079245247,
             "scaleY": 1.1456129467085865,
             "roundness": 0.4193383618867867,
@@ -12263,14 +12307,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4025.0000000000005,
+          "msUntilNextEvent": 387.5,
           "randomsConsumed": 4
         },
         {
           "afterOp": 38,
           "left": {
-            "offsetX": 0.000015015665221715955,
-            "offsetY": 0.000009652927642531702,
+            "offsetX": -0.27997002293901285,
+            "offsetY": -0.17998072903222248,
             "scaleX": 1.0796375848886597,
             "scaleY": 1.1915996249577636,
             "roundness": 0.4194563773329892,
@@ -12280,8 +12324,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000015015665221715955,
-            "offsetY": 0.000009652927642531702,
+            "offsetX": -0.27997002293901285,
+            "offsetY": -0.17998072903222248,
             "scaleX": 1.0796375848886597,
             "scaleY": 1.1915996249577636,
             "roundness": 0.4194563773329892,
@@ -12291,14 +12335,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 4008.3333333333335,
+          "msUntilNextEvent": 370.83333333333337,
           "randomsConsumed": 4
         },
         {
           "afterOp": 39,
           "left": {
-            "offsetX": 0.000010794009945460398,
-            "offsetY": 0.000006939006393510266,
+            "offsetX": -0.2799784509919258,
+            "offsetY": -0.17998614706623794,
             "scaleX": 1.079702275274886,
             "scaleY": 1.1992556881872147,
             "roundness": 0.4195534129123288,
@@ -12308,8 +12352,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000010794009945460398,
-            "offsetY": 0.000006939006393510266,
+            "offsetX": -0.2799784509919258,
+            "offsetY": -0.17998614706623794,
             "scaleX": 1.079702275274886,
             "scaleY": 1.1992556881872147,
             "roundness": 0.4195534129123288,
@@ -12319,14 +12363,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3991.666666666667,
+          "msUntilNextEvent": 354.1666666666667,
           "randomsConsumed": 4
         },
         {
           "afterOp": 40,
           "left": {
-            "offsetX": 0.000007759266319686339,
-            "offsetY": 0.000004988099776941226,
+            "offsetX": -0.27998450951109105,
+            "offsetY": -0.17999004182855846,
             "scaleX": 1.0797554522427264,
             "scaleY": 1.199388630606816,
             "roundness": 0.4196331783640895,
@@ -12336,8 +12380,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000007759266319686339,
-            "offsetY": 0.000004988099776941226,
+            "offsetX": -0.27998450951109105,
+            "offsetY": -0.17999004182855846,
             "scaleX": 1.0797554522427264,
             "scaleY": 1.199388630606816,
             "roundness": 0.4196331783640895,
@@ -12347,14 +12391,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3975.0000000000005,
+          "msUntilNextEvent": 337.5,
           "randomsConsumed": 4
         },
         {
           "afterOp": 41,
           "left": {
-            "offsetX": 0.000005577739436058639,
-            "offsetY": 0.0000035856896374662737,
+            "offsetX": -0.2799888646803889,
+            "offsetY": -0.17999284158024992,
             "scaleX": 1.0797991554013087,
             "scaleY": 1.199497888503271,
             "roundness": 0.4196987331019625,
@@ -12364,8 +12408,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000005577739436058639,
-            "offsetY": 0.0000035856896374662737,
+            "offsetX": -0.2799888646803889,
+            "offsetY": -0.17999284158024992,
             "scaleX": 1.0797991554013087,
             "scaleY": 1.199497888503271,
             "roundness": 0.4196987331019625,
@@ -12375,14 +12419,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3958.3333333333335,
+          "msUntilNextEvent": 320.83333333333337,
           "randomsConsumed": 4
         },
         {
           "afterOp": 42,
           "left": {
-            "offsetX": 0.000004009549560607219,
-            "offsetY": 0.0000025775675746760738,
+            "offsetX": -0.27999199539236314,
+            "offsetY": -0.1799948541808048,
             "scaleX": 1.079835065738532,
             "scaleY": 1.1995876643463297,
             "roundness": 0.41975259860779784,
@@ -12392,8 +12436,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000004009549560607219,
-            "offsetY": 0.0000025775675746760738,
+            "offsetX": -0.27999199539236314,
+            "offsetY": -0.1799948541808048,
             "scaleX": 1.079835065738532,
             "scaleY": 1.1995876643463297,
             "roundness": 0.41975259860779784,
@@ -12403,14 +12447,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3941.666666666667,
+          "msUntilNextEvent": 304.1666666666667,
           "randomsConsumed": 4
         },
         {
           "afterOp": 43,
           "left": {
-            "offsetX": 0.000002882257689379189,
-            "offsetY": 0.0000018528799431723397,
+            "offsetX": -0.27999424590181493,
+            "offsetY": -0.1799963009368809,
             "scaleX": 1.0798645679091847,
             "scaleY": 1.199661419772961,
             "roundness": 0.4197968518637765,
@@ -12420,8 +12464,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.000002882257689379189,
-            "offsetY": 0.0000018528799431723397,
+            "offsetX": -0.27999424590181493,
+            "offsetY": -0.1799963009368809,
             "scaleX": 1.0798645679091847,
             "scaleY": 1.199661419772961,
             "roundness": 0.4197968518637765,
@@ -12431,14 +12475,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3925.0000000000005,
+          "msUntilNextEvent": 287.5,
           "randomsConsumed": 4
         },
         {
           "afterOp": 44,
           "left": {
-            "offsetX": 0.0000020719054111741418,
-            "offsetY": 0.000001331939192897665,
+            "offsetX": -0.27999586367756535,
+            "offsetY": -0.17999734093557757,
             "scaleX": 1.0798888019245507,
             "scaleY": 1.1997220048113766,
             "roundness": 0.4198332028868259,
@@ -12448,8 +12492,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0000020719054111741418,
-            "offsetY": 0.000001331939192897665,
+            "offsetX": -0.27999586367756535,
+            "offsetY": -0.17999734093557757,
             "scaleX": 1.0798888019245507,
             "scaleY": 1.1997220048113766,
             "roundness": 0.4198332028868259,
@@ -12459,14 +12503,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3908.3333333333335,
+          "msUntilNextEvent": 270.83333333333337,
           "randomsConsumed": 4
         },
         {
           "afterOp": 45,
           "left": {
-            "offsetX": 0.0000014893849797219977,
-            "offsetY": 9.574617726784287e-7,
+            "offsetX": -0.27999702661305687,
+            "offsetY": -0.17999808853696497,
             "scaleX": 1.0799087059829582,
             "scaleY": 1.1997717649573958,
             "roundness": 0.4198630589744374,
@@ -12476,8 +12520,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0000014893849797219977,
-            "offsetY": 9.574617726784287e-7,
+            "offsetX": -0.27999702661305687,
+            "offsetY": -0.17999808853696497,
             "scaleX": 1.0799087059829582,
             "scaleY": 1.1997717649573958,
             "roundness": 0.4198630589744374,
@@ -12487,14 +12531,14 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3891.666666666667,
+          "msUntilNextEvent": 254.16666666666669,
           "randomsConsumed": 4
         },
         {
           "afterOp": 46,
           "left": {
-            "offsetX": 0.0000010706412266905875,
-            "offsetY": 6.882693600153787e-7,
+            "offsetX": -0.2799978625871185,
+            "offsetY": -0.17999862594886182,
             "scaleX": 1.0799250519141643,
             "scaleY": 1.1998126297854113,
             "roundness": 0.4198875778712467,
@@ -12504,8 +12548,8 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0000010706412266905875,
-            "offsetY": 6.882693600153787e-7,
+            "offsetX": -0.2799978625871185,
+            "offsetY": -0.17999862594886182,
             "scaleX": 1.0799250519141643,
             "scaleY": 1.1998126297854113,
             "roundness": 0.4198875778712467,
@@ -12515,91 +12559,315 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 3875.0000000000005,
+          "msUntilNextEvent": 237.50000000000003,
           "randomsConsumed": 4
         },
         {
           "afterOp": 47,
           "left": {
-            "offsetX": 0.0000010706412266905875,
-            "offsetY": 6.882693600153787e-7,
-            "scaleX": 1.0799250519141643,
-            "scaleY": 1.1998126297854113,
-            "roundness": 0.4198875778712467,
+            "offsetX": -0.2531977720069462,
+            "offsetY": -0.1627699962901797,
+            "scaleX": 1.079996128754184,
+            "scaleY": 1.19999032188546,
+            "roundness": 0.4199941931312758,
             "upperLid": 0,
             "upperLidTilt": 0,
             "lowerLid": 0,
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.0000010706412266905875,
-            "offsetY": 6.882693600153787e-7,
-            "scaleX": 1.0799250519141643,
-            "scaleY": 1.1998126297854113,
-            "roundness": 0.4198875778712467,
+            "offsetX": -0.2531977720069462,
+            "offsetY": -0.1627699962901797,
+            "scaleX": 1.079996128754184,
+            "scaleY": 1.19999032188546,
+            "roundness": 0.4199941931312758,
             "upperLid": 0,
             "upperLidTilt": 0,
             "lowerLid": 0,
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1658.3333333333335,
-          "randomsConsumed": 5
+          "msUntilNextEvent": 3625.0000000000005,
+          "randomsConsumed": 4
         },
         {
           "afterOp": 48,
           "left": {
-            "offsetX": 7.469884778676085e-7,
-            "offsetY": 4.802068786291775e-7,
-            "scaleX": 1.0799403837629609,
-            "scaleY": 1.1998509594074025,
-            "roundness": 0.4199105756444414,
+            "offsetX": -0.002703914134486627,
+            "offsetY": -0.001738230515027116,
+            "scaleX": 1.0799998004973121,
+            "scaleY": 1.19999950124328,
+            "roundness": 0.4199997007459679,
             "upperLid": 0,
             "upperLidTilt": 0,
             "lowerLid": 0,
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 7.469884778676085e-7,
-            "offsetY": 4.802068786291775e-7,
-            "scaleX": 1.0799403837629609,
-            "scaleY": 1.1998509594074025,
-            "roundness": 0.4199105756444414,
+            "offsetX": -0.002703914134486627,
+            "offsetY": -0.001738230515027116,
+            "scaleX": 1.0799998004973121,
+            "scaleY": 1.19999950124328,
+            "roundness": 0.4199997007459679,
             "upperLid": 0,
             "upperLidTilt": 0,
             "lowerLid": 0,
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1641.6666666666667,
-          "randomsConsumed": 5
+          "msUntilNextEvent": 3375.0000000000005,
+          "randomsConsumed": 4
         },
         {
           "afterOp": 49,
           "left": {
-            "offsetX": 3.1847131049641113e-7,
-            "offsetY": 2.0473155674769302e-7,
-            "scaleX": 1.0799690715730692,
-            "scaleY": 1.1999226789326736,
-            "roundness": 0.419953607359604,
+            "offsetX": -0.002703914134486627,
+            "offsetY": -0.001738230515027116,
+            "scaleX": 1.0799998004973121,
+            "scaleY": 1.19999950124328,
+            "roundness": 0.4199997007459679,
             "upperLid": 0,
             "upperLidTilt": 0,
             "lowerLid": 0,
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 3.1847131049641113e-7,
-            "offsetY": 2.0473155674769302e-7,
-            "scaleX": 1.0799690715730692,
-            "scaleY": 1.1999226789326736,
-            "roundness": 0.419953607359604,
+            "offsetX": -0.002703914134486627,
+            "offsetY": -0.001738230515027116,
+            "scaleX": 1.0799998004973121,
+            "scaleY": 1.19999950124328,
+            "roundness": 0.4199997007459679,
             "upperLid": 0,
             "upperLidTilt": 0,
             "lowerLid": 0,
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": 1608.3333333333335,
+          "msUntilNextEvent": 900.0000000000001,
+          "randomsConsumed": 4
+        },
+        {
+          "afterOp": 50,
+          "left": {
+            "offsetX": 0.10517540083132074,
+            "offsetY": -0.13594641765634116,
+            "scaleX": 1.079999939082988,
+            "scaleY": 1.1999998477074694,
+            "roundness": 0.4199999086244817,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.10517540083132074,
+            "offsetY": -0.13594641765634116,
+            "scaleX": 1.079999939082988,
+            "scaleY": 1.1999998477074694,
+            "roundness": 0.4199999086244817,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 800,
+          "randomsConsumed": 4
+        },
+        {
+          "afterOp": 51,
+          "left": {
+            "offsetX": 0.13491687546553058,
+            "offsetY": -0.17356405060026608,
+            "scaleX": 1.07999998139966,
+            "scaleY": 1.199999953499149,
+            "roundness": 0.4199999720994897,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.13491687546553058,
+            "offsetY": -0.17356405060026608,
+            "scaleX": 1.07999998139966,
+            "scaleY": 1.199999953499149,
+            "roundness": 0.4199999720994897,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 700,
+          "randomsConsumed": 4
+        },
+        {
+          "afterOp": 52,
+          "left": {
+            "offsetX": 0.1399637513469099,
+            "offsetY": -0.17995409827210698,
+            "scaleX": 1.0799999990417792,
+            "scaleY": 1.1999999976044489,
+            "roundness": 0.41999999856266906,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.1399637513469099,
+            "offsetY": -0.17995409827210698,
+            "scaleX": 1.0799999990417792,
+            "scaleY": 1.1999999976044489,
+            "roundness": 0.41999999856266906,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 450.00000000000006,
+          "randomsConsumed": 4
+        },
+        {
+          "afterOp": 53,
+          "left": {
+            "offsetX": 0.1399637513469099,
+            "offsetY": -0.17995409827210698,
+            "scaleX": 1.0799999990417792,
+            "scaleY": 1.1999999976044489,
+            "roundness": 0.41999999856266906,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.1399637513469099,
+            "offsetY": -0.17995409827210698,
+            "scaleX": 1.0799999990417792,
+            "scaleY": 1.1999999976044489,
+            "roundness": 0.41999999856266906,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 450.00000000000006,
+          "randomsConsumed": 5
+        },
+        {
+          "afterOp": 54,
+          "left": {
+            "offsetX": 0.13997470881078788,
+            "offsetY": -0.1799679737178085,
+            "scaleX": 1.0799999992381466,
+            "scaleY": 1.199999998095367,
+            "roundness": 0.41999999885722,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.13997470881078788,
+            "offsetY": -0.1799679737178085,
+            "scaleX": 1.0799999992381466,
+            "scaleY": 1.199999998095367,
+            "roundness": 0.41999999885722,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 433.33333333333337,
+          "randomsConsumed": 5
+        },
+        {
+          "afterOp": 55,
+          "left": {
+            "offsetX": 0.1399892169966972,
+            "offsetY": -0.1799863454550534,
+            "scaleX": 1.079999999605322,
+            "scaleY": 1.199999999013305,
+            "roundness": 0.41999999940798266,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.1399892169966972,
+            "offsetY": -0.1799863454550534,
+            "scaleX": 1.079999999605322,
+            "scaleY": 1.199999999013305,
+            "roundness": 0.41999999940798266,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 400,
+          "randomsConsumed": 5
+        },
+        {
+          "afterOp": 56,
+          "left": {
+            "offsetX": 0.14000002139851486,
+            "offsetY": -0.18000002709699373,
+            "scaleX": 1.080000000048945,
+            "scaleY": 1.2000000001223616,
+            "roundness": 0.420000000073417,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.14000002139851486,
+            "offsetY": -0.18000002709699373,
+            "scaleX": 1.080000000048945,
+            "scaleY": 1.2000000001223616,
+            "roundness": 0.420000000073417,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 150,
+          "randomsConsumed": 5
+        },
+        {
+          "afterOp": 57,
+          "left": {
+            "offsetX": 0.021671558531930195,
+            "offsetY": -0.027863432399019627,
+            "scaleX": 1.0799999999939334,
+            "scaleY": 1.1999999999848325,
+            "roundness": 0.4199999999908998,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "right": {
+            "offsetX": 0.021671558531930195,
+            "offsetY": -0.027863432399019627,
+            "scaleX": 1.0799999999939334,
+            "scaleY": 1.1999999999848325,
+            "roundness": 0.4199999999908998,
+            "upperLid": 0,
+            "upperLidTilt": 0,
+            "lowerLid": 0,
+            "lowerLidBend": 0
+          },
+          "settled": false,
+          "msUntilNextEvent": 1558.3333333333335,
           "randomsConsumed": 5
         }
       ]
@@ -13508,7 +13776,7 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 800,
           "randomsConsumed": 2
         },
         {
@@ -13536,7 +13804,7 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 800,
           "randomsConsumed": 2
         },
         {
@@ -13564,13 +13832,13 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 800,
           "randomsConsumed": 2
         },
         {
           "afterOp": 25,
           "left": {
-            "offsetX": 0.2760807131761632,
+            "offsetX": 0.28860565646046904,
             "offsetY": 0.07980396899617322,
             "scaleX": 1,
             "scaleY": 0.9201960310038269,
@@ -13581,7 +13849,7 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.2760807131761632,
+            "offsetX": 0.28860565646046904,
             "offsetY": 0.07980396899617322,
             "scaleX": 1,
             "scaleY": 0.9201960310038269,
@@ -13592,13 +13860,13 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 783.3333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 26,
           "left": {
-            "offsetX": 0.27019814628352584,
+            "offsetX": 0.30722372093872663,
             "offsetY": 0.0768132299889741,
             "scaleX": 1,
             "scaleY": 0.923186770011026,
@@ -13609,7 +13877,7 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.27019814628352584,
+            "offsetX": 0.30722372093872663,
             "offsetY": 0.0768132299889741,
             "scaleX": 1,
             "scaleY": 0.923186770011026,
@@ -13620,13 +13888,13 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 766.6666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 27,
           "left": {
-            "offsetX": 0.24907711806177318,
+            "offsetX": 0.3153937153027247,
             "offsetY": 0.07282432285992746,
             "scaleX": 1,
             "scaleY": 0.9271756771400727,
@@ -13637,7 +13905,7 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.24907711806177318,
+            "offsetX": 0.3153937153027247,
             "offsetY": 0.07282432285992746,
             "scaleX": 1,
             "scaleY": 0.9271756771400727,
@@ -13648,13 +13916,13 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 750,
           "randomsConsumed": 2
         },
         {
           "afterOp": 28,
           "left": {
-            "offsetX": 0.22119193370539955,
+            "offsetX": 0.317419674329128,
             "offsetY": 0.06822812769305743,
             "scaleX": 1,
             "scaleY": 0.9317718723069427,
@@ -13665,7 +13933,7 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.22119193370539955,
+            "offsetX": 0.317419674329128,
             "offsetY": 0.06822812769305743,
             "scaleX": 1,
             "scaleY": 0.9317718723069427,
@@ -13676,13 +13944,13 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 733.3333333333334,
           "randomsConsumed": 2
         },
         {
           "afterOp": 29,
           "left": {
-            "offsetX": 0.19153509528208446,
+            "offsetX": 0.31601736634498157,
             "offsetY": 0.06331547348618424,
             "scaleX": 1,
             "scaleY": 0.936684526513816,
@@ -13693,7 +13961,7 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.19153509528208446,
+            "offsetX": 0.31601736634498157,
             "offsetY": 0.06331547348618424,
             "scaleX": 1,
             "scaleY": 0.936684526513816,
@@ -13704,13 +13972,13 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 716.6666666666667,
           "randomsConsumed": 2
         },
         {
           "afterOp": 30,
           "left": {
-            "offsetX": 0.1629006731327562,
+            "offsetX": 0.31287056725761503,
             "offsetY": 0.058299438895152315,
             "scaleX": 1,
             "scaleY": 0.9417005611048478,
@@ -13721,7 +13989,7 @@
             "lowerLidBend": 0
           },
           "right": {
-            "offsetX": 0.1629006731327562,
+            "offsetX": 0.31287056725761503,
             "offsetY": 0.058299438895152315,
             "scaleX": 1,
             "scaleY": 0.9417005611048478,
@@ -13732,7 +14000,7 @@
             "lowerLidBend": 0
           },
           "settled": false,
-          "msUntilNextEvent": null,
+          "msUntilNextEvent": 700,
           "randomsConsumed": 2
         }
       ]

@@ -11,10 +11,10 @@ import { intervalSteps, steps } from '../../entities/timing.js';
  * @property {() => FaceParams} frame current frame without advancing time
  * @property {(target: FaceParams) => void} setTarget
  * @property {() => void} blink
- * @property {(dir: { x: number, y: number }) => void} glance
+ * @property {(dir: { x: number, y: number }) => void} glance works under reduced motion too (critically damped)
  * @property {(value: boolean) => void} setBlinking
  * @property {(value: boolean) => void} setIdleGaze
- * @property {(value: boolean) => void} setReducedMotion
+ * @property {(value: boolean) => void} setReducedMotion critical damping and no idle saccades; an active glance continues
  * @property {(springs: { expression?: Partial<SpringConstants>, gaze?: Partial<SpringConstants> }) => void} setSprings
  * @property {() => boolean} isSettled
  * @property {() => number} msUntilNextEvent `Infinity` when nothing is scheduled
@@ -185,7 +185,6 @@ export function createFaceAnimator({
       if (!blinkState.inProgress) startBlink();
     },
     glance({ x, y }) {
-      if (flags.reducedMotion) return;
       setGazeTarget(x * glanceCfg.offset.x, y * glanceCfg.offset.y);
       glanceTimer.count = steps(glanceCfg.holdMs, hz);
       glanceTimer.active = true;
@@ -210,10 +209,6 @@ export function createFaceAnimator({
       if (flags.reducedMotion === value) return;
       const was = saccadesEnabled();
       flags.reducedMotion = value;
-      if (value) {
-        glanceTimer.active = false;
-        setGazeTarget(0, 0);
-      }
       onSaccadesEnabledChanged(was);
     },
     setSprings(springs) {

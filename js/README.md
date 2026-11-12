@@ -51,6 +51,11 @@ completes in a single frame.
   `parseSpringOverrides`, `SpecError` - validation with path-qualified error messages.
 - `PARAM_KEYS` - the nine eye parameter names.
 
+## Reduced motion
+
+`setReducedMotion(true)` critically damps every spring (no bounce) and stops idle saccades. Blinks
+and glances still work; a glance is critically damped too, and one already in progress continues.
+
 ## Scripts (run from the repository root)
 
 | Command                | Purpose                                    |

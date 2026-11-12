@@ -203,4 +203,21 @@ class ControllerBehaviorTest {
         assertEquals(30.0, g.right - g.left, 0.01)
         assertEquals(EyeParams.KEYS.size, 9)
     }
+
+    @Test
+    fun glanceMovesGazeUnderReducedMotion() {
+        val c = controller()
+        c.setReducedMotion(true)
+        val before =
+            c
+                .step(0.0)
+                .left.eye.left
+        c.glance(Vec2(1.0, 0.0))
+        repeat(30) { c.step(16.6) }
+        assertTrue(
+            c
+                .step(0.0)
+                .left.eye.left > before + 1.0,
+        )
+    }
 }

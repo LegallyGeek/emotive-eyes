@@ -24,6 +24,8 @@ state.glance(Vec2(1.0, 0.0))
 state.setStatuses(listOf(StatusInput("net", "error", Vec2(1.0, 0.0))))
 ```
 
+Reduced motion (system "remove animations" by default) means critically damped transitions and glances, no idle saccades, blinks kept; the demo has a switch to override it.
+
 `Eyes` draws only the eyes (white by default, glow off; glow needs API 31+). The frame loop sleeps
 while settled. Every `EyesState` command first steps the clock to "now", then mutates, then wakes
 the loop, so idle time is never integrated against a new target (see `EyesStateTest`).

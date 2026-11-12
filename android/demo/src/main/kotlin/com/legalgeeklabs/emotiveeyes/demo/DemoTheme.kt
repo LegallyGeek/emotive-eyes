@@ -1,6 +1,7 @@
 package com.legalgeeklabs.emotiveeyes.demo
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -21,5 +22,8 @@ private val DemoColors =
 /** Pure-black Material theme matching the monochrome target display. */
 @Composable
 fun DemoTheme(content: @Composable () -> Unit) {
-    MaterialTheme(colorScheme = DemoColors, content = content)
+    MaterialTheme(colorScheme = DemoColors) {
+        // MaterialTheme sets no content colour; without a Surface, Text defaults to black.
+        Surface(color = Color.Black, contentColor = MaterialTheme.colorScheme.onSurface, content = content)
+    }
 }
