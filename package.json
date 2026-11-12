@@ -1,0 +1,29 @@
+{
+  "name": "emotive-eyes-workspace",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "js",
+    "web-demo"
+  ],
+  "scripts": {
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "npm test --workspace js",
+    "check": "npm run check --workspaces --if-present",
+    "build": "npm run build --workspace web-demo",
+    "dev": "npm run dev --workspace web-demo",
+    "vectors": "npm run vectors --workspace js"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.14.0",
+    "eslint-plugin-svelte": "^3.24.1",
+    "globals": "^17.14.0",
+    "prettier": "^3.10.1",
+    "prettier-plugin-svelte": "^4.1.1",
+    "svelte": "^5.57.3",
+    "vitest": "^5.1.0"
+  }
+}

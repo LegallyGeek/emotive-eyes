@@ -1,0 +1,352 @@
+{
+  "status": {
+    "severity": [
+      "ok",
+      "busy",
+      "warning",
+      "offline",
+      "error"
+    ],
+    "expressionFor": {
+      "ok": "neutral",
+      "busy": "focused",
+      "warning": "worried",
+      "offline": "sleepy",
+      "error": "angry"
+    },
+    "emptyExpression": "neutral"
+  },
+  "sequences": [
+    {
+      "name": "baseline-never-glances",
+      "updates": [
+        [
+          {
+            "id": "cam",
+            "status": "error",
+            "direction": {
+              "x": -1,
+              "y": 0
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "expression": "angry",
+          "glance": null
+        }
+      ]
+    },
+    {
+      "name": "severity-picks-most-severe",
+      "updates": [
+        [
+          {
+            "id": "a",
+            "status": "ok"
+          },
+          {
+            "id": "b",
+            "status": "warning"
+          },
+          {
+            "id": "c",
+            "status": "busy"
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "status": "ok"
+          },
+          {
+            "id": "b",
+            "status": "offline"
+          },
+          {
+            "id": "c",
+            "status": "busy"
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "expression": "worried",
+          "glance": null
+        },
+        {
+          "expression": "sleepy",
+          "glance": null
+        }
+      ]
+    },
+    {
+      "name": "glance-picks-most-severe-change-first-on-tie",
+      "updates": [
+        [
+          {
+            "id": "cam",
+            "status": "ok",
+            "direction": {
+              "x": -1,
+              "y": 0
+            }
+          },
+          {
+            "id": "mic",
+            "status": "ok",
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "id": "net",
+            "status": "ok",
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        ],
+        [
+          {
+            "id": "cam",
+            "status": "warning",
+            "direction": {
+              "x": -1,
+              "y": 0
+            }
+          },
+          {
+            "id": "mic",
+            "status": "warning",
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "id": "net",
+            "status": "busy",
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        ],
+        [
+          {
+            "id": "cam",
+            "status": "warning",
+            "direction": {
+              "x": -1,
+              "y": 0
+            }
+          },
+          {
+            "id": "mic",
+            "status": "error",
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          },
+          {
+            "id": "net",
+            "status": "error",
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "expression": "neutral",
+          "glance": null
+        },
+        {
+          "expression": "worried",
+          "glance": {
+            "x": -1,
+            "y": 0
+          }
+        },
+        {
+          "expression": "angry",
+          "glance": {
+            "x": 0,
+            "y": 1
+          }
+        }
+      ]
+    },
+    {
+      "name": "unchanged-and-no-direction-and-removed",
+      "updates": [
+        [
+          {
+            "id": "a",
+            "status": "ok",
+            "direction": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          {
+            "id": "b",
+            "status": "error",
+            "direction": {
+              "x": -1,
+              "y": -1
+            }
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "status": "ok",
+            "direction": {
+              "x": 1,
+              "y": 1
+            }
+          },
+          {
+            "id": "b",
+            "status": "error",
+            "direction": {
+              "x": -1,
+              "y": -1
+            }
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "status": "ok",
+            "direction": {
+              "x": 1,
+              "y": 1
+            }
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "status": "busy"
+          }
+        ],
+        [],
+        [
+          {
+            "id": "a",
+            "status": "busy",
+            "direction": {
+              "x": 0.5,
+              "y": -0.5
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "expression": "angry",
+          "glance": null
+        },
+        {
+          "expression": "angry",
+          "glance": null
+        },
+        {
+          "expression": "neutral",
+          "glance": null
+        },
+        {
+          "expression": "focused",
+          "glance": null
+        },
+        {
+          "expression": "neutral",
+          "glance": null
+        },
+        {
+          "expression": "focused",
+          "glance": {
+            "x": 0.5,
+            "y": -0.5
+          }
+        }
+      ]
+    },
+    {
+      "name": "recovery-is-a-change",
+      "updates": [
+        [
+          {
+            "id": "a",
+            "status": "error",
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        ],
+        [
+          {
+            "id": "a",
+            "status": "ok",
+            "direction": {
+              "x": 1,
+              "y": 0
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "expression": "angry",
+          "glance": null
+        },
+        {
+          "expression": "neutral",
+          "glance": {
+            "x": 1,
+            "y": 0
+          }
+        }
+      ]
+    },
+    {
+      "name": "empty-baseline",
+      "updates": [
+        [],
+        [
+          {
+            "id": "a",
+            "status": "ok",
+            "direction": {
+              "x": 0,
+              "y": 1
+            }
+          }
+        ]
+      ],
+      "expected": [
+        {
+          "expression": "neutral",
+          "glance": null
+        },
+        {
+          "expression": "neutral",
+          "glance": {
+            "x": 0,
+            "y": 1
+          }
+        }
+      ]
+    }
+  ]
+}

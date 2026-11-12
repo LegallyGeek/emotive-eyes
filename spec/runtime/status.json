@@ -1,0 +1,11 @@
+{
+  "severity": ["ok", "busy", "warning", "offline", "error"],
+  "expressionFor": {
+    "ok": "neutral",
+    "busy": "focused",
+    "warning": "worried",
+    "offline": "sleepy",
+    "error": "angry"
+  },
+  "emptyExpression": "neutral"
+}

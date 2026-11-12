@@ -1,0 +1,36 @@
+{
+  "layout": {
+    "width": 200,
+    "height": 100,
+    "eyeWidth": 60,
+    "eyeHeight": 70,
+    "lidOverscan": 1,
+    "eyes": { "left": { "x": 56, "y": 50 }, "right": { "x": 144, "y": 50 } }
+  },
+  "defaults": {
+    "offsetX": 0,
+    "offsetY": 0,
+    "scaleX": 1,
+    "scaleY": 1,
+    "roundness": 0.3,
+    "upperLid": 0,
+    "upperLidTilt": 0,
+    "lowerLid": 0,
+    "lowerLidBend": 0
+  },
+  "expressions": {
+    "neutral": {},
+    "happy": { "lowerLid": 0.42, "lowerLidBend": 0.55, "roundness": 0.5, "offsetY": -0.03 },
+    "sad": { "upperLid": 0.32, "upperLidTilt": -20, "scaleY": 0.92, "offsetY": 0.08 },
+    "angry": { "upperLid": 0.38, "upperLidTilt": 24, "scaleY": 0.9, "roundness": 0.22 },
+    "surprised": { "scaleX": 1.08, "scaleY": 1.2, "roundness": 0.42 },
+    "worried": { "upperLid": 0.18, "upperLidTilt": -12, "scaleY": 1.04, "offsetY": 0.04 },
+    "sleepy": { "upperLid": 0.62, "lowerLid": 0.1, "scaleY": 0.85 },
+    "focused": { "upperLid": 0.12, "lowerLid": 0.12, "scaleY": 0.72, "roundness": 0.25 },
+    "suspicious": {
+      "upperLid": 0.2,
+      "left": { "upperLid": 0.5, "upperLidTilt": 8 },
+      "right": { "scaleY": 1.05 }
+    }
+  }
+}

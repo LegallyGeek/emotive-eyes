@@ -1,0 +1,29 @@
+{
+  "name": "emotive-eyes",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Procedural, spring-animated robot eyes core (framework-agnostic).",
+  "svelte": "./src/drivers/svelte/Eyes.svelte",
+  "exports": {
+    ".": "./src/index.js",
+    "./svelte": {
+      "svelte": "./src/drivers/svelte/Eyes.svelte",
+      "default": "./src/drivers/svelte/Eyes.svelte"
+    }
+  },
+  "peerDependencies": {
+    "svelte": "^5.0.0"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "check": "svelte-check --tsconfig ./jsconfig.json",
+    "vectors": "node scripts/generate-vectors.js"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@testing-library/svelte": "^5.4.2",
+    "jsdom": "^31.0.0",
+    "svelte-check": "^4.7.8"
+  }
+}

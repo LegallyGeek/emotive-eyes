@@ -1,0 +1,552 @@
+{
+  "cases": [
+    {
+      "name": "default-single",
+      "blink": {
+        "closeMs": 70,
+        "holdMs": 20,
+        "openMs": 120,
+        "minScale": 0.1,
+        "intervalMs": [
+          2000,
+          6000
+        ],
+        "doubleBlinkChance": 0.15,
+        "doubleBlinkGapMs": 90
+      },
+      "isDouble": false,
+      "samples": [
+        {
+          "tMs": -10,
+          "factor": 1
+        },
+        {
+          "tMs": -0.001,
+          "factor": 1
+        },
+        {
+          "tMs": 0,
+          "factor": 1
+        },
+        {
+          "tMs": 1,
+          "factor": 0.9998163265306123
+        },
+        {
+          "tMs": 35,
+          "factor": 0.775
+        },
+        {
+          "tMs": 70,
+          "factor": 0.1
+        },
+        {
+          "tMs": 80,
+          "factor": 0.1
+        },
+        {
+          "tMs": 90,
+          "factor": 0.1
+        },
+        {
+          "tMs": 150,
+          "factor": 0.775
+        },
+        {
+          "tMs": 209.999,
+          "factor": 0.9999999999375
+        },
+        {
+          "tMs": 210,
+          "factor": 1
+        },
+        {
+          "tMs": 255,
+          "factor": 1
+        },
+        {
+          "tMs": 299.999,
+          "factor": 1
+        },
+        {
+          "tMs": 300,
+          "factor": 1
+        },
+        {
+          "tMs": 335,
+          "factor": 1
+        },
+        {
+          "tMs": 370,
+          "factor": 1
+        },
+        {
+          "tMs": 509.999,
+          "factor": 1
+        },
+        {
+          "tMs": 510,
+          "factor": 1
+        },
+        {
+          "tMs": 560,
+          "factor": 1
+        }
+      ]
+    },
+    {
+      "name": "default-double",
+      "blink": {
+        "closeMs": 70,
+        "holdMs": 20,
+        "openMs": 120,
+        "minScale": 0.1,
+        "intervalMs": [
+          2000,
+          6000
+        ],
+        "doubleBlinkChance": 0.15,
+        "doubleBlinkGapMs": 90
+      },
+      "isDouble": true,
+      "samples": [
+        {
+          "tMs": -10,
+          "factor": 1
+        },
+        {
+          "tMs": -0.001,
+          "factor": 1
+        },
+        {
+          "tMs": 0,
+          "factor": 1
+        },
+        {
+          "tMs": 1,
+          "factor": 0.9998163265306123
+        },
+        {
+          "tMs": 35,
+          "factor": 0.775
+        },
+        {
+          "tMs": 70,
+          "factor": 0.1
+        },
+        {
+          "tMs": 80,
+          "factor": 0.1
+        },
+        {
+          "tMs": 90,
+          "factor": 0.1
+        },
+        {
+          "tMs": 150,
+          "factor": 0.775
+        },
+        {
+          "tMs": 209.999,
+          "factor": 0.9999999999375
+        },
+        {
+          "tMs": 210,
+          "factor": 1
+        },
+        {
+          "tMs": 255,
+          "factor": 1
+        },
+        {
+          "tMs": 299.999,
+          "factor": 1
+        },
+        {
+          "tMs": 300,
+          "factor": 1
+        },
+        {
+          "tMs": 335,
+          "factor": 0.775
+        },
+        {
+          "tMs": 370,
+          "factor": 0.1
+        },
+        {
+          "tMs": 509.999,
+          "factor": 0.9999999999375
+        },
+        {
+          "tMs": 510,
+          "factor": 1
+        },
+        {
+          "tMs": 560,
+          "factor": 1
+        }
+      ]
+    },
+    {
+      "name": "no-hold-single",
+      "blink": {
+        "closeMs": 70,
+        "holdMs": 0,
+        "openMs": 120,
+        "minScale": 0.1,
+        "intervalMs": [
+          2000,
+          6000
+        ],
+        "doubleBlinkChance": 0.15,
+        "doubleBlinkGapMs": 90
+      },
+      "isDouble": false,
+      "samples": [
+        {
+          "tMs": -10,
+          "factor": 1
+        },
+        {
+          "tMs": -0.001,
+          "factor": 1
+        },
+        {
+          "tMs": 0,
+          "factor": 1
+        },
+        {
+          "tMs": 1,
+          "factor": 0.9998163265306123
+        },
+        {
+          "tMs": 35,
+          "factor": 0.775
+        },
+        {
+          "tMs": 70,
+          "factor": 0.1
+        },
+        {
+          "tMs": 130,
+          "factor": 0.775
+        },
+        {
+          "tMs": 189.999,
+          "factor": 0.9999999999375
+        },
+        {
+          "tMs": 190,
+          "factor": 1
+        },
+        {
+          "tMs": 235,
+          "factor": 1
+        },
+        {
+          "tMs": 279.999,
+          "factor": 1
+        },
+        {
+          "tMs": 280,
+          "factor": 1
+        },
+        {
+          "tMs": 315,
+          "factor": 1
+        },
+        {
+          "tMs": 350,
+          "factor": 1
+        },
+        {
+          "tMs": 469.999,
+          "factor": 1
+        },
+        {
+          "tMs": 470,
+          "factor": 1
+        },
+        {
+          "tMs": 520,
+          "factor": 1
+        }
+      ]
+    },
+    {
+      "name": "no-hold-double",
+      "blink": {
+        "closeMs": 70,
+        "holdMs": 0,
+        "openMs": 120,
+        "minScale": 0.1,
+        "intervalMs": [
+          2000,
+          6000
+        ],
+        "doubleBlinkChance": 0.15,
+        "doubleBlinkGapMs": 90
+      },
+      "isDouble": true,
+      "samples": [
+        {
+          "tMs": -10,
+          "factor": 1
+        },
+        {
+          "tMs": -0.001,
+          "factor": 1
+        },
+        {
+          "tMs": 0,
+          "factor": 1
+        },
+        {
+          "tMs": 1,
+          "factor": 0.9998163265306123
+        },
+        {
+          "tMs": 35,
+          "factor": 0.775
+        },
+        {
+          "tMs": 70,
+          "factor": 0.1
+        },
+        {
+          "tMs": 130,
+          "factor": 0.775
+        },
+        {
+          "tMs": 189.999,
+          "factor": 0.9999999999375
+        },
+        {
+          "tMs": 190,
+          "factor": 1
+        },
+        {
+          "tMs": 235,
+          "factor": 1
+        },
+        {
+          "tMs": 279.999,
+          "factor": 1
+        },
+        {
+          "tMs": 280,
+          "factor": 1
+        },
+        {
+          "tMs": 315,
+          "factor": 0.775
+        },
+        {
+          "tMs": 350,
+          "factor": 0.1
+        },
+        {
+          "tMs": 469.999,
+          "factor": 0.9999999999375
+        },
+        {
+          "tMs": 470,
+          "factor": 1
+        },
+        {
+          "tMs": 520,
+          "factor": 1
+        }
+      ]
+    },
+    {
+      "name": "slow-single",
+      "blink": {
+        "closeMs": 100,
+        "holdMs": 50,
+        "openMs": 200,
+        "minScale": 0,
+        "intervalMs": [
+          2000,
+          6000
+        ],
+        "doubleBlinkChance": 0.15,
+        "doubleBlinkGapMs": 40
+      },
+      "isDouble": false,
+      "samples": [
+        {
+          "tMs": -10,
+          "factor": 1
+        },
+        {
+          "tMs": -0.001,
+          "factor": 1
+        },
+        {
+          "tMs": 0,
+          "factor": 1
+        },
+        {
+          "tMs": 1,
+          "factor": 0.9999
+        },
+        {
+          "tMs": 50,
+          "factor": 0.75
+        },
+        {
+          "tMs": 100,
+          "factor": 0
+        },
+        {
+          "tMs": 125,
+          "factor": 0
+        },
+        {
+          "tMs": 150,
+          "factor": 0
+        },
+        {
+          "tMs": 250,
+          "factor": 0.75
+        },
+        {
+          "tMs": 349.999,
+          "factor": 0.999999999975
+        },
+        {
+          "tMs": 350,
+          "factor": 1
+        },
+        {
+          "tMs": 370,
+          "factor": 1
+        },
+        {
+          "tMs": 389.999,
+          "factor": 1
+        },
+        {
+          "tMs": 390,
+          "factor": 1
+        },
+        {
+          "tMs": 440,
+          "factor": 1
+        },
+        {
+          "tMs": 490,
+          "factor": 1
+        },
+        {
+          "tMs": 739.999,
+          "factor": 1
+        },
+        {
+          "tMs": 740,
+          "factor": 1
+        },
+        {
+          "tMs": 790,
+          "factor": 1
+        }
+      ]
+    },
+    {
+      "name": "slow-double",
+      "blink": {
+        "closeMs": 100,
+        "holdMs": 50,
+        "openMs": 200,
+        "minScale": 0,
+        "intervalMs": [
+          2000,
+          6000
+        ],
+        "doubleBlinkChance": 0.15,
+        "doubleBlinkGapMs": 40
+      },
+      "isDouble": true,
+      "samples": [
+        {
+          "tMs": -10,
+          "factor": 1
+        },
+        {
+          "tMs": -0.001,
+          "factor": 1
+        },
+        {
+          "tMs": 0,
+          "factor": 1
+        },
+        {
+          "tMs": 1,
+          "factor": 0.9999
+        },
+        {
+          "tMs": 50,
+          "factor": 0.75
+        },
+        {
+          "tMs": 100,
+          "factor": 0
+        },
+        {
+          "tMs": 125,
+          "factor": 0
+        },
+        {
+          "tMs": 150,
+          "factor": 0
+        },
+        {
+          "tMs": 250,
+          "factor": 0.75
+        },
+        {
+          "tMs": 349.999,
+          "factor": 0.999999999975
+        },
+        {
+          "tMs": 350,
+          "factor": 1
+        },
+        {
+          "tMs": 370,
+          "factor": 1
+        },
+        {
+          "tMs": 389.999,
+          "factor": 1
+        },
+        {
+          "tMs": 390,
+          "factor": 1
+        },
+        {
+          "tMs": 440,
+          "factor": 0.75
+        },
+        {
+          "tMs": 490,
+          "factor": 0
+        },
+        {
+          "tMs": 739.999,
+          "factor": 0.999999999975
+        },
+        {
+          "tMs": 740,
+          "factor": 1
+        },
+        {
+          "tMs": 790,
+          "factor": 1
+        }
+      ]
+    }
+  ]
+}

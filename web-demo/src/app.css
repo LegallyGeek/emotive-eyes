@@ -1,0 +1,49 @@
+:root {
+  color-scheme: dark;
+  --panel: #000;
+  --bg: #0b0b0c;
+  --card: #151517;
+  --line: #2a2a2e;
+  --text: #e8e8ea;
+  --muted: #8d8d94;
+  --accent: #fff;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font:
+    15px/1.4 system-ui,
+    sans-serif;
+}
+button,
+select,
+input {
+  font: inherit;
+}
+button {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+}
+button[aria-pressed='true'],
+button[aria-selected='true'] {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+.muted {
+  color: var(--muted);
+}

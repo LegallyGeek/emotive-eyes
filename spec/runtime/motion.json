@@ -1,0 +1,20 @@
+{
+  "substepHz": 240,
+  "maxStepMs": 10000,
+  "settleEpsilon": 0.0005,
+  "springs": {
+    "expression": { "stiffness": 220, "damping": 16 },
+    "gaze": { "stiffness": 700, "damping": 45 }
+  },
+  "blink": {
+    "closeMs": 70,
+    "holdMs": 20,
+    "openMs": 120,
+    "minScale": 0.1,
+    "intervalMs": [2000, 6000],
+    "doubleBlinkChance": 0.15,
+    "doubleBlinkGapMs": 90
+  },
+  "saccade": { "intervalMs": [1200, 3500], "amplitude": { "x": 0.08, "y": 0.05 } },
+  "glance": { "holdMs": 900, "offset": { "x": 0.28, "y": 0.18 } }
+}

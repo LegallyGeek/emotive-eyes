@@ -1,0 +1,2646 @@
+{
+  "layout": {
+    "width": 200,
+    "height": 100,
+    "eyeWidth": 60,
+    "eyeHeight": 70,
+    "lidOverscan": 1,
+    "eyes": {
+      "left": {
+        "x": 56,
+        "y": 50
+      },
+      "right": {
+        "x": 144,
+        "y": 50
+      }
+    }
+  },
+  "cases": [
+    {
+      "name": "preset-neutral",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              15
+            ],
+            [
+              25,
+              15
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              14
+            ],
+            [
+              175,
+              14
+            ],
+            [
+              175,
+              15
+            ],
+            [
+              113,
+              15
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              85
+            ],
+            "control": [
+              144,
+              85
+            ],
+            "edgeRight": [
+              175,
+              85
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-happy",
+      "left": {
+        "offsetX": 0,
+        "offsetY": -0.03,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.5,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0.42,
+        "lowerLidBend": 0.55
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": -0.03,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.5,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0.42,
+        "lowerLidBend": 0.55
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 12.899999999999999,
+            "right": 86,
+            "bottom": 82.9,
+            "radius": 30
+          },
+          "upperLid": [
+            [
+              25,
+              11.899999999999999
+            ],
+            [
+              87,
+              11.899999999999999
+            ],
+            [
+              87,
+              12.899999999999999
+            ],
+            [
+              25,
+              12.899999999999999
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              83.9
+            ],
+            "edgeLeft": [
+              25,
+              53.50000000000001
+            ],
+            "control": [
+              56,
+              15.000000000000007
+            ],
+            "edgeRight": [
+              87,
+              53.50000000000001
+            ],
+            "end": [
+              87,
+              83.9
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 12.899999999999999,
+            "right": 174,
+            "bottom": 82.9,
+            "radius": 30
+          },
+          "upperLid": [
+            [
+              113,
+              11.899999999999999
+            ],
+            [
+              175,
+              11.899999999999999
+            ],
+            [
+              175,
+              12.899999999999999
+            ],
+            [
+              113,
+              12.899999999999999
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              83.9
+            ],
+            "edgeLeft": [
+              113,
+              53.50000000000001
+            ],
+            "control": [
+              144,
+              15.000000000000007
+            ],
+            "edgeRight": [
+              175,
+              53.50000000000001
+            ],
+            "end": [
+              175,
+              83.9
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-sad",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0.08,
+        "scaleX": 1,
+        "scaleY": 0.92,
+        "roundness": 0.3,
+        "upperLid": 0.32,
+        "upperLidTilt": -20,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0.08,
+        "scaleX": 1,
+        "scaleY": 0.92,
+        "roundness": 0.3,
+        "upperLid": 0.32,
+        "upperLidTilt": -20,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 23.4,
+            "right": 86,
+            "bottom": 87.80000000000001,
+            "radius": 19.32
+          },
+          "upperLid": [
+            [
+              25,
+              22.4
+            ],
+            [
+              87,
+              22.4
+            ],
+            [
+              87,
+              33.08889297201392
+            ],
+            [
+              25,
+              54.92710702798607
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              88.80000000000001
+            ],
+            "edgeLeft": [
+              25,
+              87.80000000000001
+            ],
+            "control": [
+              56,
+              87.80000000000001
+            ],
+            "edgeRight": [
+              87,
+              87.80000000000001
+            ],
+            "end": [
+              87,
+              88.80000000000001
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 23.4,
+            "right": 174,
+            "bottom": 87.80000000000001,
+            "radius": 19.32
+          },
+          "upperLid": [
+            [
+              113,
+              22.4
+            ],
+            [
+              175,
+              22.4
+            ],
+            [
+              175,
+              54.92710702798607
+            ],
+            [
+              113,
+              33.08889297201392
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              88.80000000000001
+            ],
+            "edgeLeft": [
+              113,
+              87.80000000000001
+            ],
+            "control": [
+              144,
+              87.80000000000001
+            ],
+            "edgeRight": [
+              175,
+              87.80000000000001
+            ],
+            "end": [
+              175,
+              88.80000000000001
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-angry",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 0.9,
+        "roundness": 0.22,
+        "upperLid": 0.38,
+        "upperLidTilt": 24,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 0.9,
+        "roundness": 0.22,
+        "upperLid": 0.38,
+        "upperLidTilt": 24,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 18.5,
+            "right": 86,
+            "bottom": 81.5,
+            "radius": 13.86
+          },
+          "upperLid": [
+            [
+              25,
+              17.5
+            ],
+            [
+              87,
+              17.5
+            ],
+            [
+              87,
+              55.79686055925608
+            ],
+            [
+              25,
+              29.083139440743913
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              82.5
+            ],
+            "edgeLeft": [
+              25,
+              81.5
+            ],
+            "control": [
+              56,
+              81.5
+            ],
+            "edgeRight": [
+              87,
+              81.5
+            ],
+            "end": [
+              87,
+              82.5
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 18.5,
+            "right": 174,
+            "bottom": 81.5,
+            "radius": 13.86
+          },
+          "upperLid": [
+            [
+              113,
+              17.5
+            ],
+            [
+              175,
+              17.5
+            ],
+            [
+              175,
+              29.083139440743913
+            ],
+            [
+              113,
+              55.79686055925608
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              82.5
+            ],
+            "edgeLeft": [
+              113,
+              81.5
+            ],
+            "control": [
+              144,
+              81.5
+            ],
+            "edgeRight": [
+              175,
+              81.5
+            ],
+            "end": [
+              175,
+              82.5
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-surprised",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1.08,
+        "scaleY": 1.2,
+        "roundness": 0.42,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1.08,
+        "scaleY": 1.2,
+        "roundness": 0.42,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 23.599999999999994,
+            "top": 8,
+            "right": 88.4,
+            "bottom": 92,
+            "radius": 32.400000000000006
+          },
+          "upperLid": [
+            [
+              22.599999999999994,
+              7
+            ],
+            [
+              89.4,
+              7
+            ],
+            [
+              89.4,
+              8
+            ],
+            [
+              22.599999999999994,
+              8
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              22.599999999999994,
+              93
+            ],
+            "edgeLeft": [
+              22.599999999999994,
+              92
+            ],
+            "control": [
+              56,
+              92
+            ],
+            "edgeRight": [
+              89.4,
+              92
+            ],
+            "end": [
+              89.4,
+              93
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 111.6,
+            "top": 8,
+            "right": 176.4,
+            "bottom": 92,
+            "radius": 32.400000000000006
+          },
+          "upperLid": [
+            [
+              110.6,
+              7
+            ],
+            [
+              177.4,
+              7
+            ],
+            [
+              177.4,
+              8
+            ],
+            [
+              110.6,
+              8
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              110.6,
+              93
+            ],
+            "edgeLeft": [
+              110.6,
+              92
+            ],
+            "control": [
+              144,
+              92
+            ],
+            "edgeRight": [
+              177.4,
+              92
+            ],
+            "end": [
+              177.4,
+              93
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-worried",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0.04,
+        "scaleX": 1,
+        "scaleY": 1.04,
+        "roundness": 0.3,
+        "upperLid": 0.18,
+        "upperLidTilt": -12,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0.04,
+        "scaleX": 1,
+        "scaleY": 1.04,
+        "roundness": 0.3,
+        "upperLid": 0.18,
+        "upperLidTilt": -12,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 16.4,
+            "right": 86,
+            "bottom": 89.19999999999999,
+            "radius": 21.84
+          },
+          "upperLid": [
+            [
+              25,
+              15.399999999999999
+            ],
+            [
+              87,
+              15.399999999999999
+            ],
+            [
+              87,
+              23.127303149899333
+            ],
+            [
+              25,
+              35.88069685010066
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              90.19999999999999
+            ],
+            "edgeLeft": [
+              25,
+              89.19999999999999
+            ],
+            "control": [
+              56,
+              89.19999999999999
+            ],
+            "edgeRight": [
+              87,
+              89.19999999999999
+            ],
+            "end": [
+              87,
+              90.19999999999999
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 16.4,
+            "right": 174,
+            "bottom": 89.19999999999999,
+            "radius": 21.84
+          },
+          "upperLid": [
+            [
+              113,
+              15.399999999999999
+            ],
+            [
+              175,
+              15.399999999999999
+            ],
+            [
+              175,
+              35.88069685010066
+            ],
+            [
+              113,
+              23.127303149899333
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              90.19999999999999
+            ],
+            "edgeLeft": [
+              113,
+              89.19999999999999
+            ],
+            "control": [
+              144,
+              89.19999999999999
+            ],
+            "edgeRight": [
+              175,
+              89.19999999999999
+            ],
+            "end": [
+              175,
+              90.19999999999999
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-sleepy",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 0.85,
+        "roundness": 0.3,
+        "upperLid": 0.62,
+        "upperLidTilt": 0,
+        "lowerLid": 0.1,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 0.85,
+        "roundness": 0.3,
+        "upperLid": 0.62,
+        "upperLidTilt": 0,
+        "lowerLid": 0.1,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 20.25,
+            "right": 86,
+            "bottom": 79.75,
+            "radius": 17.849999999999998
+          },
+          "upperLid": [
+            [
+              25,
+              19.25
+            ],
+            [
+              87,
+              19.25
+            ],
+            [
+              87,
+              57.14
+            ],
+            [
+              25,
+              57.14
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              80.75
+            ],
+            "edgeLeft": [
+              25,
+              73.8
+            ],
+            "control": [
+              56,
+              73.8
+            ],
+            "edgeRight": [
+              87,
+              73.8
+            ],
+            "end": [
+              87,
+              80.75
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 20.25,
+            "right": 174,
+            "bottom": 79.75,
+            "radius": 17.849999999999998
+          },
+          "upperLid": [
+            [
+              113,
+              19.25
+            ],
+            [
+              175,
+              19.25
+            ],
+            [
+              175,
+              57.14
+            ],
+            [
+              113,
+              57.14
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              80.75
+            ],
+            "edgeLeft": [
+              113,
+              73.8
+            ],
+            "control": [
+              144,
+              73.8
+            ],
+            "edgeRight": [
+              175,
+              73.8
+            ],
+            "end": [
+              175,
+              80.75
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-focused",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 0.72,
+        "roundness": 0.25,
+        "upperLid": 0.12,
+        "upperLidTilt": 0,
+        "lowerLid": 0.12,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 0.72,
+        "roundness": 0.25,
+        "upperLid": 0.12,
+        "upperLidTilt": 0,
+        "lowerLid": 0.12,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 24.8,
+            "right": 86,
+            "bottom": 75.2,
+            "radius": 12.6
+          },
+          "upperLid": [
+            [
+              25,
+              23.8
+            ],
+            [
+              87,
+              23.8
+            ],
+            [
+              87,
+              30.848
+            ],
+            [
+              25,
+              30.848
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              76.2
+            ],
+            "edgeLeft": [
+              25,
+              69.152
+            ],
+            "control": [
+              56,
+              69.152
+            ],
+            "edgeRight": [
+              87,
+              69.152
+            ],
+            "end": [
+              87,
+              76.2
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 24.8,
+            "right": 174,
+            "bottom": 75.2,
+            "radius": 12.6
+          },
+          "upperLid": [
+            [
+              113,
+              23.8
+            ],
+            [
+              175,
+              23.8
+            ],
+            [
+              175,
+              30.848
+            ],
+            [
+              113,
+              30.848
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              76.2
+            ],
+            "edgeLeft": [
+              113,
+              69.152
+            ],
+            "control": [
+              144,
+              69.152
+            ],
+            "edgeRight": [
+              175,
+              69.152
+            ],
+            "end": [
+              175,
+              76.2
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "preset-suspicious",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.5,
+        "upperLidTilt": 8,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1.05,
+        "roundness": 0.3,
+        "upperLid": 0.2,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              54.216225041071745
+            ],
+            [
+              25,
+              45.783774958928255
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 13.25,
+            "right": 174,
+            "bottom": 86.75,
+            "radius": 22.05
+          },
+          "upperLid": [
+            [
+              113,
+              12.25
+            ],
+            [
+              175,
+              12.25
+            ],
+            [
+              175,
+              27.950000000000003
+            ],
+            [
+              113,
+              27.950000000000003
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              87.75
+            ],
+            "edgeLeft": [
+              113,
+              86.75
+            ],
+            "control": [
+              144,
+              86.75
+            ],
+            "edgeRight": [
+              175,
+              86.75
+            ],
+            "end": [
+              175,
+              87.75
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lids-over-clamped",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 1.7,
+        "upperLidTilt": 80,
+        "lowerLid": 1.4,
+        "lowerLidBend": 3
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 1.7,
+        "upperLidTilt": 80,
+        "lowerLid": 1.4,
+        "lowerLidBend": 3
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              115
+            ],
+            [
+              25,
+              55
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              15
+            ],
+            "control": [
+              56,
+              -55
+            ],
+            "edgeRight": [
+              87,
+              15
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              14
+            ],
+            [
+              175,
+              14
+            ],
+            [
+              175,
+              55
+            ],
+            [
+              113,
+              115
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              15
+            ],
+            "control": [
+              144,
+              -55
+            ],
+            "edgeRight": [
+              175,
+              15
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lids-under-clamped",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": -0.5,
+        "upperLidTilt": -80,
+        "lowerLid": -2,
+        "lowerLidBend": -4
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": -0.5,
+        "upperLidTilt": -80,
+        "lowerLid": -2,
+        "lowerLidBend": -4
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              -15.999999999999996
+            ],
+            [
+              87,
+              -15.999999999999996
+            ],
+            [
+              87,
+              -14.999999999999996
+            ],
+            [
+              25,
+              45
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              156
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              155
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              156
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              -15.999999999999996
+            ],
+            [
+              175,
+              -15.999999999999996
+            ],
+            [
+              175,
+              45
+            ],
+            [
+              113,
+              -14.999999999999996
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              156
+            ],
+            "edgeLeft": [
+              113,
+              85
+            ],
+            "control": [
+              144,
+              155
+            ],
+            "edgeRight": [
+              175,
+              85
+            ],
+            "end": [
+              175,
+              156
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "zero-scale",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 0,
+        "scaleY": 0,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 0,
+        "scaleY": 0,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 56,
+            "top": 50,
+            "right": 56,
+            "bottom": 50,
+            "radius": 0
+          },
+          "upperLid": [
+            [
+              55,
+              49
+            ],
+            [
+              57,
+              49
+            ],
+            [
+              57,
+              50
+            ],
+            [
+              55,
+              50
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              55,
+              51
+            ],
+            "edgeLeft": [
+              55,
+              50
+            ],
+            "control": [
+              56,
+              50
+            ],
+            "edgeRight": [
+              57,
+              50
+            ],
+            "end": [
+              57,
+              51
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 144,
+            "top": 50,
+            "right": 144,
+            "bottom": 50,
+            "radius": 0
+          },
+          "upperLid": [
+            [
+              143,
+              49
+            ],
+            [
+              145,
+              49
+            ],
+            [
+              145,
+              50
+            ],
+            [
+              143,
+              50
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              143,
+              51
+            ],
+            "edgeLeft": [
+              143,
+              50
+            ],
+            "control": [
+              144,
+              50
+            ],
+            "edgeRight": [
+              145,
+              50
+            ],
+            "end": [
+              145,
+              51
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "negative-scale",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": -1,
+        "scaleY": -0.5,
+        "roundness": -1,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": -1,
+        "scaleY": -0.5,
+        "roundness": -1,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 56,
+            "top": 50,
+            "right": 56,
+            "bottom": 50,
+            "radius": 0
+          },
+          "upperLid": [
+            [
+              55,
+              49
+            ],
+            [
+              57,
+              49
+            ],
+            [
+              57,
+              50
+            ],
+            [
+              55,
+              50
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              55,
+              51
+            ],
+            "edgeLeft": [
+              55,
+              50
+            ],
+            "control": [
+              56,
+              50
+            ],
+            "edgeRight": [
+              57,
+              50
+            ],
+            "end": [
+              57,
+              51
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 144,
+            "top": 50,
+            "right": 144,
+            "bottom": 50,
+            "radius": 0
+          },
+          "upperLid": [
+            [
+              143,
+              49
+            ],
+            [
+              145,
+              49
+            ],
+            [
+              145,
+              50
+            ],
+            [
+              143,
+              50
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              143,
+              51
+            ],
+            "edgeLeft": [
+              143,
+              50
+            ],
+            "control": [
+              144,
+              50
+            ],
+            "edgeRight": [
+              145,
+              50
+            ],
+            "end": [
+              145,
+              51
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "tilt-plus-45",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.4,
+        "upperLidTilt": 45,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.4,
+        "upperLidTilt": 45,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              12.000000000000004
+            ],
+            [
+              87,
+              12.000000000000004
+            ],
+            [
+              87,
+              73
+            ],
+            [
+              25,
+              13.000000000000004
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              12.000000000000004
+            ],
+            [
+              175,
+              12.000000000000004
+            ],
+            [
+              175,
+              13.000000000000004
+            ],
+            [
+              113,
+              73
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              85
+            ],
+            "control": [
+              144,
+              85
+            ],
+            "edgeRight": [
+              175,
+              85
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "tilt-minus-45",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.4,
+        "upperLidTilt": -45,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.4,
+        "upperLidTilt": -45,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              12.000000000000004
+            ],
+            [
+              87,
+              12.000000000000004
+            ],
+            [
+              87,
+              13.000000000000004
+            ],
+            [
+              25,
+              73
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              12.000000000000004
+            ],
+            [
+              175,
+              12.000000000000004
+            ],
+            [
+              175,
+              73
+            ],
+            [
+              113,
+              13.000000000000004
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              85
+            ],
+            "control": [
+              144,
+              85
+            ],
+            "edgeRight": [
+              175,
+              85
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "negative-bend",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0.3,
+        "lowerLidBend": -0.6
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0.3,
+        "lowerLidBend": -0.6
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              15
+            ],
+            [
+              25,
+              15
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              107
+            ],
+            "edgeLeft": [
+              25,
+              64
+            ],
+            "control": [
+              56,
+              106
+            ],
+            "edgeRight": [
+              87,
+              64
+            ],
+            "end": [
+              87,
+              107
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              14
+            ],
+            [
+              175,
+              14
+            ],
+            [
+              175,
+              15
+            ],
+            [
+              113,
+              15
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              107
+            ],
+            "edgeLeft": [
+              113,
+              64
+            ],
+            "control": [
+              144,
+              106
+            ],
+            "edgeRight": [
+              175,
+              64
+            ],
+            "end": [
+              175,
+              107
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "huge-roundness",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 25,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 25,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 30
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              15
+            ],
+            [
+              25,
+              15
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 30
+          },
+          "upperLid": [
+            [
+              113,
+              14
+            ],
+            [
+              175,
+              14
+            ],
+            [
+              175,
+              15
+            ],
+            [
+              113,
+              15
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              85
+            ],
+            "control": [
+              144,
+              85
+            ],
+            "edgeRight": [
+              175,
+              85
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "bow-tie-prone",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 30,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 30,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              -3.320508075688771
+            ],
+            [
+              87,
+              -3.320508075688771
+            ],
+            [
+              87,
+              32.32050807568877
+            ],
+            [
+              25,
+              -2.320508075688771
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              -3.320508075688771
+            ],
+            [
+              175,
+              -3.320508075688771
+            ],
+            [
+              175,
+              -2.320508075688771
+            ],
+            [
+              113,
+              32.32050807568877
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              85
+            ],
+            "control": [
+              144,
+              85
+            ],
+            "edgeRight": [
+              175,
+              85
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "offset-and-scale",
+      "left": {
+        "offsetX": 0.2,
+        "offsetY": -0.15,
+        "scaleX": 1.3,
+        "scaleY": 0.6,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0.2,
+        "offsetY": -0.15,
+        "scaleX": 1.3,
+        "scaleY": 0.6,
+        "roundness": 0.3,
+        "upperLid": 0,
+        "upperLidTilt": 0,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 29,
+            "top": 18.5,
+            "right": 107,
+            "bottom": 60.5,
+            "radius": 12.6
+          },
+          "upperLid": [
+            [
+              28,
+              17.5
+            ],
+            [
+              108,
+              17.5
+            ],
+            [
+              108,
+              18.5
+            ],
+            [
+              28,
+              18.5
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              28,
+              61.5
+            ],
+            "edgeLeft": [
+              28,
+              60.5
+            ],
+            "control": [
+              68,
+              60.5
+            ],
+            "edgeRight": [
+              108,
+              60.5
+            ],
+            "end": [
+              108,
+              61.5
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 117,
+            "top": 18.5,
+            "right": 195,
+            "bottom": 60.5,
+            "radius": 12.6
+          },
+          "upperLid": [
+            [
+              116,
+              17.5
+            ],
+            [
+              196,
+              17.5
+            ],
+            [
+              196,
+              18.5
+            ],
+            [
+              116,
+              18.5
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              116,
+              61.5
+            ],
+            "edgeLeft": [
+              116,
+              60.5
+            ],
+            "control": [
+              156,
+              60.5
+            ],
+            "edgeRight": [
+              196,
+              60.5
+            ],
+            "end": [
+              196,
+              61.5
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "lids-full-overlap",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 1,
+        "upperLidTilt": 0,
+        "lowerLid": 1,
+        "lowerLidBend": 1
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 1,
+        "upperLidTilt": 0,
+        "lowerLid": 1,
+        "lowerLidBend": 1
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              85
+            ],
+            [
+              25,
+              85
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              15
+            ],
+            "control": [
+              56,
+              -55
+            ],
+            "edgeRight": [
+              87,
+              15
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              14
+            ],
+            [
+              175,
+              14
+            ],
+            [
+              175,
+              85
+            ],
+            [
+              113,
+              85
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              15
+            ],
+            "control": [
+              144,
+              -55
+            ],
+            "edgeRight": [
+              175,
+              15
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "asymmetric-tilt",
+      "left": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.3,
+        "upperLidTilt": 20,
+        "lowerLid": 0,
+        "lowerLidBend": 0
+      },
+      "right": {
+        "offsetX": 0,
+        "offsetY": 0,
+        "scaleX": 1,
+        "scaleY": 1,
+        "roundness": 0.3,
+        "upperLid": 0.3,
+        "upperLidTilt": -20,
+        "lowerLid": 0.2,
+        "lowerLidBend": 0.4
+      },
+      "expected": {
+        "left": {
+          "eye": {
+            "left": 26,
+            "top": 15,
+            "right": 86,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              25,
+              14
+            ],
+            [
+              87,
+              14
+            ],
+            [
+              87,
+              46.91910702798607
+            ],
+            [
+              25,
+              25.080892972013928
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              25,
+              86
+            ],
+            "edgeLeft": [
+              25,
+              85
+            ],
+            "control": [
+              56,
+              85
+            ],
+            "edgeRight": [
+              87,
+              85
+            ],
+            "end": [
+              87,
+              86
+            ]
+          }
+        },
+        "right": {
+          "eye": {
+            "left": 114,
+            "top": 15,
+            "right": 174,
+            "bottom": 85,
+            "radius": 21
+          },
+          "upperLid": [
+            [
+              113,
+              14
+            ],
+            [
+              175,
+              14
+            ],
+            [
+              175,
+              46.91910702798607
+            ],
+            [
+              113,
+              25.080892972013928
+            ]
+          ],
+          "lowerLid": {
+            "start": [
+              113,
+              86
+            ],
+            "edgeLeft": [
+              113,
+              71
+            ],
+            "control": [
+              144,
+              43
+            ],
+            "edgeRight": [
+              175,
+              71
+            ],
+            "end": [
+              175,
+              86
+            ]
+          }
+        }
+      }
+    }
+  ]
+}
